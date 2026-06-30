@@ -12,6 +12,9 @@ Contents:
 - `docs/skill-topology-cleanup-plan.md` — proposed umbrella/leaf cleanup plan for the local skill set
 - `docs/skill-cleanup-matrix.md` — exact keep/patch/merge/disable/archive decision matrix
 - `docs/stale-usage-reconciliation.md` — reconciliation of stale `.usage.json` names vs active skills
+- `docs/skill-inventory-authoritative.md` — generated authoritative inventory summary from live files + CLI + usage reconciliation
+- `docs/skill-inventory-authoritative.json` — full generated inventory payload
+- `scripts/generate_skill_inventory.py` — reproducible generator for the authoritative inventory reports
 
 Not included:
 - `.env`, OAuth tokens, auth stores
