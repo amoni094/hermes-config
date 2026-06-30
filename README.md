@@ -9,6 +9,8 @@ Contents:
 - `docs/skills-inventory.md` — installed skill inventory
 - `docs/research-and-optimization-report.md` — optimization research and recommendations
 - `docs/adversarial-critique.md` — hostile review / critique of this setup
+- `docs/skill-topology-cleanup-plan.md` — proposed umbrella/leaf cleanup plan for the local skill set
+- `docs/skill-cleanup-matrix.md` — exact keep/patch/merge/disable/archive decision matrix
 
 Not included:
 - `.env`, OAuth tokens, auth stores
