@@ -83,4 +83,40 @@ These are not direct edit targets in this pass, but should be checked for linger
 - `hermes-operating-pattern`
 - `hermes-context-budgeting`
 
+## Pass 2 — Security integration (2026-06-30)
+
+### Newly installed — security/ category
+| Skill | Source | Status |
+|---|---|---|
+| security/codeql | Trail of Bits | active |
+| security/semgrep | Trail of Bits | active |
+| security/sarif-parsing | Trail of Bits | active |
+| security/fp-check | Trail of Bits | active |
+| security/agentic-actions-auditor | Trail of Bits | active |
+| security/owasp-security | community | active |
+| security/secret-hygiene | user-created | active |
+
+### Archived in this pass
+| Skill | Reason |
+|---|---|
+| xurl | CLI not installed on this host |
+| yuanbao | CLI not installed on this host |
+| petdex | mascot utility, no practical use |
+| godmode | 403-line jailbreak, sensitive, no workflow use |
+| superpowers-bootstrap | thin pointer to using-superpowers, redundant |
+| porting-superpowers-to-hermes | one-time migration task, already done |
+| apple/* (5 skills) | wrong host platform (Linux/Fedora Atomic) |
+| codebase-inspection | superseded by semgrep + codeql |
+| writing-plans | superseded by complexity-gated-planning |
+| thunderbird-local-email-workflow | situational, low-use |
+
+### Patches applied
+- `requesting-code-review`: added security skill routing (semgrep, codeql, owasp-security, fp-check, secret-hygiene); tiered escalation in Step 2
+- `workflow-map`: security routing extension added
+- All broken `related_skills` references resolved across 16 skill files
+- Descriptions trimmed: agentic-actions-auditor, fp-check, owasp-security
+
+### New skill added
+- `autonomous-ai-agents/autonomous-agent-loop-design`: patterns from Karpathy autoresearch (nanochat) — numeric objectives, cheap surrogates, reference-driven context, eval-as-infrastructure
+
 These were chosen because they are high-overlap, low-risk documentation/routing edits with clear stale references to missing sibling skills.
