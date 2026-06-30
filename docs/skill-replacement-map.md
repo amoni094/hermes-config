@@ -40,12 +40,17 @@ This is the proposed replacement map for stale or historical usage keys that no 
 | silverblue-update-automation | devops/atomic-desktop-app-installation | low |
 | fedora-atomic-system-maintenance | autonomous-ai-agents/hermes-runtime-maintenance | low-medium |
 | fedora-atomic-system-updates | autonomous-ai-agents/hermes-runtime-maintenance | low-medium |
-| linux-vpn-autostart | devops/wayland-session-management | low |
 | low-friction-repo-hardening | software-development/security-hardening-balance-review | medium |
 | software-supply-chain-scanning | software-development/security-hardening-balance-review | medium |
 | setup | autonomous-ai-agents/ouroboros-setup-and-health-check | low |
 | cli-anything-hermes | autonomous-ai-agents/hermes-agent | low |
 | devops/atomic-desktop-app-installation | devops/atomic-desktop-app-installation | path-format mismatch |
+
+## Still unresolved after migration
+
+| Historical key | Status |
+|---|---|
+| linux-vpn-autostart | historical key confirmed in past sessions, but no active local skill file or confident successor mapping remains |
 
 ## Migration policy
 
