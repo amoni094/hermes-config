@@ -1,0 +1,17 @@
+# Never commit live Hermes secrets or state
+.env
+auth.json
+state.db
+state.db-*
+logs/
+sessions/
+processes.json
+channel_directory.json
+gateway_state.json
+*.pid
+*.lock
+
+# Local editor / OS noise
+.DS_Store
+*.swp
+*.swo
