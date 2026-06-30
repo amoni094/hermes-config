@@ -230,6 +230,46 @@ Application here:
 2. Tighten auxiliary prompts to fit the smaller local context budget
 3. Reassess whether some auxiliary roles should use main/provider-backed models instead of local ones
 
+## Additional operating recommendations from delegated research
+
+### Delegation
+- Keep the current split of main model `gpt-5.4` and delegated specialist `gpt-5.5`.
+- Keep delegation shallow and explicit: `max_spawn_depth: 1` and `max_concurrent_children: 2` are sensible defaults.
+- Every delegated task should carry a compact packet: goal, workspace path, relevant files/URLs, constraints, done criteria, and required verification.
+- Use delegation for bounded specialist work, not durable background work; use cron or background processes for that.
+
+Relevant sources:
+- Hermes delegation docs: https://hermes-agent.nousresearch.com/docs/user-guide/features/delegation
+- Anthropic, Building effective agents: https://www.anthropic.com/research/building-effective-agents
+
+### Context hygiene
+- Treat context as scarce even with 128k available.
+- Use `/compress` proactively after broad search, large docs research, long debugging, or before task-family switches.
+- Keep `AGENTS.md`, `SOUL.md`, and frequently used skills short because they affect prompt/cache efficiency.
+
+Relevant sources:
+- Hermes tips: https://hermes-agent.nousresearch.com/docs/guides/tips
+- Anthropic, Effective context engineering: https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents
+
+### Memory and procedures
+- Keep memory for durable facts only.
+- Keep procedures in skills.
+- Periodically reconcile duplication across Hermes memory, Obsidian sync, skills, and cron-generated summaries.
+
+Relevant sources:
+- Hermes tips: https://hermes-agent.nousresearch.com/docs/guides/tips
+- OpenAI archived cookbook pattern on context/memory hygiene: https://developers.openai.com/cookbook/examples/agents_sdk/context_personalization
+
+### Tool isolation
+- Keep local terminal backend for trusted personal work.
+- Switch to Docker/Daytona for untrusted repos, install scripts, or exploit-style work.
+- Keep cron/subagent toolsets narrow and task-specific.
+
+Relevant sources:
+- Hermes configuration: https://hermes-agent.nousresearch.com/docs/user-guide/configuration
+- Hermes tools/features docs: https://hermes-agent.nousresearch.com/docs/user-guide/features/tools
+- Anthropic, Writing tools for agents: https://www.anthropic.com/engineering/writing-tools-for-agents
+
 ## Bottom line
 
 The current setup is already above average: strong model choices, real verification discipline, task ledger visibility, Firecrawl/SearXNG wired, and useful automation.
@@ -239,3 +279,5 @@ The biggest remaining gains are not “add more capability.” They are:
 - make your operating conventions explicit in a root AGENTS.md
 - tighten auxiliary model/context assumptions
 - harden export hygiene and optional integrations
+- formalize compact delegation packets and proactive context compression
+- keep memory-facts and skill-procedures clearly separated
