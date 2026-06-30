@@ -16,6 +16,7 @@ Contents:
 - `docs/skill-inventory-authoritative.json` — full generated inventory payload
 - `docs/skill-replacement-map.md` — proposed replacement mapping for stale/historical usage keys
 - `docs/skill-usage-migration-report.md` — report of the reversible `.usage.json` migration pass
+- `docs/linux-vpn-autostart-historical-note.md` — rationale for leaving the final unresolved historical usage key unmapped
 - `scripts/generate_skill_inventory.py` — reproducible generator for the authoritative inventory reports
 - `scripts/migrate_skill_usage.py` — backup-first migration script for stale/historical usage keys
 
