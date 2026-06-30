@@ -158,3 +158,58 @@ rules:
       - - field: arguments.command
           operator: matches
           value: '(history\s+-[cw]|>\s*~/?\.(bash|zsh|sh)_history|rm\s+.*_history)'
+
+  - id: block-base64-exec
+    name: Block base64-decoded shell execution
+    description: >
+      Block commands that decode base64 and pipe/eval into a shell.
+      Classic obfuscation pattern to bypass string-based veto rules.
+    enabled: true
+    severity: critical
+    action: block
+    tools:
+      - terminal
+      - mcp__terminal
+    condition_groups:
+      - - field: arguments.command
+          operator: matches
+          value: 'base64\s+(-d|--decode)[^|]*\|\s*(ba)?sh'
+      - - field: arguments.command
+          operator: matches
+          value: 'echo\s+[A-Za-z0-9+/=]{20,}\s*\|\s*base64\s+(-d|--decode)[^|]*\|\s*(ba)?sh'
+
+  - id: block-eval-env-expand
+    name: Block eval of environment variable expansion
+    description: >
+      Block eval/$(...) / eval "$(..." patterns commonly used to execute
+      commands stored in env vars, bypassing pattern-based veto checks.
+    enabled: true
+    severity: critical
+    action: block
+    tools:
+      - terminal
+      - mcp__terminal
+    condition_groups:
+      - - field: arguments.command
+          operator: matches
+          value: '\beval\s+["''\$`]'
+      - - field: arguments.command
+          operator: matches
+          value: '\beval\s+\$\('
+
+  - id: block-python-script-delete-home
+    name: Block python script files that delete home/hermes paths
+    description: >
+      Block python3 <script.py> calls where the script path is in /tmp, /var/tmp,
+      or any path outside the project, used to deliver obfuscated deletion logic
+      that bypasses the inline -c check.
+    enabled: true
+    severity: critical
+    action: block
+    tools:
+      - terminal
+      - mcp__terminal
+    condition_groups:
+      - - field: arguments.command
+          operator: matches
+          value: 'python3?\s+(/tmp/|/var/tmp/|\$TMPDIR)[^\s]+'

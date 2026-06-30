@@ -27,6 +27,57 @@ RULES_DIR = Path("/var/home/rainbow/.hermes/veto/rules")
 AUDIT_LOG = Path("/var/home/rainbow/.hermes/logs/veto-audit.jsonl")
 AUDIT_LOG.parent.mkdir(parents=True, exist_ok=True)
 
+# ── Budget state paths (mirrors track-budget.py) ─────────────────────────────
+STATE_DIR = Path("/var/home/rainbow/.hermes/state")
+POLICY_FILE = Path("/var/home/rainbow/.hermes/budget-policy.yaml")
+DESTRUCTIVE_TOOLS = {"terminal", "write_file", "patch", "mcp__terminal", "mcp__write_file", "mcp__patch"}
+DESTRUCTIVE_PATTERNS = ["rm ", "rm\t", "rmdir", "shred", "DROP TABLE", "DROP DATABASE", "DELETE FROM", "truncate"]
+
+def _load_destructive_limit() -> int:
+    """Read destructive_calls hard limit from budget-policy.yaml. Default 30."""
+    try:
+        import yaml
+        with POLICY_FILE.open() as f:
+            p = yaml.safe_load(f) or {}
+        return int(p.get("hard_limits", {}).get("destructive_calls", 30))
+    except Exception:
+        return 30
+
+def _is_destructive(tool_name: str, tool_input: dict) -> bool:
+    if tool_name not in DESTRUCTIVE_TOOLS:
+        return False
+    args_str = json.dumps(tool_input).lower()
+    return any(p.lower() in args_str for p in DESTRUCTIVE_PATTERNS)
+
+def _check_destructive_cap(session_id: str, tool_name: str, tool_input: dict) -> dict | None:
+    """
+    Pre-tool destructive_calls cap enforcement.
+    Returns a block decision dict if the cap would be breached, else None.
+    This mirrors the count in track-budget.py but fires PRE-tool so the
+    limit is a true hard cap, not a post-hoc observation.
+    """
+    if not session_id or not _is_destructive(tool_name, tool_input):
+        return None
+    try:
+        state_file = STATE_DIR / f"budget-{session_id}.json"
+        state = {}
+        if state_file.exists():
+            state = json.loads(state_file.read_text())
+        current = int(state.get("destructive_calls", 0))
+        limit = _load_destructive_limit()
+        if current + 1 > limit:
+            return {
+                "decision": "block",
+                "reason": (
+                    f"[budget/destructive-cap] Destructive call cap reached: "
+                    f"{current}/{limit} destructive calls this session. "
+                    f"Stop and report to user before taking more destructive actions."
+                ),
+            }
+    except Exception:
+        pass  # fail open for budget check (veto rules still apply)
+    return None
+
 # ── Skip list: read-only tools that never need governance ────────────────────
 SKIP_TOOLS = {
     "web_search", "web_extract", "mcp__web_search", "mcp__web_extract",
@@ -215,6 +266,21 @@ def main():
 
     if tool_name in SKIP_TOOLS:
         sys.stdout.write("{}\n")
+        return
+
+    # ── Pre-tool destructive_calls cap ────────────────────────────────────────
+    # Check before veto rules so the budget cap fires even if no pattern matches.
+    cap_block = _check_destructive_cap(session_id, tool_name, tool_input)
+    if cap_block:
+        write_audit({
+            "ts": datetime.now(timezone.utc).isoformat(),
+            "session_id": session_id,
+            "tool": tool_name,
+            "action": "block",
+            "rule_id": "budget/destructive-cap",
+            "reason": cap_block["reason"][:300],
+        })
+        sys.stdout.write(json.dumps(cap_block) + "\n")
         return
 
     # Fail-closed evaluation: any error while loading or evaluating rules must

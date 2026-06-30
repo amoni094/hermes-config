@@ -61,7 +61,7 @@ web:
     - brave-free
   use_gateway: false
 browser:
-  inactivity_timeout: 120
+  inactivity_timeout: 60
   command_timeout: 30
   record_sessions: false
   allow_private_urls: false
