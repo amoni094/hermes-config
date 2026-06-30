@@ -113,9 +113,9 @@
       "resolved_status": "active",
       "description": "Use when starting non-trivial implementation work, or when you need to decide whether another Superpowers skill should be invoked before acting.",
       "size_bytes": 3779,
-      "use_count": 7,
+      "use_count": 8,
       "patch_count": 4,
-      "last_used_at": "2026-06-29T11:42:48.962342+00:00"
+      "last_used_at": "2026-06-30T04:28:26.113741+00:00"
     },
     {
       "name": "brainstorming",
@@ -248,9 +248,9 @@
       "usage_key": "writing-skills",
       "resolved_status": "active",
       "description": "Use when creating or refining Hermes skills and you want them validated against real pressure scenarios rather than prose alone.",
-      "size_bytes": 5524,
+      "size_bytes": 5727,
       "use_count": 16,
-      "patch_count": 10,
+      "patch_count": 12,
       "last_used_at": "2026-06-30T04:11:25.175212+00:00"
     },
     {
@@ -521,9 +521,9 @@
       "resolved_status": "active",
       "description": "Pre-commit review: security scan, quality gates, auto-fix.",
       "size_bytes": 13253,
-      "use_count": 27,
+      "use_count": 28,
       "patch_count": 11,
-      "last_used_at": "2026-06-26T01:27:44.517710+00:00"
+      "last_used_at": "2026-06-30T04:16:16.896395+00:00"
     },
     {
       "name": "spike",
@@ -707,10 +707,10 @@
       "usage_key": "verification-before-completion",
       "resolved_status": "active",
       "description": "Use before claiming a task is done: require fresh evidence, independent readback after delegated work, and explicit proof commands.",
-      "size_bytes": 20668,
-      "use_count": 251,
-      "patch_count": 49,
-      "last_used_at": "2026-06-30T04:11:25.166015+00:00"
+      "size_bytes": 21770,
+      "use_count": 255,
+      "patch_count": 51,
+      "last_used_at": "2026-06-30T04:40:04.690397+00:00"
     },
     {
       "name": "risk-based-review",
@@ -725,9 +725,9 @@
       "resolved_status": "active",
       "description": "Choose review depth based on change risk: self-check for low risk, reviewer for medium risk, and reviewer plus final verifier for high risk.",
       "size_bytes": 5920,
-      "use_count": 11,
+      "use_count": 14,
       "patch_count": 3,
-      "last_used_at": "2026-06-25T06:55:29.117793+00:00"
+      "last_used_at": "2026-06-30T04:28:26.099022+00:00"
     },
     {
       "name": "isolated-workspace-preflight",
@@ -742,9 +742,9 @@
       "resolved_status": "active",
       "description": "Decide when to use Hermes worktree isolation for code changes, then verify a clean baseline before substantial implementation.",
       "size_bytes": 4460,
-      "use_count": 15,
+      "use_count": 16,
       "patch_count": 2,
-      "last_used_at": "2026-06-30T02:33:25.011475+00:00"
+      "last_used_at": "2026-06-30T04:28:31.071405+00:00"
     },
     {
       "name": "complexity-gated-planning",
@@ -759,9 +759,9 @@
       "resolved_status": "active",
       "description": "Use lightweight planning for simple work and formal design/plan checkpoints only when complexity justifies them.",
       "size_bytes": 2948,
-      "use_count": 42,
+      "use_count": 44,
       "patch_count": 1,
-      "last_used_at": "2026-06-30T00:41:22.686116+00:00"
+      "last_used_at": "2026-06-30T04:28:31.059594+00:00"
     },
     {
       "name": "workflow-map",
@@ -776,9 +776,9 @@
       "resolved_status": "active",
       "description": "Choose the right Hermes development workflow skill based on task risk, complexity, and verification needs.",
       "size_bytes": 4198,
-      "use_count": 48,
+      "use_count": 49,
       "patch_count": 4,
-      "last_used_at": "2026-06-30T02:57:22.662810+00:00"
+      "last_used_at": "2026-06-30T04:28:26.067788+00:00"
     },
     {
       "name": "subagent-driven-development",
@@ -793,9 +793,9 @@
       "resolved_status": "active",
       "description": "Implement larger tasks with focused Hermes subagents, compact context packets, and explicit review/verification handoffs.",
       "size_bytes": 6675,
-      "use_count": 29,
+      "use_count": 30,
       "patch_count": 2,
-      "last_used_at": "2026-06-30T03:32:47.610120+00:00"
+      "last_used_at": "2026-06-30T04:16:16.868423+00:00"
     },
     {
       "name": "media-catalog-seed-data",
@@ -843,10 +843,10 @@
       "usage_key": "security-hardening-balance-review",
       "resolved_status": "active",
       "description": "Review security hardening changes for over-hardening, usability regressions, and checker-policy mistakes; preserve secure-by-default behavior while verifying escape hatches, CI compatibility, and false-positive/false-negative balance.",
-      "size_bytes": 4191,
-      "use_count": 38,
-      "patch_count": 34,
-      "last_used_at": "2026-06-29T11:28:17.622454+00:00"
+      "size_bytes": 5057,
+      "use_count": 39,
+      "patch_count": 38,
+      "last_used_at": "2026-06-30T04:28:26.026628+00:00"
     },
     {
       "name": "external-signal-pipeline-recovery",
@@ -1694,9 +1694,9 @@
       "resolved_status": "active",
       "description": "Broad GitHub workflow skill for authentication, repository bootstrap, PR lifecycle, code review, follow-up automation, and issue triage.",
       "size_bytes": 10857,
-      "use_count": 59,
+      "use_count": 60,
       "patch_count": 31,
-      "last_used_at": "2026-06-30T03:32:47.646743+00:00"
+      "last_used_at": "2026-06-30T04:40:03.553882+00:00"
     },
     {
       "name": "split-ci-workflow-change-and-draft-pr",
@@ -2221,9 +2221,9 @@
       "resolved_status": "active",
       "description": "Configure, extend, or contribute to Hermes Agent.",
       "size_bytes": 49826,
-      "use_count": 198,
+      "use_count": 200,
       "patch_count": 12,
-      "last_used_at": "2026-06-30T03:44:48.071197+00:00"
+      "last_used_at": "2026-06-30T04:40:38.288268+00:00"
     },
     {
       "name": "opencode",
@@ -2510,9 +2510,9 @@
       "resolved_status": "active",
       "description": "Manage live Hermes processes and user services safely, then perform runtime updates and verify the real post-update state on local Linux hosts.",
       "size_bytes": 10425,
-      "use_count": 44,
+      "use_count": 45,
       "patch_count": 49,
-      "last_used_at": "2026-06-30T03:29:07.972788+00:00"
+      "last_used_at": "2026-06-30T04:27:39.160194+00:00"
     },
     {
       "name": "ouroboros-plugin-development",

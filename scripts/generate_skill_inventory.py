@@ -1,13 +1,20 @@
 #!/usr/bin/env python3
+from __future__ import annotations
+
 import json
+import os
 import pathlib
+import re
 import subprocess
+import tempfile
 from collections import Counter
 
 ROOT = pathlib.Path('/var/home/rainbow/.hermes/skills')
 USAGE_PATH = ROOT / '.usage.json'
 OUT_JSON = pathlib.Path('/var/home/rainbow/hermes-config/docs/skill-inventory-authoritative.json')
 OUT_MD = pathlib.Path('/var/home/rainbow/hermes-config/docs/skill-inventory-authoritative.md')
+SKILL_LIST_TIMEOUT_SECONDS = 30
+TABLE_LINE_RE = re.compile(r'^│(?P<body>.*)│$')
 
 usage = json.loads(USAGE_PATH.read_text()) if USAGE_PATH.exists() else {}
 
@@ -41,6 +48,16 @@ replacement_map = {
     'software-supply-chain-scanning': 'security-hardening-balance-review',
 }
 
+
+def atomic_write(path: pathlib.Path, content: str) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with tempfile.NamedTemporaryFile('w', encoding='utf-8', dir=path.parent, delete=False) as tmp:
+        tmp.write(content)
+        temp_path = pathlib.Path(tmp.name)
+    temp_path.replace(path)
+
+
+
 def resolve_replacement(key):
     if key in alias_map:
         return alias_map[key], 'alias'
@@ -48,21 +65,46 @@ def resolve_replacement(key):
         return replacement_map[key], 'replacement'
     return None, 'unknown_or_historical'
 
+
+
 def parse_skill_table(source):
-    env = dict(**__import__('os').environ)
+    env = os.environ.copy()
     env['COLUMNS'] = '240'
-    out = subprocess.check_output(['hermes', 'skills', 'list', '--source', source], text=True, env=env)
+    try:
+        proc = subprocess.run(
+            ['hermes', 'skills', 'list', '--source', source],
+            text=True,
+            env=env,
+            capture_output=True,
+            check=True,
+            timeout=SKILL_LIST_TIMEOUT_SECONDS,
+        )
+    except subprocess.TimeoutExpired as exc:
+        raise RuntimeError(f'hermes skills list --source {source} timed out after {SKILL_LIST_TIMEOUT_SECONDS}s') from exc
+    except subprocess.CalledProcessError as exc:
+        raise RuntimeError(
+            f'hermes skills list --source {source} failed: {exc.stderr.strip() or exc.stdout.strip()}'
+        ) from exc
+
     rows = {}
     summary_line = None
-    for line in out.splitlines():
-        if line.startswith('│') and 'Source' not in line and 'Name' not in line:
-            parts = [p.strip() for p in line.strip('│').split('│')]
+    for line in proc.stdout.splitlines():
+        match = TABLE_LINE_RE.match(line)
+        if match and 'Source' not in line and 'Name' not in line:
+            parts = [p.strip() for p in match.group('body').split('│')]
             if len(parts) >= 5:
                 name, category, src, trust, status = parts[:5]
-                rows[name] = {'source': src, 'trust': trust, 'status': status, 'category_from_cli': category}
+                if name and name != '─':
+                    rows[name] = {
+                        'source': src,
+                        'trust': trust,
+                        'status': status,
+                        'category_from_cli': category,
+                    }
         if 'builtin' in line or 'local' in line:
-            summary_line = line
+            summary_line = line.strip()
     return rows, summary_line
+
 
 builtin_rows, builtin_summary = parse_skill_table('builtin')
 local_rows, local_summary = parse_skill_table('local')
@@ -80,14 +122,14 @@ for p in ROOT.rglob('SKILL.md'):
     frontmatter_name = None
     for line in text.splitlines()[:30]:
         if line.startswith('name: '):
-            frontmatter_name = line.split(':',1)[1].strip().strip('"')
+            frontmatter_name = line.split(':', 1)[1].strip().strip('"')
         if line.startswith('description: '):
-            desc = line.split(':',1)[1].strip().strip('"')
+            desc = line.split(':', 1)[1].strip().strip('"')
     usage_key = None
     if name in usage:
         usage_key = name
     else:
-        for k,v in alias_map.items():
+        for k, v in alias_map.items():
             if v == name and k in usage:
                 usage_key = k
                 break
@@ -124,18 +166,24 @@ summary = {
     'total_records': len(records),
     'active_records': sum(not r['archived'] for r in records),
     'archived_records': sum(r['archived'] for r in records),
-    'builtin_records': sum(r['source']=='builtin' and not r['archived'] for r in records),
-    'local_records': sum(r['source']=='local' and not r['archived'] for r in records),
-    'enabled_records': sum(r['status']=='enabled' and not r['archived'] for r in records),
-    'disabled_records': sum(r['status']=='disabled' and not r['archived'] for r in records),
+    'builtin_records': sum(r['source'] == 'builtin' and not r['archived'] for r in records),
+    'local_records': sum(r['source'] == 'local' and not r['archived'] for r in records),
+    'enabled_records': sum(r['status'] == 'enabled' and not r['archived'] for r in records),
+    'disabled_records': sum(r['status'] == 'disabled' and not r['archived'] for r in records),
     'stale_usage_count': len(stale_usage),
     'categories': dict(sorted(Counter(r['category'] for r in records if not r['archived']).items())),
     'builtin_cli_summary': builtin_summary,
     'local_cli_summary': local_summary,
 }
 
-payload = {'summary': summary, 'records': records, 'stale_usage': stale_usage, 'alias_map': alias_map, 'replacement_map': replacement_map}
-OUT_JSON.write_text(json.dumps(payload, indent=2))
+payload = {
+    'summary': summary,
+    'records': records,
+    'stale_usage': stale_usage,
+    'alias_map': alias_map,
+    'replacement_map': replacement_map,
+}
+atomic_write(OUT_JSON, json.dumps(payload, indent=2) + '\n')
 
 lines = []
 lines.append('# Authoritative Skill Inventory')
@@ -144,8 +192,8 @@ lines.append('Generated from live local skill files, `hermes skills list --sourc
 lines.append('')
 lines.append('## Summary')
 lines.append('')
-for k,v in summary.items():
-    if k in {'categories','builtin_cli_summary','local_cli_summary'}:
+for k, v in summary.items():
+    if k in {'categories', 'builtin_cli_summary', 'local_cli_summary'}:
         continue
     lines.append(f'- {k}: {v}')
 lines.append(f"- builtin_cli_summary: {summary['builtin_cli_summary']}")
@@ -164,12 +212,12 @@ for r in active_sorted[:20]:
 lines.append('')
 lines.append('## Oversized active skills (>= 20000 bytes)')
 lines.append('')
-for r in sorted([r for r in records if not r['archived'] and r['size_bytes'] >= 20000], key=lambda r:r['size_bytes'], reverse=True):
+for r in sorted([r for r in records if not r['archived'] and r['size_bytes'] >= 20000], key=lambda r: r['size_bytes'], reverse=True):
     lines.append(f"- {r['relative_path']} | source={r['source']} | status={r['status']} | size_bytes={r['size_bytes']} | use_count={r['use_count'] or 0}")
 lines.append('')
 lines.append('## Stale usage keys')
 lines.append('')
 for s in stale_usage[:50]:
-    lines.append(f"- {s['usage_key']} | status={s['resolved_status']} | replacement={s['replacement_skill']} | use_count={s.get('use_count',0)}")
-OUT_MD.write_text('\n'.join(lines) + '\n')
+    lines.append(f"- {s['usage_key']} | status={s['resolved_status']} | replacement={s['replacement_skill']} | use_count={s.get('use_count', 0)}")
+atomic_write(OUT_MD, '\n'.join(lines) + '\n')
 print(json.dumps(summary, indent=2))

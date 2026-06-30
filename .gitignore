@@ -11,6 +11,10 @@ gateway_state.json
 *.pid
 *.lock
 
+# Python build/cache noise
+__pycache__/
+*.py[cod]
+
 # Local editor / OS noise
 .DS_Store
 *.swp

@@ -3,6 +3,7 @@
 Private repository snapshot of the current local Hermes configuration and workflow.
 
 Contents:
+- `AGENTS.md` — repo-local export hygiene and verification rules for future agent passes
 - `config.sanitized.yaml` — sanitized copy of the active Hermes config
 - `cron.snapshot.json` — redacted cron/job snapshot
 - `docs/current-workflow.md` — runtime/workflow summary
@@ -20,9 +21,11 @@ Contents:
 - `docs/local-aux-context-verification.md` — verified Ollama-vs-config context findings for local helper models
 - `docs/operations-surface-register.md` — current cron/watchdog + optional-integration operations register
 - `docs/adversarial-remediation-pass-2.md` — second adversarial pass with implemented remediations
+- `docs/adversarial-remediation-pass-3.md` — third adversarial pass focused on repo guardrails, safer scripts, and validation
 - `docs/approvals-smart-evaluation.md` — non-permanent live evaluation of approvals smart mode, restored to manual
 - `scripts/generate_skill_inventory.py` — reproducible generator for the authoritative inventory reports
-- `scripts/migrate_skill_usage.py` — backup-first migration script for stale/historical usage keys
+- `scripts/migrate_skill_usage.py` — dry-run-first migration script for stale/historical usage keys; creates a backup only when `--apply` rewrites live state
+- `scripts/validate_repo.py` — repo-local validation gate for export hygiene, redaction checks, and Python script integrity
 
 Not included:
 - `.env`, OAuth tokens, auth stores
