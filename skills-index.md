@@ -1,0 +1,185 @@
+# Skills Inventory (2026-06-30)
+- autonomous-ai-agents/claude-code: Delegate coding to Claude Code CLI (features, PRs).
+- autonomous-ai-agents/hermes-agent: Configure, extend, or contribute to Hermes Agent.
+- autonomous-ai-agents/opencode: Delegate coding to OpenCode CLI (features, PR review).
+- autonomous-ai-agents/hermes-dashboard-troubleshooting: Troubleshoot Hermes dashboard/WebUI startup, chat sidebar, and event-feed issues with build-first an
+- autonomous-ai-agents/hermes-acp-routing: Route Hermes delegate_task work to local Codex ACP safely, with Hermes fallback and compact context 
+- autonomous-ai-agents/hermes-role-pipelines: Multi-agent role pipeline patterns adapted from the opencode-hermes-multiagent role catalog for Herm
+- autonomous-ai-agents/hermes-obsidian-sync: Curate recent Hermes session activity into an Obsidian vault with rewrite-oriented sync notes, daily
+- autonomous-ai-agents/hermes-performance-tuning: Tune Hermes for lower latency and lower local CPU/RAM pressure without swinging hard on capability o
+- autonomous-ai-agents/hermes-session-hygiene: Clean up inactive Hermes sessions safely by distinguishing live sessions from stale/open rows, delet
+- autonomous-ai-agents/hermes-memory-drift-audit: Audit Hermes durable memory, Obsidian sync notes, and compact policy notes for duplication, stale re
+- autonomous-ai-agents/hermes-mcp-integration: Integrate third-party MCP servers into Hermes with low-risk verification, launcher-script fallbacks,
+- autonomous-ai-agents/hermes-memory-surface-selection: Choose between Hermes durable memory, session_search, qmd, and MemPalace based on scope, mutability,
+- autonomous-ai-agents/codex: Delegate coding to OpenAI Codex CLI (features, PRs).
+- autonomous-ai-agents/hermes-web-provider-configuration: Configure or extend Hermes web_search/web_extract provider selection, fallback ordering, and related
+- autonomous-ai-agents/firecrawl-stealth-fallback: Use Firecrawl as the default extractor and escalate to stealth-browser-mcp when bot protection block
+- autonomous-ai-agents/messaging-consent-boundaries: Prevent accidental contact with the user's real-world contacts when configuring or troubleshooting H
+- autonomous-ai-agents/hermes-self-evolution: Evaluate and use the separate hermes-agent-self-evolution repo as a controlled offline optimizer for
+- autonomous-ai-agents/hermes-runtime-maintenance: Manage live Hermes processes and user services safely, then perform runtime updates and verify the r
+- autonomous-ai-agents/ouroboros-plugin-development: Build, patch, install, and verify local Ouroboros plugins with collision checks, workspace-safe arti
+- autonomous-ai-agents/agent-runtime-stack-debugging: Debug local plugin → dispatcher → workspace → runtime stacks by isolating layers, proving back
+- autonomous-ai-agents/ouroboros-setup-and-health-check: Configure, verify, and troubleshoot a local Ouroboros install by separating install state, runtime b
+- autonomous-ai-agents/ouroboros/auto: Automatically converge from goal to A-grade Seed and execute it
+- autonomous-ai-agents/ouroboros/brownfield: Scan and manage brownfield repository/worktree defaults for interviews
+- autonomous-ai-agents/ouroboros/cancel: Cancel stuck or orphaned executions
+- autonomous-ai-agents/ouroboros/config: Open or drive the Ouroboros settings GUI (browser, TUI, or conversational fallback)
+- autonomous-ai-agents/ouroboros/evaluate: Evaluate execution with three-stage verification pipeline
+- autonomous-ai-agents/ouroboros/evolve: Start or monitor an evolutionary development loop
+- autonomous-ai-agents/ouroboros/help: Full reference guide for Ouroboros commands and agents
+- autonomous-ai-agents/ouroboros/pm: Generate a PM through guided PM-focused interview with automatic question classification. Use when t
+- autonomous-ai-agents/ouroboros/publish: Publish Seed specification as GitHub Issues for team-based project management
+- autonomous-ai-agents/ouroboros/qa: General-purpose QA verdict for any artifact type
+- autonomous-ai-agents/ouroboros/ralph: MCP-owned Ralph loop around background evolve_step jobs
+- autonomous-ai-agents/ouroboros/resume-session: List in-flight Ouroboros sessions and show the commands needed to re-attach after MCP disconnect
+- autonomous-ai-agents/ouroboros/run: Execute a Seed specification through the workflow engine
+- autonomous-ai-agents/ouroboros/seed: Generate validated Seed specifications from interview results
+- autonomous-ai-agents/ouroboros/status: Check session status and measure goal drift
+- autonomous-ai-agents/ouroboros/tutorial: Interactive tutorial teaching Ouroboros hands-on
+- autonomous-ai-agents/ouroboros/unstuck: Break through stagnation with lateral thinking personas — single or multi-persona debate
+- autonomous-ai-agents/ouroboros/update: Check for updates and upgrade Ouroboros to the latest version
+- autonomous-ai-agents/ouroboros/welcome: First-touch experience for new Ouroboros users
+- autonomous-ai-agents/hermes-skillspector-guard-maintenance: Fix and verify the local skillspector_guard cron/script when it times out by reusing unchanged cache
+- autonomous-ai-agents/autonomous-ai-agents: Use when the task is about Hermes/Ouroboros multi-agent workflows and you need a router skill that p
+- autonomous-ai-agents/skill-family-router-maintenance: Use when a skill family/category is being mistaken for a non-loadable namespace and you need to add 
+- autonomous-ai-agents/hermes-context-hygiene: Use when a Hermes session is getting tool-heavy or context-bloated and you need explicit compression
+- autonomous-ai-agents/hermes-agent-sync: Eliminate the dispatch→wait→synthesise→implement rework cycle: agents write typed JSON finding
+- autonomous-ai-agents/autonomous-agent-loop-design: Design autonomous agent loops that can run unattended and self-improve — measurable objectives, ch
+- autonomous-ai-agents/hermes-budget-governance: >
+- autonomous-ai-agents/hermes-context-packet: Canonical compact JSON context-packet schema and assembler for spawning Hermes subagents. Use before
+- autonomous-ai-agents/hermes-swarm-consensus: Deterministic verdict/confidence reducer for conflicting parallel-agent conclusions, with single-arb
+- creative/architecture-diagram: Dark-themed SVG architecture/cloud/infra diagrams as HTML.
+- creative/ascii-art: ASCII art: pyfiglet, cowsay, boxes, image-to-ascii.
+- creative/ascii-video: ASCII video: convert video/audio to colored ASCII MP4/GIF.
+- creative/baoyu-infographic: Infographics: 21 layouts x 21 styles (信息图, 可视化).
+- creative/claude-design: Design one-off HTML artifacts (landing, deck, prototype).
+- creative/comfyui: Generate images, video, and audio with ComfyUI — install, launch, manage nodes/models, run workflo
+- creative/design-md: Author/validate/export Google's DESIGN.md token spec files.
+- creative/excalidraw: Hand-drawn Excalidraw JSON diagrams (arch, flow, seq).
+- creative/humanizer: Humanize text: strip AI-isms and add real voice.
+- creative/manim-video: Manim CE animations: 3Blue1Brown math/algo videos.
+- creative/p5js: p5.js sketches: gen art, shaders, interactive, 3D.
+- creative/popular-web-designs: 54 real design systems (Stripe, Linear, Vercel) as HTML/CSS.
+- creative/pretext: Use when building creative browser demos with @chenglou/pretext — DOM-free text layout for ASCII a
+- creative/sketch: Throwaway HTML mockups: 2-3 design variants to compare.
+- creative/songwriting-and-ai-music: Songwriting craft and Suno AI music prompts.
+- creative/touchdesigner-mcp: Control a running TouchDesigner instance via twozero MCP — create operators, set parameters, wire 
+- data-science/jupyter-live-kernel: Iterative Python via live Jupyter kernel (hamelnb).
+- devops/kanban-orchestrator: Decomposition playbook + anti-temptation rules for an orchestrator profile routing work through Kanb
+- devops/kanban-worker: Pitfalls, examples, and edge cases for Hermes Kanban workers. The lifecycle itself is auto-injected 
+- devops/fedora-atomic-dotfiles-adaptation: Adapt third-party Linux dotfiles and ricing setups to Fedora Atomic desktops (Silverblue/Bazzite/Kin
+- devops/linux-thermal-workload-throttling: Keep Linux laptops below safe operating temperatures by combining vendor thermal limits, conservativ
+- devops/wayland-session-management: Broad Wayland desktop session recovery skill covering launch-path tracing, systemd user targets, por
+- devops/home-router-firewall-review: Review a desktop firewall plus consumer-router settings for a normal home user, aiming for a solid u
+- devops/linux-wifi-stability: Diagnose and mitigate intermittent Wi-Fi instability on Linux desktops using NetworkManager, kernel/
+- devops/rootless-podman-compose-adaptation: Adapt Docker Compose self-host projects to rootless Podman on Fedora Atomic or similar Linux systems
+- devops/atomic-desktop-app-installation: Install third-party Linux desktop apps on Fedora Atomic or similar immutable desktops using the narr
+- devops/silverblue-toolbox-wrapper-bootstrap: Add host-visible wrappers and lightweight user-space tooling on Fedora Silverblue/Atomic without bro
+- dogfood: Exploratory QA of web apps: find bugs, evidence, reports.
+- email/himalaya: Himalaya CLI: IMAP/SMTP email from terminal.
+- github/scoped-pr-fix-and-verification: Fix a PR branch under repo-specific quality gates, separate branch regressions from baseline failure
+- github/github-issues: Create, triage, label, assign GitHub issues via gh or REST.
+- github/github-operations: Broad GitHub workflow skill for authentication, repository bootstrap, PR lifecycle, code review, fol
+- github/split-ci-workflow-change-and-draft-pr: Use when a mixed CI/workflow/docs change needs to be split into scoped git commits, verified locally
+- github/github-issue-agent: >
+- media/heartmula: HeartMuLa: Suno-like song generation from lyrics + tags.
+- media/songsee: Audio spectrograms/features (mel, chroma, MFCC) via CLI.
+- media/gif-search: Search/download GIFs from Tenor via curl + jq.
+- media/youtube-content: YouTube transcripts to summaries, threads, blogs.
+- mlops/evaluation/lm-evaluation-harness: lm-eval-harness: benchmark LLMs (MMLU, GSM8K, etc.).
+- mlops/evaluation/weights-and-biases: W&B: log ML experiments, sweeps, model registry, dashboards.
+- mlops/huggingface-hub: HuggingFace hf CLI: search/download/upload models, datasets.
+- mlops/inference/llama-cpp: llama.cpp local GGUF inference + HF Hub model discovery.
+- mlops/inference/obliteratus: OBLITERATUS: abliterate LLM refusals (diff-in-means).
+- mlops/inference/vllm: vLLM: high-throughput LLM serving, OpenAI API, quantization.
+- mlops/models/audiocraft: AudioCraft: MusicGen text-to-music, AudioGen text-to-sound.
+- mlops/models/segment-anything: SAM: zero-shot image segmentation via points, boxes, masks.
+- note-taking/obsidian: Read, search, create, and edit notes in the Obsidian vault.
+- productivity/google-workspace: Gmail, Calendar, Drive, Docs, Sheets via gws CLI or Python.
+- productivity/maps: Geocode, POIs, routes, timezones via OpenStreetMap/OSRM.
+- productivity/nano-pdf: Edit PDF text/typos/titles via nano-pdf CLI (NL prompts).
+- productivity/ocr-and-documents: Extract text from PDFs/scans (pymupdf, marker-pdf).
+- productivity/powerpoint: Create, read, edit .pptx decks, slides, notes, templates.
+- productivity/airtable: Airtable REST API via curl. Records CRUD, filters, upserts.
+- productivity/notion: Notion API + ntn CLI: pages, databases, markdown, Workers.
+- productivity/teams-meeting-pipeline: Operate the Teams meeting summary pipeline via Hermes CLI — summarize meetings, inspect pipeline s
+- productivity/source-backed-wiki-curation: Curate external repositories, articles, or tool catalogs into a local markdown wiki by anchoring pro
+- research/arxiv: Search arXiv papers by keyword, author, category, or ID.
+- research/blogwatcher: Monitor blogs and RSS/Atom feeds via blogwatcher-cli tool.
+- research/polymarket: Query Polymarket: markets, prices, orderbooks, history.
+- research/last30days-customization: Extend and tune a local last30days skill installation with new artifacts, render sections, source-sp
+- research/stay-in: Recommend movies and TV series for staying in by finding high-Metascore titles similar to the user's
+- research/gold-class: Find Gold Class or premium cinema sessions within the next 24 hours, using the user's taste database
+- research/suggest-music: Suggest a few songs using the user's local music-taste seed data, recent YouTube/browser history, an
+- research/llm-wiki: Karpathy's LLM Wiki: build/query interlinked markdown KB.
+- research/recent-news-briefing: Produce a concise recent-developments briefing across one or more topics, especially when a dedicate
+- research/firecrawl-research: Use the local Firecrawl self-host as the default crawl/scrape/research retrieval layer, with search 
+- research/political-source-monitoring: Build and maintain political/media monitoring pipelines with resilient outlet coverage, conservative
+- research/agent-reach-discovery: Use locally installed Agent Reach as a sidecar for news, social/community, movie, and music discover
+- research/research-paper-writing: Write ML papers for NeurIPS/ICML/ICLR: design→submit.
+- smart-home/openhue: Control Philips Hue lights, scenes, rooms via OpenHue CLI.
+- software-development/node-inspect-debugger: Debug Node.js via --inspect + Chrome DevTools Protocol CLI.
+- software-development/plan: Plan mode: write an actionable markdown plan to .hermes/plans/, no execution. Bite-sized tasks, exac
+- software-development/python-debugpy: Debug Python: pdb REPL + debugpy remote (DAP).
+- software-development/requesting-code-review: Pre-commit review: security scan, quality gates, auto-fix.
+- software-development/spike: Throwaway experiments to validate an idea before build.
+- software-development/systematic-debugging: 4-phase root cause debugging: understand bugs before fixing.
+- software-development/test-driven-development: TDD: enforce RED-GREEN-REFACTOR, tests before code.
+- software-development/hermes-observability-and-task-ledger: Use when you need tracing, cost attribution, task-ledger discipline, or event-driven knowledge sync.
+- software-development/hermes-memory-capture-and-bridge: Use when you want automatic durable knowledge capture after sessions and preflight memory injection 
+- software-development/hermes-workflow-optimization: Use when you need the Hermes workflow optimization playbook for choosing the smallest capable model,
+- software-development/hermes-coding-review-loop: Use when you are making bounded code changes and want the Hermes inspect-edit-verify-review loop wit
+- software-development/hermes-operating-pattern: Use when you want the Hermes-style operating pattern for workflow optimization, security, coding, pr
+- software-development/hermes-cron-and-agents: Use when you need the Hermes guidance for bounded sub-agents, isolated worktrees, or durable cron jo
+- software-development/hermes-context-budgeting: Tune Hermes context-length and compression settings with live verification, favoring token-efficient
+- software-development/verification-before-completion: Use before claiming a task is done: require fresh evidence, independent readback after delegated wor
+- software-development/risk-based-review: Choose review depth based on change risk: self-check for low risk, reviewer for medium risk, and rev
+- software-development/isolated-workspace-preflight: Decide when to use Hermes worktree isolation for code changes, then verify a clean baseline before s
+- software-development/complexity-gated-planning: Use lightweight planning for simple work and formal design/plan checkpoints only when complexity jus
+- software-development/workflow-map: Choose the right Hermes development workflow skill based on task risk, complexity, and verification 
+- software-development/subagent-driven-development: Implement larger tasks with focused Hermes subagents, compact context packets, and explicit review/v
+- software-development/media-catalog-seed-data: Build and evolve curated movie/TV seed datasets with normalized identifiers, schema-aware exports, a
+- software-development/review-driven-followup-fixes: Handle follow-up passes on reviewed code changes: mine reviewer signal, inspect nearby risks, verify
+- software-development/security-hardening-balance-review: Review security hardening changes for over-hardening, usability regressions, and checker-policy mist
+- software-development/external-signal-pipeline-recovery: Recover news/social/market signal pipelines when upstream anti-bot, credential gaps, or environment 
+- software-development/local-personal-dashboard: Build a small local web dashboard that combines live daily updates with personalized recommendation 
+- software-development/hermes-agent-skill-authoring: Author in-repo SKILL.md: frontmatter, validator, structure, and writing-quality principles.
+- software-development/simplify-code: Parallel 3-agent cleanup of recent code changes.
+- software-development/policy-dashboard-workflow: Work effectively in the local-first policy-dashboard repo: refresh pipeline, generated data, UI, and
+- software-development/repo1-gateway-workflow: Work effectively in /var/home/rainbow/repo1: API, policy, optimizer, router, providers, cache, telem
+- software-development/claude-routing-hierarchy: Model routing hierarchy for Hermes — Anthropic primary, free tier providers for cron/leaf/auxiliar
+- .archive/github/github-auth: GitHub auth setup: HTTPS tokens, SSH keys, gh CLI login.
+- .archive/github/github-code-review: Review PRs: diffs, inline comments via gh or REST.
+- .archive/github/github-pr-followup-automation: Create a PR, report its identifier, and optionally set up recurring follow-up checks with cron-drive
+- .archive/github/github-pr-workflow: GitHub PR lifecycle: branch, commit, open, CI, merge.
+- .archive/github/github-repo-management: Clone/create/fork repos; manage remotes, releases.
+- .archive/github/codebase-inspection: Inspect codebases w/ pygount: LOC, languages, ratios.
+- .archive/research/recent-news-briefing: Produce a concise recent-developments briefing across one or more topics, especially when a dedicate
+- .archive/research/signal-oriented-research-briefing: Build and extend live research briefings with sharper query packs, popularity-adjacent blindspots, a
+- .archive/devops/waybar-popup-menu-debugging: Diagnose and fix Waybar popup menu action wiring and on-screen placement without accidentally moving
+- .archive/devops/wallust-desktop-theme-integration: Integrate wallust into multi-app Linux desktop ricing stacks safely, especially Hyprland/Waybar/Rofi
+- .archive/devops/wayland-session-troubleshooting: Diagnose Wayland desktop session startup failures on Linux by tracing session-manager integration, s
+- .archive/apple/apple-notes: Manage Apple Notes via memo CLI: create, search, edit.
+- .archive/apple/apple-reminders: Apple Reminders via remindctl: add, list, complete.
+- .archive/apple/findmy: Track Apple devices/AirTags via FindMy.app on macOS.
+- .archive/apple/imessage: Send and receive iMessages/SMS via the imsg CLI on macOS.
+- .archive/apple/macos-computer-use: |
+- .archive/misc/xurl: X/Twitter via xurl CLI: post, search, DM, media, v2 API.
+- .archive/misc/yuanbao: Yuanbao (元宝) groups: @mention users, query info/members.
+- .archive/misc/petdex: Install and select animated petdex mascots for Hermes.
+- .archive/misc/godmode: Jailbreak LLMs: Parseltongue, GODMODE, ULTRAPLINIAN.
+- .archive/misc/superpowers-bootstrap: Use when starting a coding session in Hermes and you want Superpowers workflow enforcement loaded be
+- .archive/misc/porting-superpowers-to-hermes: Use when adapting an upstream Superpowers workflow or skill set into Hermes and you need a repeatabl
+- computer-use: |
+- superpowers/using-superpowers: Use when starting non-trivial implementation work, or when you need to decide whether another Superp
+- superpowers/brainstorming: Use when the user wants exploration, option generation, or requirements convergence before planning 
+- superpowers/using-git-worktrees: Use when making non-trivial changes in a git repository and you want isolation from the user's main 
+- superpowers/dispatching-parallel-agents: Use when there are multiple independent investigations or implementation tasks that can be delegated
+- superpowers/executing-plans: Use when you already have a written implementation plan and want to execute it step by step with exp
+- superpowers/finishing-a-development-branch: Use when implementation is complete on a git branch and you need to verify, present next-step option
+- superpowers/receiving-code-review: Use when review feedback arrives and you need to evaluate it rigorously before implementing changes.
+- superpowers/writing-skills: Use when creating or refining Hermes skills and you want them validated against real pressure scenar
+- thunderbird-cli-anything: Use the local CLI-Anything Thunderbird harness for drafting, reply templates, attachments, signature
+- security/codeql: >-
+- security/sarif-parsing: >-
+- security/fp-check: Verify suspected security findings — eliminate false positives, produce TRUE/FALSE POSITIVE verdic
