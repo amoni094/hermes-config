@@ -40,11 +40,12 @@ Verified with:
 - OpenAI Codex auth is logged in.
 
 ### Present but needs explicit ownership
-- WhatsApp bridge is enabled in env/config surface and `hermes doctor` reports:
+- WhatsApp bridge variables are present and `hermes doctor` reports:
   - `1 critical`
   - `2 high`
   - `2 moderate`
   npm vulnerabilities in the bridge dependencies
+- Current intended posture for this environment: keep WhatsApp disconnected/dormant unless explicitly re-enabled
 
 ## Required posture decisions
 
