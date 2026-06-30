@@ -7,9 +7,11 @@ import pathlib
 import tempfile
 from datetime import datetime, timezone
 
-USAGE_PATH = pathlib.Path('/var/home/rainbow/.hermes/skills/.usage.json')
-SKILLS_ROOT = pathlib.Path('/var/home/rainbow/.hermes/skills')
-REPORT_PATH = pathlib.Path('/var/home/rainbow/hermes-config/docs/skill-usage-migration-report.md')
+_HOME = pathlib.Path.home()
+USAGE_PATH = _HOME / '.hermes' / 'skills' / '.usage.json'
+SKILLS_ROOT = _HOME / '.hermes' / 'skills'
+_REPO_ROOT = pathlib.Path(__file__).resolve().parents[1]
+REPORT_PATH = _REPO_ROOT / 'docs' / 'skill-usage-migration-report.md'
 
 replacement_map = {
     'audiocraft-audio-generation': 'audiocraft',

@@ -9,10 +9,11 @@ import subprocess
 import tempfile
 from collections import Counter
 
-ROOT = pathlib.Path('/var/home/rainbow/.hermes/skills')
+ROOT = pathlib.Path.home() / '.hermes' / 'skills'
 USAGE_PATH = ROOT / '.usage.json'
-OUT_JSON = pathlib.Path('/var/home/rainbow/hermes-config/docs/skill-inventory-authoritative.json')
-OUT_MD = pathlib.Path('/var/home/rainbow/hermes-config/docs/skill-inventory-authoritative.md')
+_REPO_ROOT = pathlib.Path(__file__).resolve().parents[1]
+OUT_JSON = _REPO_ROOT / 'docs' / 'skill-inventory-authoritative.json'
+OUT_MD = _REPO_ROOT / 'docs' / 'skill-inventory-authoritative.md'
 SKILL_LIST_TIMEOUT_SECONDS = 30
 TABLE_LINE_RE = re.compile(r'^│(?P<body>.*)│$')
 
