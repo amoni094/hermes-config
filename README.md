@@ -17,6 +17,10 @@ Contents:
 - `docs/skill-replacement-map.md` — proposed replacement mapping for stale/historical usage keys
 - `docs/skill-usage-migration-report.md` — report of the reversible `.usage.json` migration pass
 - `docs/linux-vpn-autostart-historical-note.md` — rationale for leaving the final unresolved historical usage key unmapped
+- `docs/local-aux-context-verification.md` — verified Ollama-vs-config context findings for local helper models
+- `docs/operations-surface-register.md` — current cron/watchdog + optional-integration operations register
+- `docs/adversarial-remediation-pass-2.md` — second adversarial pass with implemented remediations
+- `docs/approvals-smart-evaluation.md` — non-permanent live evaluation of approvals smart mode, restored to manual
 - `scripts/generate_skill_inventory.py` — reproducible generator for the authoritative inventory reports
 - `scripts/migrate_skill_usage.py` — backup-first migration script for stale/historical usage keys
 

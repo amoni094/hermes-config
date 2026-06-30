@@ -494,7 +494,7 @@ curator:
   consolidate: false
   prune_builtins: true
   backup:
-    enabled: false
+    enabled: true
     keep: 5
 timezone: ''
 slack:
@@ -672,7 +672,7 @@ custom_providers:
   base_url: http://localhost:11434/v1
   models:
     qwen3:8b:
-      context_length: 64000
+      context_length: 40960
     llama3.2:3b:
       context_length: 64000
 fallback_model:
