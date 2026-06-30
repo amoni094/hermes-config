@@ -19,6 +19,35 @@ alias_map = {
     'last30days': 'last30days-customization',
 }
 
+replacement_map = {
+    'github-auth': 'github-operations',
+    'github-code-review': 'github-operations',
+    'github-pr-followup-automation': 'github-operations',
+    'github:github-pr-followup-automation': 'github-operations',
+    'github-pr-workflow': 'github-operations',
+    'github-repo-management': 'github-operations',
+    'signal-oriented-research-briefing': 'research-briefing',
+    'wallust-desktop-theme-integration': 'fedora-atomic-dotfiles-adaptation',
+    'waybar-popup-menu-debugging': 'wayland-session-management',
+    'wayland-session-troubleshooting': 'wayland-session-management',
+    'hermes-security-preflight': 'security-hardening-balance-review',
+    'hermes-stack-maintenance': 'hermes-runtime-maintenance',
+    'hermes-live-research-setup': 'hermes-web-provider-configuration',
+    'silverblue-desktop-ricing-adaptation': 'fedora-atomic-dotfiles-adaptation',
+    'silverblue-update-automation': 'atomic-desktop-app-installation',
+    'fedora-atomic-system-maintenance': 'hermes-runtime-maintenance',
+    'fedora-atomic-system-updates': 'hermes-runtime-maintenance',
+    'low-friction-repo-hardening': 'security-hardening-balance-review',
+    'software-supply-chain-scanning': 'security-hardening-balance-review',
+}
+
+def resolve_replacement(key):
+    if key in alias_map:
+        return alias_map[key], 'alias'
+    if key in replacement_map:
+        return replacement_map[key], 'replacement'
+    return None, 'unknown_or_historical'
+
 def parse_skill_table(source):
     env = dict(**__import__('os').environ)
     env['COLUMNS'] = '240'
@@ -88,11 +117,8 @@ stale_usage = []
 for key, meta in usage.items():
     if key in active_names:
         continue
-    mapped = alias_map.get(key)
-    if mapped and mapped in active_names:
-        stale_usage.append({'usage_key': key, 'resolved_status': 'alias', 'replacement_skill': mapped, **meta})
-    else:
-        stale_usage.append({'usage_key': key, 'resolved_status': 'unknown_or_historical', 'replacement_skill': None, **meta})
+    mapped, resolved = resolve_replacement(key)
+    stale_usage.append({'usage_key': key, 'resolved_status': resolved, 'replacement_skill': mapped, **meta})
 
 summary = {
     'total_records': len(records),
@@ -108,7 +134,7 @@ summary = {
     'local_cli_summary': local_summary,
 }
 
-payload = {'summary': summary, 'records': records, 'stale_usage': stale_usage, 'alias_map': alias_map}
+payload = {'summary': summary, 'records': records, 'stale_usage': stale_usage, 'alias_map': alias_map, 'replacement_map': replacement_map}
 OUT_JSON.write_text(json.dumps(payload, indent=2))
 
 lines = []

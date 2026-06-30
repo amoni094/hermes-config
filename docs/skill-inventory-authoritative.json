@@ -248,9 +248,9 @@
       "usage_key": "writing-skills",
       "resolved_status": "active",
       "description": "Use when creating or refining Hermes skills and you want them validated against real pressure scenarios rather than prose alone.",
-      "size_bytes": 4793,
+      "size_bytes": 5054,
       "use_count": 15,
-      "patch_count": 7,
+      "patch_count": 8,
       "last_used_at": "2026-06-30T03:52:17.988912+00:00"
     },
     {
@@ -707,9 +707,9 @@
       "usage_key": "verification-before-completion",
       "resolved_status": "active",
       "description": "Use before claiming a task is done: require fresh evidence, independent readback after delegated work, and explicit proof commands.",
-      "size_bytes": 20593,
+      "size_bytes": 20668,
       "use_count": 250,
-      "patch_count": 47,
+      "patch_count": 49,
       "last_used_at": "2026-06-30T03:52:17.997882+00:00"
     },
     {
@@ -877,9 +877,9 @@
       "usage_key": "local-personal-dashboard",
       "resolved_status": "active",
       "description": "Build a small local web dashboard that combines live daily updates with personalized recommendation panes, using existing local skill/reference data when possible.",
-      "size_bytes": 34881,
+      "size_bytes": 34962,
       "use_count": 43,
-      "patch_count": 96,
+      "patch_count": 98,
       "last_used_at": "2026-06-25T06:03:07.594250+00:00"
     },
     {
@@ -1217,9 +1217,9 @@
       "usage_key": "research-paper-writing",
       "resolved_status": "active",
       "description": "Write ML papers for NeurIPS/ICML/ICLR: design\u2192submit.",
-      "size_bytes": 104329,
+      "size_bytes": 104468,
       "use_count": 0,
-      "patch_count": 1,
+      "patch_count": 2,
       "last_used_at": null
     },
     {
@@ -2220,9 +2220,9 @@
       "usage_key": "hermes-agent",
       "resolved_status": "active",
       "description": "Configure, extend, or contribute to Hermes Agent.",
-      "size_bytes": 49728,
+      "size_bytes": 49826,
       "use_count": 196,
-      "patch_count": 10,
+      "patch_count": 12,
       "last_used_at": "2026-06-30T03:44:48.071197+00:00"
     },
     {
@@ -2322,9 +2322,9 @@
       "usage_key": "hermes-performance-tuning",
       "resolved_status": "active",
       "description": "Tune Hermes for lower latency and lower local CPU/RAM pressure without swinging hard on capability or token spend.",
-      "size_bytes": 20114,
+      "size_bytes": 20242,
       "use_count": 21,
-      "patch_count": 30,
+      "patch_count": 32,
       "last_used_at": "2026-06-30T03:07:19.821976+00:00"
     },
     {
@@ -2866,9 +2866,9 @@
       "usage_key": "seed",
       "resolved_status": "active",
       "description": "Generate validated Seed specifications from interview results",
-      "size_bytes": 29798,
+      "size_bytes": 29897,
       "use_count": 1,
-      "patch_count": 3,
+      "patch_count": 5,
       "last_used_at": "2026-06-29T05:26:47.433644+00:00"
     },
     {
@@ -3109,8 +3109,8 @@
     },
     {
       "usage_key": "fedora-atomic-system-maintenance",
-      "resolved_status": "unknown_or_historical",
-      "replacement_skill": null,
+      "resolved_status": "replacement",
+      "replacement_skill": "hermes-runtime-maintenance",
       "archived_at": null,
       "created_at": "2026-06-29T04:36:36.363800+00:00",
       "created_by": "agent",
@@ -3125,8 +3125,8 @@
     },
     {
       "usage_key": "fedora-atomic-system-updates",
-      "resolved_status": "unknown_or_historical",
-      "replacement_skill": null,
+      "resolved_status": "replacement",
+      "replacement_skill": "hermes-runtime-maintenance",
       "archived_at": null,
       "created_at": "2026-06-27T10:50:59.655740+00:00",
       "created_by": "agent",
@@ -3141,8 +3141,8 @@
     },
     {
       "usage_key": "github-auth",
-      "resolved_status": "unknown_or_historical",
-      "replacement_skill": null,
+      "resolved_status": "replacement",
+      "replacement_skill": "github-operations",
       "archived_at": null,
       "created_at": "2026-06-12T06:36:48.051473+00:00",
       "created_by": null,
@@ -3157,8 +3157,8 @@
     },
     {
       "usage_key": "github-code-review",
-      "resolved_status": "unknown_or_historical",
-      "replacement_skill": null,
+      "resolved_status": "replacement",
+      "replacement_skill": "github-operations",
       "archived_at": null,
       "created_at": "2026-06-06T10:51:28.206007+00:00",
       "created_by": null,
@@ -3173,8 +3173,8 @@
     },
     {
       "usage_key": "github-pr-followup-automation",
-      "resolved_status": "unknown_or_historical",
-      "replacement_skill": null,
+      "resolved_status": "replacement",
+      "replacement_skill": "github-operations",
       "archived_at": null,
       "created_at": "2026-06-10T01:39:18.019278+00:00",
       "created_by": "agent",
@@ -3189,8 +3189,8 @@
     },
     {
       "usage_key": "github-pr-workflow",
-      "resolved_status": "unknown_or_historical",
-      "replacement_skill": null,
+      "resolved_status": "replacement",
+      "replacement_skill": "github-operations",
       "archived_at": null,
       "created_at": "2026-06-06T10:51:24.987105+00:00",
       "created_by": null,
@@ -3205,8 +3205,8 @@
     },
     {
       "usage_key": "github-repo-management",
-      "resolved_status": "unknown_or_historical",
-      "replacement_skill": null,
+      "resolved_status": "replacement",
+      "replacement_skill": "github-operations",
       "archived_at": null,
       "created_at": "2026-06-05T10:26:47.390053+00:00",
       "created_by": null,
@@ -3221,8 +3221,8 @@
     },
     {
       "usage_key": "github:github-pr-followup-automation",
-      "resolved_status": "unknown_or_historical",
-      "replacement_skill": null,
+      "resolved_status": "replacement",
+      "replacement_skill": "github-operations",
       "archived_at": null,
       "created_at": "2026-06-10T06:31:19.726978+00:00",
       "created_by": null,
@@ -3237,8 +3237,8 @@
     },
     {
       "usage_key": "hermes-live-research-setup",
-      "resolved_status": "unknown_or_historical",
-      "replacement_skill": null,
+      "resolved_status": "replacement",
+      "replacement_skill": "hermes-web-provider-configuration",
       "archived_at": null,
       "created_at": "2026-06-07T05:31:14.395931+00:00",
       "created_by": "agent",
@@ -3253,8 +3253,8 @@
     },
     {
       "usage_key": "hermes-security-preflight",
-      "resolved_status": "unknown_or_historical",
-      "replacement_skill": null,
+      "resolved_status": "replacement",
+      "replacement_skill": "security-hardening-balance-review",
       "archived_at": null,
       "created_at": "2026-06-05T06:47:29.031773+00:00",
       "created_by": null,
@@ -3269,8 +3269,8 @@
     },
     {
       "usage_key": "hermes-stack-maintenance",
-      "resolved_status": "unknown_or_historical",
-      "replacement_skill": null,
+      "resolved_status": "replacement",
+      "replacement_skill": "hermes-runtime-maintenance",
       "archived_at": null,
       "created_at": "2026-06-22T08:14:21.967866+00:00",
       "created_by": "agent",
@@ -3317,8 +3317,8 @@
     },
     {
       "usage_key": "low-friction-repo-hardening",
-      "resolved_status": "unknown_or_historical",
-      "replacement_skill": null,
+      "resolved_status": "replacement",
+      "replacement_skill": "security-hardening-balance-review",
       "archived_at": null,
       "created_at": "2026-06-22T09:26:55.138803+00:00",
       "created_by": "agent",
@@ -3381,8 +3381,8 @@
     },
     {
       "usage_key": "signal-oriented-research-briefing",
-      "resolved_status": "unknown_or_historical",
-      "replacement_skill": null,
+      "resolved_status": "replacement",
+      "replacement_skill": "research-briefing",
       "archived_at": null,
       "created_at": "2026-06-07T06:09:22.225850+00:00",
       "created_by": "agent",
@@ -3397,8 +3397,8 @@
     },
     {
       "usage_key": "silverblue-desktop-ricing-adaptation",
-      "resolved_status": "unknown_or_historical",
-      "replacement_skill": null,
+      "resolved_status": "replacement",
+      "replacement_skill": "fedora-atomic-dotfiles-adaptation",
       "archived_at": null,
       "created_at": "2026-06-07T10:38:58.766044+00:00",
       "created_by": "agent",
@@ -3413,8 +3413,8 @@
     },
     {
       "usage_key": "silverblue-update-automation",
-      "resolved_status": "unknown_or_historical",
-      "replacement_skill": null,
+      "resolved_status": "replacement",
+      "replacement_skill": "atomic-desktop-app-installation",
       "archived_at": null,
       "created_at": "2026-06-07T05:58:24.187889+00:00",
       "created_by": "agent",
@@ -3429,8 +3429,8 @@
     },
     {
       "usage_key": "software-supply-chain-scanning",
-      "resolved_status": "unknown_or_historical",
-      "replacement_skill": null,
+      "resolved_status": "replacement",
+      "replacement_skill": "security-hardening-balance-review",
       "archived_at": null,
       "created_at": "2026-06-28T08:08:49.401141+00:00",
       "created_by": "agent",
@@ -3445,8 +3445,8 @@
     },
     {
       "usage_key": "wallust-desktop-theme-integration",
-      "resolved_status": "unknown_or_historical",
-      "replacement_skill": null,
+      "resolved_status": "replacement",
+      "replacement_skill": "fedora-atomic-dotfiles-adaptation",
       "archived_at": null,
       "created_at": "2026-06-08T05:34:12.273349+00:00",
       "created_by": "agent",
@@ -3461,8 +3461,8 @@
     },
     {
       "usage_key": "waybar-popup-menu-debugging",
-      "resolved_status": "unknown_or_historical",
-      "replacement_skill": null,
+      "resolved_status": "replacement",
+      "replacement_skill": "wayland-session-management",
       "archived_at": null,
       "created_at": "2026-06-10T00:41:33.962702+00:00",
       "created_by": "agent",
@@ -3477,8 +3477,8 @@
     },
     {
       "usage_key": "wayland-session-troubleshooting",
-      "resolved_status": "unknown_or_historical",
-      "replacement_skill": null,
+      "resolved_status": "replacement",
+      "replacement_skill": "wayland-session-management",
       "archived_at": null,
       "created_at": "2026-06-07T12:00:42.669865+00:00",
       "created_by": "agent",
@@ -3498,5 +3498,26 @@
     "segment-anything-model": "segment-anything",
     "serving-llms-vllm": "vllm",
     "last30days": "last30days-customization"
+  },
+  "replacement_map": {
+    "github-auth": "github-operations",
+    "github-code-review": "github-operations",
+    "github-pr-followup-automation": "github-operations",
+    "github:github-pr-followup-automation": "github-operations",
+    "github-pr-workflow": "github-operations",
+    "github-repo-management": "github-operations",
+    "signal-oriented-research-briefing": "research-briefing",
+    "wallust-desktop-theme-integration": "fedora-atomic-dotfiles-adaptation",
+    "waybar-popup-menu-debugging": "wayland-session-management",
+    "wayland-session-troubleshooting": "wayland-session-management",
+    "hermes-security-preflight": "security-hardening-balance-review",
+    "hermes-stack-maintenance": "hermes-runtime-maintenance",
+    "hermes-live-research-setup": "hermes-web-provider-configuration",
+    "silverblue-desktop-ricing-adaptation": "fedora-atomic-dotfiles-adaptation",
+    "silverblue-update-automation": "atomic-desktop-app-installation",
+    "fedora-atomic-system-maintenance": "hermes-runtime-maintenance",
+    "fedora-atomic-system-updates": "hermes-runtime-maintenance",
+    "low-friction-repo-hardening": "security-hardening-balance-review",
+    "software-supply-chain-scanning": "security-hardening-balance-review"
   }
 }

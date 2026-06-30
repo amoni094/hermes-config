@@ -14,6 +14,7 @@ Contents:
 - `docs/stale-usage-reconciliation.md` — reconciliation of stale `.usage.json` names vs active skills
 - `docs/skill-inventory-authoritative.md` — generated authoritative inventory summary from live files + CLI + usage reconciliation
 - `docs/skill-inventory-authoritative.json` — full generated inventory payload
+- `docs/skill-replacement-map.md` — proposed replacement mapping for stale/historical usage keys
 - `scripts/generate_skill_inventory.py` — reproducible generator for the authoritative inventory reports
 
 Not included:
