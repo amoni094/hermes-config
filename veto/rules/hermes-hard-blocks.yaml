@@ -417,7 +417,7 @@ rules:
     condition_groups:
       - - field: arguments.command
           operator: matches
-          value: '\bopenssl\b\s+(enc\s+)?-.*-d\b[^|]*\|\s*(ba)?sh'
+          value: '\bopenssl\b\s+(enc|base64)\b[^|]*\s-d\b[^|]*\|\s*(ba)?sh'
       - - field: arguments.command
           operator: matches
           value: '\bxxd\b\s+-r[^|]*\|\s*(ba)?sh'
