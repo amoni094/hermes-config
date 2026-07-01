@@ -1,6 +1,7 @@
 # hermes-config
 
-Private snapshot of Hermes AI assistant configuration after holistic audit (2026-06-30).
+Private repository snapshot of the current local Hermes configuration and workflow.
+`config.sanitized.yaml` is a sanitized copy of the active Hermes config (all api_key, token, and password fields blanked).
 
 ## What's here
 

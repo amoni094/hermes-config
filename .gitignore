@@ -17,3 +17,10 @@ auth.json
 pastes/
 sandboxes/
 
+*.py[cod]
+__pycache__/
+channel_directory.json
+gateway_state.json
+processes.json
+state.db
+state.db-*

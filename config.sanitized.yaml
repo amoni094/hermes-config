@@ -7,20 +7,23 @@ fallback_providers: '[{"provider": "gemini", "model": "gemini-2.5-flash"}, {"pro
   "qwen3:8b"}]'
 toolsets:
 - hermes-cli
-max_concurrent_sessions: 0
+max_concurrent_sessions: 8
 agent:
   max_turns: 150
   gateway_timeout: 1800
   restart_drain_timeout: 180
-  api_max_retries: 1
+  api_max_retries: 3
   service_tier: ''
-  tool_use_enforcement: auto
+  tool_use_enforcement: strict
   task_completion_guidance: true
   parallel_tool_call_guidance: true
   environment_probe: true
-  environment_hint: ''
+  environment_hint: Fedora Silverblue (immutable rpm-ostree host, kernel 7.0.x). User
+    apps via Flatpak/toolbox/distrobox; system pkgs via rpm-ostree (reboot to apply),
+    NOT dnf into /usr. Home is /var/home/rainbow. Prefer rootless podman over docker.
+    Python via uv (no system pip). Respect persistent shell + local terminal backend.
   coding_context: auto
-  verify_on_stop: false
+  verify_on_stop: true
   gateway_timeout_warning: 900
   clarify_timeout: 600
   gateway_notify_interval: 180
@@ -61,7 +64,7 @@ web:
   - brave-free
   use_gateway: false
 browser:
-  inactivity_timeout: 120
+  inactivity_timeout: 60
   command_timeout: 30
   record_sessions: false
   allow_private_urls: false
@@ -87,16 +90,16 @@ checkpoints:
   auto_prune: true
   retention_days: 7
   delete_orphans: true
-  min_interval_hours: 24
+  min_interval_hours: 4
 file_read_max_chars: 100000
-mcp_discovery_timeout: 0.5
+mcp_discovery_timeout: 10
 tool_output:
   max_bytes: 50000
   max_lines: 2000
   max_line_length: 2000
 tool_loop_guardrails:
   warnings_enabled: true
-  hard_stop_enabled: false
+  hard_stop_enabled: true
   warn_after:
     exact_failure: 2
     same_tool_failure: 3
@@ -108,8 +111,8 @@ tool_loop_guardrails:
 compression:
   enabled: true
   threshold: 0.5
-  target_ratio: 0.2
-  protect_last_n: 20
+  target_ratio: 0.33
+  protect_last_n: 32
   hygiene_hard_message_limit: 400
   protect_first_n: 3
   abort_on_summary_failure: true
@@ -121,13 +124,13 @@ kanban:
   failure_limit: 2
   worker_log_rotate_bytes: 2097152
   worker_log_backup_count: 1
-  orchestrator_profile: <redacted>
-  default_assignee: <redacted>
+  orchestrator_profile: ''
+  default_assignee: ''
   auto_decompose: true
   auto_decompose_per_tick: 3
   dispatch_stale_timeout_seconds: 14400
 prompt_caching:
-  cache_ttl: 5m
+  cache_ttl: 1h
 openrouter:
   response_cache: true
   response_cache_ttl: 300
@@ -139,8 +142,8 @@ bedrock:
     provider_filter: []
     refresh_interval: 3600
   guardrail:
-    guardrail_identifier: <redacted>
-    guardrail_version: <redacted>
+    guardrail_identifier: ''
+    guardrail_version: ''
     stream_processing_mode: async
     trace: disabled
 auxiliary:
@@ -151,81 +154,81 @@ auxiliary:
     provider: auto
     model: ''
     base_url: ''
-    api_key: <redacted>
+    api_key: ''
     timeout: 360
   compression:
     provider: custom:cerebras
     model: gpt-oss-120b
     base_url: ''
-    api_key: <redacted>
+    api_key: ''
     timeout: 60
-    max_tokens: 2048
+    max_tokens: 4096
   skills_hub:
     provider: gemini
     model: gemini-2.5-flash
     base_url: ''
-    api_key: <redacted>
+    api_key: ''
     timeout: 30
   approval:
     provider: auto
     model: ''
     base_url: ''
-    api_key: <redacted>
+    api_key: ''
     timeout: 30
   mcp:
     provider: auto
     model: ''
     base_url: ''
-    api_key: <redacted>
+    api_key: ''
     timeout: 30
   title_generation:
     provider: gemini
     model: gemini-2.5-flash
     base_url: ''
-    api_key: <redacted>
+    api_key: ''
     timeout: 30
     language: ''
   tts_audio_tags:
     provider: auto
     model: ''
     base_url: ''
-    api_key: <redacted>
+    api_key: ''
     timeout: 30
   triage_specifier:
     provider: anthropic
     model: claude-haiku-4-5
     base_url: ''
-    api_key: <redacted>
+    api_key: ''
     timeout: 120
   kanban_decomposer:
     provider: anthropic
     model: claude-haiku-4-5
     base_url: ''
-    api_key: <redacted>
+    api_key: ''
     timeout: 180
   profile_describer:
     provider: anthropic
     model: claude-sonnet-4-6
     base_url: ''
-    api_key: <redacted>
+    api_key: ''
     timeout: 60
   curator:
     provider: custom:local
     model: qwen3:8b
     base_url: ''
-    api_key: <redacted>
+    api_key: ''
     timeout: 600
   monitor:
     provider: anthropic
     model: claude-haiku-4-5
     base_url: ''
-    api_key: <redacted>
+    api_key: ''
     timeout: 60
   background_review:
     provider: anthropic
     model: claude-haiku-4-5
     base_url: ''
-    api_key: <redacted>
+    api_key: ''
     timeout: 120
   summarization:
     provider: custom:cerebras
@@ -287,23 +290,23 @@ dashboard:
   theme: mono
   show_token_analytics: false
   oauth:
-    client_id: <redacted>
-    portal_url: <redacted>
+    client_id: ''
+    portal_url: ''
   basic_auth:
-    username: <redacted>
-    password_hash: <redacted>
-    password: <redacted>
-    secret: <redacted>
+    username: ''
+    password_hash: ''
+    password: ''
+    secret: ''
     session_ttl_seconds: 0
-  public_url: <redacted>
+  public_url: ''
 privacy:
-  redact_pii: false
+  redact_pii: true
 tts:
   provider: edge
   edge:
     voice: en-US-AriaNeural
   elevenlabs:
-    voice_id: <redacted>
+    voice_id: pNInz6obpgDQGcFmaJgB
     model_id: eleven_multilingual_v2
   openai:
     model: gpt-4o-mini-tts
@@ -312,18 +315,18 @@ tts:
     model: gemini-2.5-flash-preview-tts
     voice: Kore
     audio_tags: false
-    persona_prompt_file: <redacted>
+    persona_prompt_file: ''
   xai:
-    voice_id: <redacted>
+    voice_id: eve
     language: en
     sample_rate: 24000
     bit_rate: 128000
   mistral:
     model: voxtral-mini-tts-2603
-    voice_id: <redacted>
+    voice_id: c69964a6-ab8b-4f8a-9465-ec0925096ec8
   neutts:
-    ref_audio: <redacted>
-    ref_text: <redacted>
+    ref_audio: ''
+    ref_text: ''
     model: neuphonic/neutts-air-q4-gguf
     device: cpu
   piper:
@@ -359,7 +362,7 @@ context:
 memory:
   memory_enabled: true
   user_profile_enabled: true
-  write_approval: false
+  write_approval: true
   memory_char_limit: 2600
   user_char_limit: 1800
   provider: hindsight
@@ -367,18 +370,18 @@ delegation:
   model: claude-opus-4-8
   provider: anthropic
   base_url: ''
-  api_key: <redacted>
+  api_key: ''
   api_mode: ''
   inherit_mcp_toolsets: true
-  max_iterations: 30
-  child_timeout_seconds: 600
+  max_iterations: 50
+  child_timeout_seconds: 1800
   reasoning_effort: medium
   max_concurrent_children: 3
   max_async_children: 4
   max_spawn_depth: 1
   orchestrator_enabled: true
   subagent_auto_approve: false
-prefill_messages_file: <redacted>
+prefill_messages_file: ''
 goals:
   max_turns: 20
 skills:
@@ -388,104 +391,27 @@ skills:
   inline_shell_timeout: 10
   guard_agent_created: false
   write_approval: false
-  disabled:
-  - airtable
-  - architecture-diagram
-  - arxiv
-  - ascii-art
-  - ascii-video
-  - audiocraft-audio-generation
-  - baoyu-infographic
-  - blogwatcher
-  - claude-code
-  - claude-design
-  - codex
-  - comfyui
-  - design-md
-  - dogfood
-  - evaluating-llms-harness
-  - excalidraw
-  - gif-search
-  - github-issues
-  - godmode
-  - google-workspace
-  - heartmula
-  - hermes-agent-skill-authoring
-  - hermes-coding-review-loop
-  - hermes-cron-and-agents
-  - hermes-memory-capture-and-bridge
-  - <redacted>
-  - hermes-operating-pattern
-  - hermes-workflow-optimization
-  - himalaya
-  - huggingface-hub
-  - humanizer
-  - jupyter-live-kernel
-  - kanban-orchestrator
-  - kanban-worker
-  - llama-cpp
-  - llm-wiki
-  - manim-video
-  - maps
-  - nano-pdf
-  - notion
-  - obliteratus
-  - obsidian
-  - ocr-and-documents
-  - opencode
-  - openhue
-  - p5js
-  - polymarket
-  - popular-web-designs
-  - powerpoint
-  - pretext
-  - research-paper-writing
-  - segment-anything-model
-  - serving-llms-vllm
-  - sketch
-  - songsee
-  - songwriting-and-ai-music
-  - teams-meeting-pipeline
-  - touchdesigner-mcp
-  - upstream-pattern-review
-  - weights-and-biases
-  - xurl
-  - youtube-content
-  - yuanbao
-  - apple-notes
-  - apple-reminders
-  - findmy
-  - hermes-obsidian-rollups
-  - hermes-session-hygiene
-  - imessage
-  - macos-computer-use
-  - node-inspect-debugger
-  - python-debugpy
-  - simplify-code
-  - spike
-  - agent-runtime-stack-debugging
-  - brainstorming
-  - dispatching-parallel-agents
-  - executing-plans
-  - finishing-a-development-branch
-  - gold-class
-  - hermes-self-evolution
-  - home-router-firewall-review
-  - linux-thermal-workload-throttling
-  - petdex
-  - political-source-monitoring
-  - porting-superpowers-to-hermes
-  - receiving-code-review
-  - repo1-gateway-workflow
-  - review-driven-followup-fixes
-  - rootless-podman-compose-adaptation
-  - source-backed-wiki-curation
-  - <redacted>
-  - superpowers-bootstrap
-  - thunderbird-cli-anything
-  - thunderbird-local-email-workflow
-  - using-git-worktrees
-  - writing-plans
+  disabled: "[airtable, architecture-diagram, arxiv, ascii-art, ascii-video, audiocraft-audio-generation,\n\
+    \  baoyu-infographic, blogwatcher, claude-design, codex, comfyui, design-md, dogfood,\n\
+    \  evaluating-llms-harness, excalidraw, gif-search, github-issues, godmode, google-workspace,\n\
+    \  heartmula, hermes-agent-skill-authoring, hermes-coding-review-loop, hermes-cron-and-agents,\n\
+    \  hermes-memory-capture-and-bridge, hermes-observability-and-task-ledger, hermes-operating-pattern,\n\
+    \  hermes-workflow-optimization, himalaya, huggingface-hub, humanizer, jupyter-live-kernel,\n\
+    \  kanban-orchestrator, kanban-worker, llama-cpp, llm-wiki, manim-video, maps,\
+    \ nano-pdf,\n  notion, obliteratus, obsidian, ocr-and-documents, opencode, openhue,\
+    \ p5js, polymarket,\n  popular-web-designs, powerpoint, pretext, research-paper-writing,\
+    \ segment-anything-model,\n  serving-llms-vllm, sketch, songsee, songwriting-and-ai-music,\
+    \ teams-meeting-pipeline,\n  touchdesigner-mcp, upstream-pattern-review, weights-and-biases,\
+    \ xurl, youtube-content,\n  yuanbao, apple-notes, apple-reminders, findmy, hermes-obsidian-rollups,\
+    \ hermes-session-hygiene,\n  imessage, macos-computer-use, node-inspect-debugger,\
+    \ python-debugpy, simplify-code,\n  spike, agent-runtime-stack-debugging, brainstorming,\
+    \ dispatching-parallel-agents,\n  executing-plans, finishing-a-development-branch,\
+    \ gold-class, hermes-self-evolution,\n  home-router-firewall-review, linux-thermal-workload-throttling,\
+    \ petdex, political-source-monitoring,\n  porting-superpowers-to-hermes, receiving-code-review,\
+    \ repo1-gateway-workflow, review-driven-followup-fixes,\n  rootless-podman-compose-adaptation,\
+    \ source-backed-wiki-curation, split-ci-workflow-change-and-draft-pr,\n  superpowers-bootstrap,\
+    \ thunderbird-cli-anything, thunderbird-local-email-workflow,\n  using-git-worktrees,\
+    \ writing-plans]"
 curator:
   enabled: false
   interval_hours: 168
@@ -507,7 +433,7 @@ discord:
   free_response_channels: ''
   allowed_channels: ''
   auto_thread: true
-  thread_require_mention: false
+  thread_require_mention: true
   history_backfill: true
   history_backfill_limit: 50
   reactions: true
@@ -548,15 +474,7 @@ approvals:
   cron_mode: deny
   mcp_reload_confirm: true
   destructive_slash_confirm: false
-command_allowlist:
-- shell command via -c/-lc flag
-- pipe remote content to shell
-- kill hermes/gateway process (self-termination)
-- copy/move file into system config path
-- execute_code
-- delete in root path
-- stop/restart system service
-- recursive delete
+command_allowlist: '[]'
 hooks:
   pre_llm_call:
   - command: ~/.hermes/agent-hooks/inject-hermes-routing-note.py
@@ -564,21 +482,18 @@ hooks:
   post_llm_call:
   - command: ~/.hermes/agent-hooks/capture-turn-memory.py
     timeout: 5
-  post_tool_call:
-  - matcher: write_file|patch
-    command: ~/.hermes/agent-hooks/track-obsidian-write.py
-    timeout: 5
-  subagent_stop:
-  - command: ~/.hermes/agent-hooks/log-subagent-stop.py
-    timeout: 5
-hooks_auto_accept: true
+  post_tool_call: '[{"matcher":"write_file|patch","command":"~/.hermes/agent-hooks/track-obsidian-write.py","timeout":5},{"command":"~/.hermes/agent-hooks/track-budget.py","timeout":5}]'
+  subagent_stop: '[{"command":"~/.hermes/agent-hooks/log-subagent-stop.py","timeout":5},{"command":"~/.hermes/agent-hooks/clear-subagent-hud.py","timeout":5}]'
+  subagent_start: '[{"command":"~/.hermes/agent-hooks/track-subagent-hud.py","timeout":5}]'
+  pre_tool_call: '[{"command":"~/.hermes/agent-hooks/veto-pre-tool.py","timeout":5}]'
+hooks_auto_accept: false
 security:
   allow_private_urls: false
   redact_secrets: true
   tirith_enabled: true
   tirith_path: tirith
   tirith_timeout: 5
-  tirith_fail_open: true
+  tirith_fail_open: false
   website_blocklist:
     enabled: false
     domains: []
@@ -588,7 +503,7 @@ security:
 cron:
   provider: ''
   chronos:
-    portal_url: <redacted>
+    portal_url: https://portal.nousresearch.com
     callback_url: ''
     expected_audience: ''
     nas_jwks_url: ''
@@ -603,8 +518,8 @@ tools:
     max_search_limit: 20
 logging:
   level: INFO
-  max_size_mb: 5
-  backup_count: 3
+  max_size_mb: 50
+  backup_count: 10
 model_catalog:
   enabled: true
   url: https://hermes-agent.nousresearch.com/docs/api/model-catalog.json
@@ -617,7 +532,7 @@ gateway:
   max_inbound_media_bytes: 134217728
   strict: false
   media_delivery_allow_dirs: []
-  trust_recent_files: true
+  trust_recent_files: false
   trust_recent_files_seconds: 600
   api_server:
     max_concurrent_runs: 10
@@ -626,10 +541,10 @@ streaming:
   transport: auto
   edit_interval: 0.8
   buffer_threshold: 24
-  cursor: ' ▉'
+  cursor: " \u2589"
   fresh_final_after_seconds: 60
 sessions:
-  auto_prune: false
+  auto_prune: true
   retention_days: 90
   vacuum_after_prune: true
   min_interval_hours: 24
@@ -659,8 +574,8 @@ secrets:
     access_token_env: BWS_ACCESS_TOKEN
     project_id: ''
     cache_ttl_seconds: 300
-    override_existing: true
-    auto_install: true
+    override_existing: false
+    auto_install: false
     server_url: ''
 paste_collapse_threshold: 5
 paste_collapse_threshold_fallback: 5
