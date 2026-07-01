@@ -135,3 +135,104 @@ rules:
       - - field: arguments.command
           operator: matches
           value: '--remote-debugging-port'
+
+  # ── Pass-2 additions (2026-07-01) ────────────────────────────────────────────
+
+  - id: warn-sudo-usage
+    name: Warn on privilege escalation via sudo/pkexec/doas
+    description: >
+      Flag any command that escalates privileges. On this immutable Fedora
+      Silverblue host, root-level changes to /usr are ineffective or dangerous;
+      privileged actions deserve an explicit audit trail.
+    enabled: true
+    severity: high
+    action: warn
+    tools:
+      - terminal
+      - mcp__terminal
+    condition_groups:
+      - - field: arguments.command
+          operator: matches
+          value: '(^|[\s;&|`])(sudo|pkexec|doas)\s'
+
+  - id: warn-rpm-ostree-mutation
+    name: Warn on rpm-ostree host mutations
+    description: >
+      Flag rpm-ostree install/override/rebase/deploy, which mutate the immutable
+      base image and require a reboot. These change the host system state and
+      should be surfaced for review, not run silently.
+    enabled: true
+    severity: medium
+    action: warn
+    tools:
+      - terminal
+      - mcp__terminal
+    condition_groups:
+      - - field: arguments.command
+          operator: matches
+          value: '\brpm-ostree\s+(install|override|rebase|deploy|uninstall|reset)\b'
+
+  - id: warn-secret-file-read-exfil
+    name: Warn on reading secret files piped to network
+    description: >
+      Flag commands that read known secret files (~/.hermes/.env, auth.json,
+      id_rsa, .netrc, aws credentials) and pipe them into curl/wget/nc, a
+      classic exfiltration shape worth an audit note.
+    enabled: true
+    severity: high
+    action: warn
+    tools:
+      - terminal
+      - mcp__terminal
+    condition_groups:
+      - - field: arguments.command
+          operator: matches
+          value: '(\.hermes/\.env|(^|/|\s)\.env(\s|$)|auth\.json|id_rsa|id_ed25519|\.netrc|\.aws/credentials).*\|\s*(curl|wget|nc|ncat|socat)\b'
+      - - field: arguments.command
+          operator: matches
+          value: '(curl|wget|nc|ncat|socat)\b.*(\.hermes/\.env|(^|/|\s)\.env(\s|$)|auth\.json|id_rsa|id_ed25519|\.netrc|\.aws/credentials)'
+
+  # ── Pass-3 additions (2026-07-01): HTML/CSS exfiltration & concealment ───────
+
+  - id: warn-html-img-src-exfil
+    name: Warn on auto-loading img/fetch beacon in written HTML/markdown
+    description: >
+      Flag writes of HTML/markdown containing an <img src>, fetch(), or
+      background-image pointing at an off-host URL that carries query-string
+      data. Auto-loaded remote resources are a classic zero-click exfiltration
+      channel that leaks context the moment the document is rendered.
+    enabled: true
+    severity: medium
+    action: warn
+    tools:
+      - write_file
+      - mcp__write_file
+      - patch
+      - mcp__patch
+    condition_groups:
+      - - field: arguments.content
+          operator: matches
+          value: '<img[^>]+src\s*=\s*[''"]https?://[^''"]+\?[^''"]+[''"]'
+      - - field: arguments.content
+          operator: matches
+          value: '(url\(\s*[''"]?https?://[^)]+\?|fetch\(\s*[''"]https?://[^''"]+\?)'
+
+  - id: warn-css-visibility-conceal
+    name: Warn on hidden/zero-size content in written HTML/CSS
+    description: >
+      Flag writes that hide content via display:none, visibility:hidden,
+      opacity:0, or 1px/0px sizing combined with off-host references. Attackers
+      conceal injected instructions or exfil beacons this way so a human review
+      of the rendered page does not reveal them.
+    enabled: true
+    severity: medium
+    action: warn
+    tools:
+      - write_file
+      - mcp__write_file
+      - patch
+      - mcp__patch
+    condition_groups:
+      - - field: arguments.content
+          operator: matches
+          value: '(display\s*:\s*none|visibility\s*:\s*hidden|opacity\s*:\s*0|(width|height)\s*:\s*[01]px)[\s\S]{0,200}https?://'

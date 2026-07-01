@@ -499,7 +499,7 @@ security:
     domains: []
     shared_files: []
   acked_advisories: []
-  allow_lazy_installs: true
+  allow_lazy_installs: false
 cron:
   provider: ''
   chronos:

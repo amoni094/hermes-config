@@ -41,7 +41,13 @@ Generated from local runtime state. Last refreshed: 2026-07-01 (upgrade pass 2).
 - `hermes-platform-watchdog`: every 720m | no_agent=True | deliver=local | last_status=ok
 
 ## Recent upgrade passes
-- See `docs/upgrade-pass-2026-07-01.md` for the latest security-hardening,
+- See `docs/upgrade-pass-2026-07-01-pass3.md` for the newest pass: +4 hard-block
+  and +2 warn veto rules covering upstream adversarial threat patterns
+  (reverse/bind shells, nc/socat/mkfifo backdoors, decode-then-exec bypasses,
+  HTML img-src exfil, CSS concealment), plus `security.allow_lazy_installs=false`
+  supply-chain hardening and a documented review of approvals/website_blocklist/
+  compression/streaming/sessions/logging surfaces.
+- See `docs/upgrade-pass-2026-07-01.md` for the prior security-hardening,
   token-efficiency, and config-hygiene changes, plus a reusable sanitizer script
   (`scripts/sanitize_config.py`) for regenerating this repo's config export.
 
