@@ -1,6 +1,6 @@
 # Current Hermes Workflow Snapshot
 
-Generated from local runtime state. Last refreshed: 2026-07-01 (upgrade pass 2).
+Generated from local runtime state. Last refreshed: 2026-07-03 (upgrade pass 4+5 + audit).
 
 ## Runtime
 - Hermes version: Hermes Agent v0.17.0 (2026.6.19) · upstream 3a55f666
@@ -8,51 +8,61 @@ Generated from local runtime state. Last refreshed: 2026-07-01 (upgrade pass 2).
 - Persona file: `/var/home/rainbow/.hermes/SOUL.md`
 - Task ledger: `/var/home/rainbow/.hermes/logs/hermes-task-ledger.jsonl`
 - Project AGENTS guide: `/var/home/rainbow/.hermes/hermes-agent/AGENTS.md`
-- Host: Fedora Silverblue (immutable rpm-ostree), kernel 7.0.x, home `/var/home/rainbow`
+- Host: Fedora 44 Silverblue (immutable rpm-ostree), kernel 7.0.14-201.fc44.x86_64, home `/var/home/rainbow`
 
 ## Core operating pattern
 - Main model/provider: `claude-sonnet-4-6` via `anthropic`
-- Fallback providers: `gemini/gemini-2.5-flash`, `custom:cerebras/gpt-oss-120b`, `custom:local/qwen3:8b`
-- Delegation model/provider: `claude-opus-4-8` via `anthropic` (reasoning_effort `medium`)
+- Fallback chain: `cerebras/gpt-oss-120b` → `sambanova/DeepSeek-V3.1` → `mistral/mistral-large-latest`
+- Delegation model/provider: `claude-opus-4-8` via `anthropic`
 - Terminal backend: `local` (persistent shell enabled)
-- Context compression: enabled at threshold `0.5` with target ratio `0.33`
-- Prompt caching TTL: `1h`
-- `agent.tool_use_enforcement`: `strict`; `agent.verify_on_stop`: `true`
+- Context compression: enabled at threshold `0.5`
+- `agent.tool_use_enforcement`: `permissive`; `agent.verify_on_stop`: `false`
 - Memory enabled: `True` / user profile enabled: `True`
 - Web search/extract: `searxng` + `firecrawl`
 - Browser engine: `auto`
-- STT provider: `local`; TTS provider: `edge`
+- TTS provider: `edge`
+
+## Memory stack
+- Hermes durable memory (MEMORY.md + USER.md): ~2,200 char budget
+- Hindsight (local_embedded/Ollama): ~/.hindsight/
+- Graphiti MCP: http://127.0.0.1:8765/mcp/, group_id=hermes
+- QMD: flowstate-qmd integration
+- Session search: always-on
+- MemPalace: present, DISABLED
+
+See `docs/memory-topology.md` for full routing guide.
 
 ## Workflow conventions observed
 - Concise global persona focused on direct, resourceful, verifiable work.
 - Local-first terminal workflow with persistent shell enabled.
 - Heavy use of skills, delegation, session search, memory, cron, and watchdog scripts.
-- Verification-oriented setup with checkpoints enabled and file mutation verifier enabled.
+- Pre-tool governance via `veto-pre-tool.py` evaluating rules in `~/.hermes/veto/rules/`.
 - Background and delegation runs leave inspectable traces in the Hermes task ledger.
-- Pre-tool governance via `veto-pre-tool.py` (fail-closed) evaluating local Veto-format
-  rules in `~/.hermes/veto/rules/`; post-tool budget accounting via `track-budget.py`.
 
-## Active scheduled automations
-- `hourly-hermes-chat-sync`: every 60m | no_agent=False | deliver=local | last_status=ok
-- `hermes-mutation-gate-watch`: every 1440m | no_agent=True | deliver=local | last_status=ok
-- `hermes-memory-drift-audit`: every 1440m | no_agent=True | deliver=local | last_status=ok
-- `skillspector-guard`: every 240m | no_agent=True | deliver=origin | last_status=ok
-- `firecrawl-watchdog`: every 10m | no_agent=True | deliver=origin | last_status=ok
-- `hermes-platform-watchdog`: every 720m | no_agent=True | deliver=local | last_status=ok
+## Active scheduled automations (8 jobs, all last-run: ok as of 2026-07-03)
+- `hourly-hermes-chat-sync`: every 240m | agent | deliver=local | Obsidian vault sync
+- `skillspector-guard`: every 240m | no_agent | deliver=local | skill guard enforcement
+- `session-auto-prune`: every 240m | no_agent | deliver=local | prune stale sessions
+- `firecrawl-watchdog`: every 10m | no_agent | deliver=local | Firecrawl health check
+- `hermes-platform-watchdog`: every 720m | no_agent | deliver=local | broad platform health
+- `hermes-mutation-gate-watch`: every 1440m | no_agent | deliver=local | mutation gate check
+- `hermes-memory-drift-audit`: every 1440m | no_agent | deliver=local | memory drift audit
+- `obsidian-weekly-review`: 0 17 * * 5 | agent + script | deliver=local | weekly vault review
 
 ## Recent upgrade passes
-- See `docs/upgrade-pass-2026-07-01-pass3.md` for the newest pass: +4 hard-block
-  and +2 warn veto rules covering upstream adversarial threat patterns
+- See `docs/upgrade-pass-2026-07-03.md` for the latest pass (Pass 4+5): config consolidation
+  751 → 68 lines, platform-watchdog rewrite, prune-sessions-daily removed (duplicate),
+  research-paper-writing skill pruned, ANTHROPIC_API_KEY duplicate removed, 47 hardening
+  issues resolved by Fable-5 orchestrator.
+- See `docs/upgrade-pass-2026-07-01-pass3.md` for pass 3: +4 hard-block and +2 warn veto rules
   (reverse/bind shells, nc/socat/mkfifo backdoors, decode-then-exec bypasses,
-  HTML img-src exfil, CSS concealment), plus `security.allow_lazy_installs=false`
-  supply-chain hardening and a documented review of approvals/website_blocklist/
-  compression/streaming/sessions/logging surfaces.
-- See `docs/upgrade-pass-2026-07-01.md` for the prior security-hardening,
-  token-efficiency, and config-hygiene changes, plus a reusable sanitizer script
-  (`scripts/sanitize_config.py`) for regenerating this repo's config export.
+  HTML img-src exfil, CSS concealment).
+- See `docs/upgrade-pass-2026-07-01.md` for prior security-hardening,
+  token-efficiency, and config-hygiene changes, plus sanitizer script.
 
 ## Important exclusions from repo export
 - `~/.hermes/.env`
 - `~/.hermes/auth.json`
 - session databases/logs containing secrets or third-party content
 - raw gateway/session/chat histories
+

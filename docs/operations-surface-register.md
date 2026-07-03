@@ -10,14 +10,18 @@ Verified with:
 - `hermes cron list --all`
 - repo snapshot `cron.snapshot.json`
 
+Last refreshed: 2026-07-03 (8 jobs active)
+
 | Job | Schedule | Deliver | Mode | Purpose | Current status |
 |---|---|---:|---|---|---|
-| `hourly-hermes-chat-sync` | every 60m | `local` | agent | sync recent Hermes activity into the Obsidian vault | active / last run ok |
+| `hourly-hermes-chat-sync` | every 240m | `local` | agent | sync recent Hermes activity into the Obsidian vault | active / last run ok |
 | `hermes-mutation-gate-watch` | every 1440m | `local` | script | check mutation-gate state | active / last run ok |
 | `hermes-memory-drift-audit` | every 1440m | `local` | script | audit durable memory drift | active / last run ok |
-| `skillspector-guard` | every 240m | `origin` | script | enforce skill guard checks | active / last run ok |
-| `firecrawl-watchdog` | every 10m | `origin` | script | keep Firecrawl healthy | active / last run ok |
+| `skillspector-guard` | every 240m | `local` | script | enforce skill guard checks | active / last run ok |
+| `firecrawl-watchdog` | every 10m | `local` | script | keep Firecrawl healthy | active / last run ok |
 | `hermes-platform-watchdog` | every 720m | `local` | script | broad Hermes platform health check | active / last run ok |
+| `session-auto-prune` | every 240m | `local` | script | prune stale Hermes sessions | active / last run ok |
+| `obsidian-weekly-review` | 0 17 * * 5 | `local` | agent + script | weekly Obsidian vault review | active / last run ok |
 
 ## Delivery semantics note
 
