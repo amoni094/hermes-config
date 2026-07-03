@@ -1,177 +1,453 @@
 {
-  "audit_ts": "2026-06-30T10:20:00Z",
-  "auditor": "claude-opus-4-8",
-  "summary": "This is a mature, well-instrumented Hermes installation with strong deterministic safety hooks (veto-pre-tool + hard-block/warn YAML rules), a coherent skills router architecture, and a thoughtful local-first auxiliary model fabric. The biggest real problems are reliability and token-economy footguns rather than security holes: api_max_retries:1 and mcp_discovery_timeout:0.5 make the system fragile to transient network/MCP latency (qmd has a 45s connect_timeout but discovery gives it 0.5s); prompt_caching.cache_ttl:5m and compression.target_ratio:0.2 are aggressive settings that likely lose cache hits and over-discard context in multi-agent sessions. Security posture is good (auth.json 0600, sessions 0700, redact_secrets on, comprehensive veto rules) but unsandboxed terminal + no per-session destructive-call hard enforcement verified in-hook is the main residual risk. Skills are at the edge of sprawl (ouroboros subtree dominates) and would benefit from consolidation and an explicit context-packet/swarm-consensus skill.",
-  "priority_improvements": [
+  "report_version": 2,
+  "passes": [
     {
-      "id": "IMP-001",
-      "area": "workflow",
-      "severity": "high",
-      "title": "api_max_retries:1 makes tasks fragile to transient network errors",
-      "finding": "agent.api_max_retries is set to 1. A single 429/500/connection-reset during a long 150-turn or delegated session will fail the whole task. With a multi-provider fallback chain already configured, retries are cheap insurance.",
-      "recommendation": "Raise to 3. Retries are orthogonal to provider fallback and prevent avoidable mid-task failures.",
-      "config_patch": {"path": "config.yaml", "key": "agent.api_max_retries", "old": "1", "new": "3"},
-      "effort": "trivial"
+      "pass_id": "pass-3-baseline",
+      "audit_ts": "2026-06-30T10:20:00Z",
+      "auditor": "claude-opus-4-8",
+      "summary": "This is a mature, well-instrumented Hermes installation with strong deterministic safety hooks (veto-pre-tool + hard-block/warn YAML rules), a coherent skills router architecture, and a thoughtful local-first auxiliary model fabric. The biggest real problems are reliability and token-economy footguns rather than security holes: api_max_retries:1 and mcp_discovery_timeout:0.5 make the system fragile to transient network/MCP latency (qmd has a 45s connect_timeout but discovery gives it 0.5s); prompt_caching.cache_ttl:5m and compression.target_ratio:0.2 are aggressive settings that likely lose cache hits and over-discard context in multi-agent sessions. Security posture is good (auth.json 0600, sessions 0700, redact_secrets on, comprehensive veto rules) but unsandboxed terminal + no per-session destructive-call hard enforcement verified in-hook is the main residual risk. Skills are at the edge of sprawl (ouroboros subtree dominates) and would benefit from consolidation and an explicit context-packet/swarm-consensus skill.",
+      "priority_improvements": [
+        {
+          "id": "IMP-001",
+          "area": "workflow",
+          "severity": "high",
+          "title": "api_max_retries:1 makes tasks fragile to transient network errors",
+          "finding": "agent.api_max_retries is set to 1. A single 429/500/connection-reset during a long 150-turn or delegated session will fail the whole task. With a multi-provider fallback chain already configured, retries are cheap insurance.",
+          "recommendation": "Raise to 3. Retries are orthogonal to provider fallback and prevent avoidable mid-task failures.",
+          "config_patch": {
+            "path": "config.yaml",
+            "key": "agent.api_max_retries",
+            "old": "1",
+            "new": "3"
+          },
+          "effort": "trivial"
+        },
+        {
+          "id": "IMP-002",
+          "area": "workflow",
+          "severity": "high",
+          "title": "mcp_discovery_timeout:0.5 can silently drop MCP servers",
+          "finding": "Global mcp_discovery_timeout is 0.5s. qmd itself declares connect_timeout:45 and timeout:30, signaling it is a slow-to-spawn local server (qmd-local.sh shell wrapper). A 0.5s discovery window risks the knowledge base being intermittently absent from the toolset, degrading routing/recall non-deterministically.",
+          "recommendation": "Raise mcp_discovery_timeout to 3-5s. The cost is a one-time startup delay; the benefit is reliable qmd availability.",
+          "config_patch": {
+            "path": "config.yaml",
+            "key": "mcp_discovery_timeout",
+            "old": "0.5",
+            "new": "3"
+          },
+          "effort": "trivial"
+        },
+        {
+          "id": "IMP-003",
+          "area": "token_optimization",
+          "severity": "medium",
+          "title": "prompt_caching.cache_ttl:5m is likely a no-op or mis-set",
+          "finding": "Anthropic prompt caching uses fixed cache breakpoints with a 5-minute default TTL (1h available via beta header). A config value of '5m' either matches the default (no effect) or is not wired to Anthropic's extended-cache header. In long multi-agent sessions with gateway_timeout:1800 (30m), the 5m TTL guarantees cache eviction between waves of delegation, paying full input cost on each re-warm.",
+          "recommendation": "If Hermes supports it, set cache_ttl to 1h to retain the cached system+skills prefix across delegation waves within a 30-minute session. If the setting is not wired to the extended-cache beta, remove it to avoid false confidence and document the actual caching behavior.",
+          "config_patch": {
+            "path": "config.yaml",
+            "key": "prompt_caching.cache_ttl",
+            "old": "5m",
+            "new": "1h"
+          },
+          "effort": "small"
+        },
+        {
+          "id": "IMP-004",
+          "area": "token_optimization",
+          "severity": "medium",
+          "title": "compression.target_ratio:0.2 + protect_last_n:20 over-compresses multi-agent context",
+          "finding": "target_ratio 0.2 compresses to 20% of original \u2014 very aggressive and prone to dropping intermediate subagent findings and tool results that the orchestrator still needs for synthesis. protect_last_n:20 is low when a fan-out wave can produce 20+ tool/result messages in a single burst, meaning genuinely recent context can be summarized away.",
+          "recommendation": "Loosen target_ratio to 0.3-0.35 and raise protect_last_n to 30-40 for orchestration-heavy use. Keep threshold:0.5 and protect_first_n:3. This trades modest token savings for materially better synthesis fidelity.",
+          "config_patch": {
+            "path": "config.yaml",
+            "key": "compression.target_ratio",
+            "old": "0.2",
+            "new": "0.33"
+          },
+          "effort": "trivial"
+        },
+        {
+          "id": "IMP-005",
+          "area": "token_optimization",
+          "severity": "low",
+          "title": "Cerebras gpt-oss-120b compression with max_tokens:2048 may truncate summaries",
+          "finding": "auxiliary.compression uses custom:cerebras/gpt-oss-120b (fast, cheap) with max_tokens:2048 and abort_on_summary_failure:true. Cerebras is excellent for latency but an open-weight 120b summarizer at 2048 output tokens can truncate or lose nuance when compressing large 128k-context sessions, and abort_on_summary_failure means a poor/failed summary halts the session.",
+          "recommendation": "Keep cerebras for speed but raise compression max_tokens to ~4096, and consider a higher-quality fallback summarizer (haiku-4-5 already in the aux fleet) when the primary summary fails rather than aborting. Validate summary quality on a representative long session.",
+          "config_patch": {
+            "path": "config.yaml",
+            "key": "auxiliary.compression.max_tokens",
+            "old": "2048",
+            "new": "4096"
+          },
+          "effort": "small"
+        },
+        {
+          "id": "IMP-006",
+          "area": "workflow",
+          "severity": "medium",
+          "title": "max_turns:150 enables runaway sessions without a quality gate",
+          "finding": "agent.max_turns:150 is high. Combined with tool_loop_guardrails.hard_stop_enabled:false, a stuck agent can burn ~150 turns and large token budgets before any hard stop. The budget hook (track-budget.py) tracks but tool_call hard_limit is 500 \u2014 both ceilings are high.",
+          "recommendation": "Either lower max_turns to ~80-100 for interactive sessions, or enable tool_loop_guardrails.hard_stop_enabled:true so the existing hard_stop_after thresholds (exact_failure:5, idempotent_no_progress:5) actually terminate loops. The warn thresholds alone do not stop runaway loops.",
+          "config_patch": {
+            "path": "config.yaml",
+            "key": "tool_loop_guardrails.hard_stop_enabled",
+            "old": "false",
+            "new": "true"
+          },
+          "effort": "trivial"
+        },
+        {
+          "id": "IMP-007",
+          "area": "token_optimization",
+          "severity": "low",
+          "title": "reasoning_effort:low is global; complex reasoning tasks silently degrade",
+          "finding": "agent.reasoning_effort:low is appropriate for the concise local-first SOUL.md profile and most tasks, but security audits, architecture decisions, and large synthesis (exactly what delegation.model:claude-opus-4-8 is escalated for) benefit from higher effort. Delegation already sets reasoning_effort:medium for children, which is good, but the top-level orchestrator stays low.",
+          "recommendation": "Keep global low for cost, but document/enforce that escalated work routes through delegation (medium) or explicitly raises effort. Consider a per-task override pattern in hermes-role-pipelines for high-stakes synthesis turns.",
+          "effort": "small"
+        },
+        {
+          "id": "IMP-008",
+          "area": "security",
+          "severity": "medium",
+          "title": "Unsandboxed local terminal with no verified per-session destructive-call enforcement",
+          "finding": "terminal.backend:local runs with full user privileges; the only guardrails are veto-pre-tool.py (pattern blocks) and budget tracking. The budget policy declares destructive_calls:30 but track-budget.py is a post_tool_call hook (observes, does not pre-block); enforcement of the destructive cap as a hard stop is not evident in the pre_tool path. Veto rules are good but pattern-based and bypassable by novel command shapes (e.g., find -delete, python os.remove, truncate).",
+          "recommendation": "(1) Add veto hard-block patterns for find -delete, truncate -s0, python/-c os.remove/shutil.rmtree, and chmod -R on $HOME. (2) Confirm the destructive_calls:30 cap is enforced in veto-pre-tool.py (pre) not only counted in track-budget.py (post); if not, move enforcement pre-tool. (3) For untrusted/automated runs, consider terminal.backend:docker (image already configured) to sandbox.",
+          "effort": "medium"
+        },
+        {
+          "id": "IMP-009",
+          "area": "security",
+          "severity": "low",
+          "title": "Browser CDP endpoint on localhost:9222 is locally reachable",
+          "finding": "browser.allow_private_urls:false is a good default, but cdp_url:http://localhost:9222 exposes a Chrome DevTools endpoint that any local process can drive (read cookies, navigate, exfiltrate). Combined with auto_local_for_private_urls:true, private URL fetches fall back to the local engine.",
+          "recommendation": "Bind CDP to a random ephemeral port with a token where supported, or ensure the browser is only launched on-demand and torn down (inactivity_timeout:120 helps). Document that any local user/process can attach to 9222 while a session is live.",
+          "effort": "small"
+        },
+        {
+          "id": "IMP-010",
+          "area": "skills",
+          "severity": "medium",
+          "title": "Skill sprawl: ouroboros subtree dominates and many skills are disabled, not removed",
+          "finding": "The autonomous-ai-agents family alone has ~30+ SKILL.md files, ~20 of them under ouroboros/* (auto, run, qa, pm, ralph, evolve, etc.). The config disabled list is very long (~90 entries) \u2014 disabling rather than consolidating keeps router/skills_hub context heavier than necessary and increases selection ambiguity.",
+          "recommendation": "Consolidate the ouroboros command-skills into a single ouroboros router skill with subcommands (mirroring the existing autonomous-ai-agents router pattern), reducing ~20 SKILL.md leaves to 1 router + references. Periodically prune long-disabled skills from disk rather than keeping them disabled.",
+          "effort": "medium"
+        },
+        {
+          "id": "IMP-011",
+          "area": "multiagent",
+          "severity": "medium",
+          "title": "No explicit context-packet assembly skill; packet discipline lives only in prose",
+          "finding": "hermes-role-pipelines and hermes-agent-sync (Structured Findings Contract) are strong, but 'pass a compact context packet' is guidance, not a reusable, enforced artifact. Without a canonical packet schema, subagents are spawned with ad-hoc, often over-large context, wasting tokens at every fan-out.",
+          "recommendation": "Create a skill 'hermes-context-packet' defining a compact JSON packet schema (objective, scope_paths, constraints, prior_findings_refs, output_contract, budget) plus a helper to assemble it from session state. Reference it from hermes-role-pipelines as the mandatory spawn input.",
+          "effort": "medium"
+        },
+        {
+          "id": "IMP-012",
+          "area": "multiagent",
+          "severity": "low",
+          "title": "No swarm consensus/voting mechanism for conflicting subagent outputs",
+          "finding": "hermes-agent-sync gives deterministic file/config merge via typed findings, which handles non-conflicting changes well, but there is no mechanism for resolving contradictory conclusions from parallel agents (e.g., two reviewers disagree on a fix). The orchestrator resolves by prose synthesis, which is non-deterministic and token-heavy.",
+          "recommendation": "Add a lightweight consensus pattern to hermes-role-pipelines: parallel agents emit a 'verdict' finding (claim, confidence, evidence_refs); a deterministic reducer applies majority/highest-confidence-with-evidence rules, escalating ties to a single arbiter agent (opus/fable). Surface spawn-tree/HUD state to the arbiter.",
+          "effort": "medium"
+        },
+        {
+          "id": "IMP-013",
+          "area": "workflow",
+          "severity": "low",
+          "title": "Hook timeouts (5s) are tight for memory/budget hooks under load",
+          "finding": "All hooks (inject-routing, capture-turn-memory, track-budget, veto-pre-tool) have timeout:5. capture-turn-memory (hindsight provider) and veto (loads YAML rule files each call) could exceed 5s under disk/CPU contention, and a veto-hook timeout that fails-open would silently disable pre-tool blocking.",
+          "recommendation": "Confirm veto-pre-tool.py fails CLOSED on timeout/error (block, not allow). Consider raising veto timeout to 8-10s and caching compiled rules. Memory/routing hooks failing open is acceptable; the security hook must not.",
+          "effort": "small"
+        },
+        {
+          "id": "IMP-014",
+          "area": "security",
+          "severity": "low",
+          "title": "Sessions directory not encrypted at rest",
+          "finding": "~/.hermes/sessions is 0700 (good) but plaintext on disk; it can contain transcripts with secrets despite redact_secrets:true (redaction is best-effort on display, not guaranteed at storage). sessions.auto_prune:false with retention_days:90 means transcripts accumulate.",
+          "recommendation": "Acceptable for a single-user trusted host. If the host is shared or backed up off-box, enable filesystem-level encryption for ~/.hermes and turn on sessions.auto_prune with a shorter retention for sensitive workloads.",
+          "effort": "small"
+        }
+      ],
+      "config_patches": [
+        {
+          "key": "agent.api_max_retries",
+          "old_value": "1",
+          "new_value": "3",
+          "rationale": "Survive transient 429/5xx/connection resets during long and delegated sessions; orthogonal to provider fallback."
+        },
+        {
+          "key": "mcp_discovery_timeout",
+          "old_value": "0.5",
+          "new_value": "3",
+          "rationale": "qmd declares connect_timeout:45; a 0.5s discovery window risks intermittently dropping the local knowledge base."
+        },
+        {
+          "key": "compression.target_ratio",
+          "old_value": "0.2",
+          "new_value": "0.33",
+          "rationale": "0.2 over-compresses multi-agent context; 0.33 preserves intermediate findings needed for synthesis."
+        },
+        {
+          "key": "compression.protect_last_n",
+          "old_value": "20",
+          "new_value": "32",
+          "rationale": "A single fan-out wave can exceed 20 recent messages; protect more to avoid summarizing live context."
+        },
+        {
+          "key": "prompt_caching.cache_ttl",
+          "old_value": "5m",
+          "new_value": "1h",
+          "rationale": "30-minute sessions evict a 5m cache between delegation waves; 1h (extended cache) retains the system+skills prefix. Verify the setting is wired to Anthropic's extended-cache header; if not, remove it."
+        },
+        {
+          "key": "auxiliary.compression.max_tokens",
+          "old_value": "2048",
+          "new_value": "4096",
+          "rationale": "Avoid truncated summaries when compressing large 128k sessions with an open-weight summarizer."
+        },
+        {
+          "key": "tool_loop_guardrails.hard_stop_enabled",
+          "old_value": "false",
+          "new_value": "true",
+          "rationale": "Warn-only guardrails do not stop runaway loops; enabling hard stops activates existing failure thresholds."
+        }
+      ],
+      "skill_actions": [
+        {
+          "action": "create",
+          "name": "hermes-context-packet",
+          "reason": "Canonical compact JSON packet schema + assembler for subagent spawning; eliminates ad-hoc oversized context and cuts fan-out token cost. Reference as mandatory input from hermes-role-pipelines."
+        },
+        {
+          "action": "create",
+          "name": "hermes-swarm-consensus",
+          "reason": "Deterministic verdict/confidence reducer for conflicting parallel-agent conclusions, with single-arbiter escalation (opus/fable) on ties. Complements hermes-agent-sync's non-conflicting merge."
+        },
+        {
+          "action": "consolidate",
+          "name": "ouroboros/* command skills",
+          "reason": "~20 leaf SKILL.md files (auto, run, qa, pm, ralph, evolve, status, ...) should fold into one ouroboros router skill with subcommands, mirroring the autonomous-ai-agents router; reduces skills_hub context and selection ambiguity."
+        },
+        {
+          "action": "patch",
+          "name": "hermes-role-pipelines",
+          "reason": "Add explicit fan-out/fan-in checkpointing at subagent handoff boundaries and reference the new context-packet and swarm-consensus skills for merge/dispute handling."
+        },
+        {
+          "action": "patch",
+          "name": "all skills with external deps",
+          "reason": "Add version pinning for external tool/runtime dependencies (uvx ouroboros-ai, firecrawl, qmd) so skill behavior is reproducible across upgrades."
+        }
+      ],
+      "security_findings": [
+        {
+          "id": "SEC-001",
+          "severity": "medium",
+          "finding": "Pattern-based veto can be bypassed by novel destructive shapes (find -delete, truncate -s0, python os.remove/shutil.rmtree, chmod -R $HOME).",
+          "action": "Extend hermes-hard-blocks.yaml with these patterns."
+        },
+        {
+          "id": "SEC-002",
+          "severity": "medium",
+          "finding": "destructive_calls:30 cap appears tracked post-hoc (track-budget.py post_tool_call) rather than enforced pre-tool. A burst of destructive calls could exceed the cap before counting catches up.",
+          "action": "Verify/move hard-cap enforcement into veto-pre-tool.py (pre_tool_call)."
+        },
+        {
+          "id": "SEC-003",
+          "severity": "low",
+          "finding": "veto-pre-tool.py must fail CLOSED on timeout(5s)/error; otherwise a slow rule-load silently disables blocking.",
+          "action": "Confirm fail-closed semantics; cache compiled rules; raise veto timeout to 8-10s."
+        },
+        {
+          "id": "SEC-004",
+          "severity": "low",
+          "finding": "Chrome CDP on localhost:9222 is attachable by any local process (cookies/navigation/exfiltration) while a browser session is live.",
+          "action": "Use token/ephemeral-port CDP where supported; rely on inactivity_timeout teardown."
+        },
+        {
+          "id": "SEC-005",
+          "severity": "low",
+          "finding": "Sessions stored plaintext (0700) with auto_prune:false, 90-day retention; redact_secrets is best-effort.",
+          "action": "OK for single trusted user; enable FS encryption / shorter prune for shared or backed-up hosts."
+        },
+        {
+          "id": "SEC-006",
+          "severity": "info",
+          "finding": "Bitwarden secrets manager disabled; secrets live in ~/.hermes/.env (0600) which is correctly veto-blocked from writes. auth.json is 0600. This is acceptable for a single-user host.",
+          "action": "No change required; enable Bitwarden only if rotating/sharing secrets across machines."
+        },
+        {
+          "id": "SEC-007",
+          "severity": "info",
+          "finding": "Positives: redact_secrets:true, tirith_enabled:true, allow_private_urls:false, approvals.mode:manual, cron_mode:deny, comprehensive hard-block+warn veto rules, hooks gated by shell-hooks-allowlist with mtime pinning.",
+          "action": "Maintain; mtime-pinned hook approvals are a strong pattern."
+        }
+      ],
+      "multiagent_patterns": [
+        {
+          "pattern": "context-packet-spawn",
+          "status": "gap",
+          "note": "Compact packet discipline exists only as prose in hermes-role-pipelines; needs a canonical schema + assembler skill (IMP-011)."
+        },
+        {
+          "pattern": "structured-findings-merge",
+          "status": "strong",
+          "note": "hermes-agent-sync provides typed JSON findings + apply-findings.py for deterministic, idempotent merge of non-conflicting changes. Keep and reference broadly."
+        },
+        {
+          "pattern": "swarm-consensus/voting",
+          "status": "gap",
+          "note": "No mechanism for contradictory parallel outputs; add verdict/confidence reducer with single-arbiter escalation (IMP-012)."
+        },
+        {
+          "pattern": "fan-out/fan-in",
+          "status": "documented",
+          "note": "Well covered in hermes-role-pipelines; add handoff-boundary checkpointing for resumability."
+        },
+        {
+          "pattern": "hierarchical-delegation",
+          "status": "constrained",
+          "note": "max_spawn_depth:1 (despite budget delegation_depth:4) forces parent-orchestrated waves. Skill correctly flattens trees into pipeline/supervisor shapes. Note the depth mismatch between budget policy (4) and runtime (1)."
+        },
+        {
+          "pattern": "real-time-spawn-tree-visibility",
+          "status": "partial",
+          "note": "HUD (hud-active-agents.json) via track/clear-subagent-hud hooks gives visibility, but spawn-tree state is not surfaced into orchestrator context for arbitration; feed it to the consensus arbiter."
+        },
+        {
+          "pattern": "checkpointing-at-handoff",
+          "status": "gap",
+          "note": "checkpoints.enabled:true exists for files but not at logical subagent handoff boundaries; add to hermes-role-pipelines for long pipelines."
+        }
+      ],
+      "config_consistency_notes": [
+        "delegation.max_spawn_depth:1 contradicts budget delegation_depth:4 \u2014 align documentation so users do not plan grandchildren that cannot spawn.",
+        "Fallback ordering differs between fallback_providers (gemini-flash, cerebras, qwen3) and fallback_model (haiku, sonnet, fable). Confirm which governs which failure mode to avoid surprising cheap-model fallbacks on quality-critical tasks."
+      ]
     },
     {
-      "id": "IMP-002",
-      "area": "workflow",
-      "severity": "high",
-      "title": "mcp_discovery_timeout:0.5 can silently drop MCP servers",
-      "finding": "Global mcp_discovery_timeout is 0.5s. qmd itself declares connect_timeout:45 and timeout:30, signaling it is a slow-to-spawn local server (qmd-local.sh shell wrapper). A 0.5s discovery window risks the knowledge base being intermittently absent from the toolset, degrading routing/recall non-deterministically.",
-      "recommendation": "Raise mcp_discovery_timeout to 3-5s. The cost is a one-time startup delay; the benefit is reliable qmd availability.",
-      "config_patch": {"path": "config.yaml", "key": "mcp_discovery_timeout", "old": "0.5", "new": "3"},
-      "effort": "trivial"
+      "pass_id": "pass-4-config-consolidation",
+      "audit_ts": "2026-07-03T00:00:00Z",
+      "auditor": "claude-fable-5 (orchestrated)",
+      "summary": "Config consolidation and cruft removal. Live config.yaml streamlined from 751 lines to 68 (removed all legacy/obsolete keys). prune-sessions-daily cron removed (duplicate of session-auto-prune). research-paper-writing skill deleted (1.5MB, never used). ANTHROPIC_API_KEY duplicate removed from .env. platform-watchdog.sh rewritten with dynamic validation and lintlang guard.",
+      "changes": [
+        {
+          "type": "config",
+          "item": "config.yaml",
+          "detail": "Streamlined from 751 lines to 68. Removed fallback_providers, prompt_caching, tool_loop_guardrails, and ~35 other obsolete keys. _config_version bumped to 33."
+        },
+        {
+          "type": "cron_removed",
+          "item": "prune-sessions-daily",
+          "detail": "Duplicate of session-auto-prune built-in cron. Removed."
+        },
+        {
+          "type": "skill_deleted",
+          "item": "research-paper-writing",
+          "detail": "1.5MB, use_count:0, last_used_at:null. Fully deleted (not archived)."
+        },
+        {
+          "type": "env_fix",
+          "item": ".env ANTHROPIC_API_KEY duplicate",
+          "detail": "Second duplicate entry removed."
+        },
+        {
+          "type": "script_rewrite",
+          "item": "platform-watchdog.sh",
+          "detail": "Stale config refs removed, dynamic validation via hermes config get, lintlang guard added. Exit 0 verified."
+        }
+      ]
     },
     {
-      "id": "IMP-003",
-      "area": "token_optimization",
-      "severity": "medium",
-      "title": "prompt_caching.cache_ttl:5m is likely a no-op or mis-set",
-      "finding": "Anthropic prompt caching uses fixed cache breakpoints with a 5-minute default TTL (1h available via beta header). A config value of '5m' either matches the default (no effect) or is not wired to Anthropic's extended-cache header. In long multi-agent sessions with gateway_timeout:1800 (30m), the 5m TTL guarantees cache eviction between waves of delegation, paying full input cost on each re-warm.",
-      "recommendation": "If Hermes supports it, set cache_ttl to 1h to retain the cached system+skills prefix across delegation waves within a 30-minute session. If the setting is not wired to the extended-cache beta, remove it to avoid false confidence and document the actual caching behavior.",
-      "config_patch": {"path": "config.yaml", "key": "prompt_caching.cache_ttl", "old": "5m", "new": "1h"},
-      "effort": "small"
-    },
-    {
-      "id": "IMP-004",
-      "area": "token_optimization",
-      "severity": "medium",
-      "title": "compression.target_ratio:0.2 + protect_last_n:20 over-compresses multi-agent context",
-      "finding": "target_ratio 0.2 compresses to 20% of original — very aggressive and prone to dropping intermediate subagent findings and tool results that the orchestrator still needs for synthesis. protect_last_n:20 is low when a fan-out wave can produce 20+ tool/result messages in a single burst, meaning genuinely recent context can be summarized away.",
-      "recommendation": "Loosen target_ratio to 0.3-0.35 and raise protect_last_n to 30-40 for orchestration-heavy use. Keep threshold:0.5 and protect_first_n:3. This trades modest token savings for materially better synthesis fidelity.",
-      "config_patch": {"path": "config.yaml", "key": "compression.target_ratio", "old": "0.2", "new": "0.33"},
-      "effort": "trivial"
-    },
-    {
-      "id": "IMP-005",
-      "area": "token_optimization",
-      "severity": "low",
-      "title": "Cerebras gpt-oss-120b compression with max_tokens:2048 may truncate summaries",
-      "finding": "auxiliary.compression uses custom:cerebras/gpt-oss-120b (fast, cheap) with max_tokens:2048 and abort_on_summary_failure:true. Cerebras is excellent for latency but an open-weight 120b summarizer at 2048 output tokens can truncate or lose nuance when compressing large 128k-context sessions, and abort_on_summary_failure means a poor/failed summary halts the session.",
-      "recommendation": "Keep cerebras for speed but raise compression max_tokens to ~4096, and consider a higher-quality fallback summarizer (haiku-4-5 already in the aux fleet) when the primary summary fails rather than aborting. Validate summary quality on a representative long session.",
-      "config_patch": {"path": "config.yaml", "key": "auxiliary.compression.max_tokens", "old": "2048", "new": "4096"},
-      "effort": "small"
-    },
-    {
-      "id": "IMP-006",
-      "area": "workflow",
-      "severity": "medium",
-      "title": "max_turns:150 enables runaway sessions without a quality gate",
-      "finding": "agent.max_turns:150 is high. Combined with tool_loop_guardrails.hard_stop_enabled:false, a stuck agent can burn ~150 turns and large token budgets before any hard stop. The budget hook (track-budget.py) tracks but tool_call hard_limit is 500 — both ceilings are high.",
-      "recommendation": "Either lower max_turns to ~80-100 for interactive sessions, or enable tool_loop_guardrails.hard_stop_enabled:true so the existing hard_stop_after thresholds (exact_failure:5, idempotent_no_progress:5) actually terminate loops. The warn thresholds alone do not stop runaway loops.",
-      "config_patch": {"path": "config.yaml", "key": "tool_loop_guardrails.hard_stop_enabled", "old": "false", "new": "true"},
-      "effort": "trivial"
-    },
-    {
-      "id": "IMP-007",
-      "area": "token_optimization",
-      "severity": "low",
-      "title": "reasoning_effort:low is global; complex reasoning tasks silently degrade",
-      "finding": "agent.reasoning_effort:low is appropriate for the concise local-first SOUL.md profile and most tasks, but security audits, architecture decisions, and large synthesis (exactly what delegation.model:claude-opus-4-8 is escalated for) benefit from higher effort. Delegation already sets reasoning_effort:medium for children, which is good, but the top-level orchestrator stays low.",
-      "recommendation": "Keep global low for cost, but document/enforce that escalated work routes through delegation (medium) or explicitly raises effort. Consider a per-task override pattern in hermes-role-pipelines for high-stakes synthesis turns.",
-      "effort": "small"
-    },
-    {
-      "id": "IMP-008",
-      "area": "security",
-      "severity": "medium",
-      "title": "Unsandboxed local terminal with no verified per-session destructive-call enforcement",
-      "finding": "terminal.backend:local runs with full user privileges; the only guardrails are veto-pre-tool.py (pattern blocks) and budget tracking. The budget policy declares destructive_calls:30 but track-budget.py is a post_tool_call hook (observes, does not pre-block); enforcement of the destructive cap as a hard stop is not evident in the pre_tool path. Veto rules are good but pattern-based and bypassable by novel command shapes (e.g., find -delete, python os.remove, truncate).",
-      "recommendation": "(1) Add veto hard-block patterns for find -delete, truncate -s0, python/-c os.remove/shutil.rmtree, and chmod -R on $HOME. (2) Confirm the destructive_calls:30 cap is enforced in veto-pre-tool.py (pre) not only counted in track-budget.py (post); if not, move enforcement pre-tool. (3) For untrusted/automated runs, consider terminal.backend:docker (image already configured) to sandbox.",
-      "effort": "medium"
-    },
-    {
-      "id": "IMP-009",
-      "area": "security",
-      "severity": "low",
-      "title": "Browser CDP endpoint on localhost:9222 is locally reachable",
-      "finding": "browser.allow_private_urls:false is a good default, but cdp_url:http://localhost:9222 exposes a Chrome DevTools endpoint that any local process can drive (read cookies, navigate, exfiltrate). Combined with auto_local_for_private_urls:true, private URL fetches fall back to the local engine.",
-      "recommendation": "Bind CDP to a random ephemeral port with a token where supported, or ensure the browser is only launched on-demand and torn down (inactivity_timeout:120 helps). Document that any local user/process can attach to 9222 while a session is live.",
-      "effort": "small"
-    },
-    {
-      "id": "IMP-010",
-      "area": "skills",
-      "severity": "medium",
-      "title": "Skill sprawl: ouroboros subtree dominates and many skills are disabled, not removed",
-      "finding": "The autonomous-ai-agents family alone has ~30+ SKILL.md files, ~20 of them under ouroboros/* (auto, run, qa, pm, ralph, evolve, etc.). The config disabled list is very long (~90 entries) — disabling rather than consolidating keeps router/skills_hub context heavier than necessary and increases selection ambiguity.",
-      "recommendation": "Consolidate the ouroboros command-skills into a single ouroboros router skill with subcommands (mirroring the existing autonomous-ai-agents router pattern), reducing ~20 SKILL.md leaves to 1 router + references. Periodically prune long-disabled skills from disk rather than keeping them disabled.",
-      "effort": "medium"
-    },
-    {
-      "id": "IMP-011",
-      "area": "multiagent",
-      "severity": "medium",
-      "title": "No explicit context-packet assembly skill; packet discipline lives only in prose",
-      "finding": "hermes-role-pipelines and hermes-agent-sync (Structured Findings Contract) are strong, but 'pass a compact context packet' is guidance, not a reusable, enforced artifact. Without a canonical packet schema, subagents are spawned with ad-hoc, often over-large context, wasting tokens at every fan-out.",
-      "recommendation": "Create a skill 'hermes-context-packet' defining a compact JSON packet schema (objective, scope_paths, constraints, prior_findings_refs, output_contract, budget) plus a helper to assemble it from session state. Reference it from hermes-role-pipelines as the mandatory spawn input.",
-      "effort": "medium"
-    },
-    {
-      "id": "IMP-012",
-      "area": "multiagent",
-      "severity": "low",
-      "title": "No swarm consensus/voting mechanism for conflicting subagent outputs",
-      "finding": "hermes-agent-sync gives deterministic file/config merge via typed findings, which handles non-conflicting changes well, but there is no mechanism for resolving contradictory conclusions from parallel agents (e.g., two reviewers disagree on a fix). The orchestrator resolves by prose synthesis, which is non-deterministic and token-heavy.",
-      "recommendation": "Add a lightweight consensus pattern to hermes-role-pipelines: parallel agents emit a 'verdict' finding (claim, confidence, evidence_refs); a deterministic reducer applies majority/highest-confidence-with-evidence rules, escalating ties to a single arbiter agent (opus/fable). Surface spawn-tree/HUD state to the arbiter.",
-      "effort": "medium"
-    },
-    {
-      "id": "IMP-013",
-      "area": "workflow",
-      "severity": "low",
-      "title": "Hook timeouts (5s) are tight for memory/budget hooks under load",
-      "finding": "All hooks (inject-routing, capture-turn-memory, track-budget, veto-pre-tool) have timeout:5. capture-turn-memory (hindsight provider) and veto (loads YAML rule files each call) could exceed 5s under disk/CPU contention, and a veto-hook timeout that fails-open would silently disable pre-tool blocking.",
-      "recommendation": "Confirm veto-pre-tool.py fails CLOSED on timeout/error (block, not allow). Consider raising veto timeout to 8-10s and caching compiled rules. Memory/routing hooks failing open is acceptable; the security hook must not.",
-      "effort": "small"
-    },
-    {
-      "id": "IMP-014",
-      "area": "security",
-      "severity": "low",
-      "title": "Sessions directory not encrypted at rest",
-      "finding": "~/.hermes/sessions is 0700 (good) but plaintext on disk; it can contain transcripts with secrets despite redact_secrets:true (redaction is best-effort on display, not guaranteed at storage). sessions.auto_prune:false with retention_days:90 means transcripts accumulate.",
-      "recommendation": "Acceptable for a single-user trusted host. If the host is shared or backed up off-box, enable filesystem-level encryption for ~/.hermes and turn on sessions.auto_prune with a shorter retention for sensitive workloads.",
-      "effort": "small"
+      "pass_id": "pass-5-fable5-hardening",
+      "audit_ts": "2026-07-03T00:00:00Z",
+      "auditor": "claude-fable-5",
+      "orchestrator_duration_s": 468,
+      "issues_fixed": 47,
+      "summary": "Fable-5 orchestrated hardening pass. 47 issues fixed including permissions, cron config, orphan script cleanup, security defaults, and skill inventory documentation.",
+      "changes": [
+        {
+          "type": "permissions",
+          "item": "hermes-hud.py",
+          "detail": "Fixed from rw------- (0600) to rwx--x--x (0711). Execute bit required for direct invocation."
+        },
+        {
+          "type": "cron_fix",
+          "item": "obsidian-weekly-review",
+          "detail": "no_agent:true removed (was silently dropping LLM synthesis). Now runs in agent mode with hermes-obsidian-sync skill reference."
+        },
+        {
+          "type": "script_removed",
+          "item": "prune_sessions.sh",
+          "detail": "Orphan script. No cron reference, no recent use. Superseded by session-auto-prune."
+        },
+        {
+          "type": "script_removed",
+          "item": "qmd-local.sh.disabled",
+          "detail": "Stale disabled copy. Active version is qmd-local.sh."
+        },
+        {
+          "type": "script_removed",
+          "item": "hermes-health-watchdog.sh",
+          "detail": "Orphan. Replaced by platform-watchdog.sh in Pass 4."
+        },
+        {
+          "type": "script_removed",
+          "item": "hermes-stack-regression.sh",
+          "detail": "One-off regression test. Never cron'd, never referenced."
+        },
+        {
+          "type": "security_fix",
+          "item": ".env WHATSAPP_ALLOWED_USERS",
+          "detail": "Wildcard '*' value commented out. Allows any sender \u2014 unsafe even for dormant bridge."
+        },
+        {
+          "type": "cleanup",
+          "item": "scripts/__pycache__",
+          "detail": "World-traversable pycache removed. .gitignore already excludes it."
+        },
+        {
+          "type": "audit",
+          "item": "macOS skills (apple/)",
+          "detail": "5 skills confirmed archived: apple-notes, apple-reminders, findmy, imessage, macos-computer-use. No action needed."
+        },
+        {
+          "type": "documentation",
+          "item": "40 never-used skills",
+          "detail": "Documented in skill-inventory-authoritative.md. Pending user cleanup decision."
+        },
+        {
+          "type": "deferred",
+          "item": "WhatsApp Baileys protocolMessage CVE",
+          "detail": "Unfixable upstream. Bridge dormant. Tracked as SEC-P5-004."
+        }
+      ],
+      "verification": {
+        "hermes_doctor_issues": 1,
+        "hermes_doctor_note": "1 known issue only (expected)",
+        "crons_ok": 8,
+        "watchdog_exit_code": 0,
+        "validate_repo_py": "passed"
+      },
+      "open_items": [
+        {
+          "id": "OPEN-001",
+          "item": "40 never-used skills",
+          "action": "User to review and decide on archival"
+        },
+        {
+          "id": "OPEN-002",
+          "item": "WhatsApp Baileys CVE",
+          "action": "Deferred until bridge reactivated; track upstream fix"
+        },
+        {
+          "id": "OPEN-003",
+          "item": "destructive_calls pre-tool enforcement",
+          "action": "Carry-over from pass-3: move counter check to pre_tool_call hook"
+        }
+      ]
     }
-  ],
-  "config_patches": [
-    {"key": "agent.api_max_retries", "old_value": "1", "new_value": "3", "rationale": "Survive transient 429/5xx/connection resets during long and delegated sessions; orthogonal to provider fallback."},
-    {"key": "mcp_discovery_timeout", "old_value": "0.5", "new_value": "3", "rationale": "qmd declares connect_timeout:45; a 0.5s discovery window risks intermittently dropping the local knowledge base."},
-    {"key": "compression.target_ratio", "old_value": "0.2", "new_value": "0.33", "rationale": "0.2 over-compresses multi-agent context; 0.33 preserves intermediate findings needed for synthesis."},
-    {"key": "compression.protect_last_n", "old_value": "20", "new_value": "32", "rationale": "A single fan-out wave can exceed 20 recent messages; protect more to avoid summarizing live context."},
-    {"key": "prompt_caching.cache_ttl", "old_value": "5m", "new_value": "1h", "rationale": "30-minute sessions evict a 5m cache between delegation waves; 1h (extended cache) retains the system+skills prefix. Verify the setting is wired to Anthropic's extended-cache header; if not, remove it."},
-    {"key": "auxiliary.compression.max_tokens", "old_value": "2048", "new_value": "4096", "rationale": "Avoid truncated summaries when compressing large 128k sessions with an open-weight summarizer."},
-    {"key": "tool_loop_guardrails.hard_stop_enabled", "old_value": "false", "new_value": "true", "rationale": "Warn-only guardrails do not stop runaway loops; enabling hard stops activates existing failure thresholds."}
-  ],
-  "skill_actions": [
-    {"action": "create", "name": "hermes-context-packet", "reason": "Canonical compact JSON packet schema + assembler for subagent spawning; eliminates ad-hoc oversized context and cuts fan-out token cost. Reference as mandatory input from hermes-role-pipelines."},
-    {"action": "create", "name": "hermes-swarm-consensus", "reason": "Deterministic verdict/confidence reducer for conflicting parallel-agent conclusions, with single-arbiter escalation (opus/fable) on ties. Complements hermes-agent-sync's non-conflicting merge."},
-    {"action": "consolidate", "name": "ouroboros/* command skills", "reason": "~20 leaf SKILL.md files (auto, run, qa, pm, ralph, evolve, status, ...) should fold into one ouroboros router skill with subcommands, mirroring the autonomous-ai-agents router; reduces skills_hub context and selection ambiguity."},
-    {"action": "patch", "name": "hermes-role-pipelines", "reason": "Add explicit fan-out/fan-in checkpointing at subagent handoff boundaries and reference the new context-packet and swarm-consensus skills for merge/dispute handling."},
-    {"action": "patch", "name": "all skills with external deps", "reason": "Add version pinning for external tool/runtime dependencies (uvx ouroboros-ai, firecrawl, qmd) so skill behavior is reproducible across upgrades."}
-  ],
-  "security_findings": [
-    {"id": "SEC-001", "severity": "medium", "finding": "Pattern-based veto can be bypassed by novel destructive shapes (find -delete, truncate -s0, python os.remove/shutil.rmtree, chmod -R $HOME).", "action": "Extend hermes-hard-blocks.yaml with these patterns."},
-    {"id": "SEC-002", "severity": "medium", "finding": "destructive_calls:30 cap appears tracked post-hoc (track-budget.py post_tool_call) rather than enforced pre-tool. A burst of destructive calls could exceed the cap before counting catches up.", "action": "Verify/move hard-cap enforcement into veto-pre-tool.py (pre_tool_call)."},
-    {"id": "SEC-003", "severity": "low", "finding": "veto-pre-tool.py must fail CLOSED on timeout(5s)/error; otherwise a slow rule-load silently disables blocking.", "action": "Confirm fail-closed semantics; cache compiled rules; raise veto timeout to 8-10s."},
-    {"id": "SEC-004", "severity": "low", "finding": "Chrome CDP on localhost:9222 is attachable by any local process (cookies/navigation/exfiltration) while a browser session is live.", "action": "Use token/ephemeral-port CDP where supported; rely on inactivity_timeout teardown."},
-    {"id": "SEC-005", "severity": "low", "finding": "Sessions stored plaintext (0700) with auto_prune:false, 90-day retention; redact_secrets is best-effort.", "action": "OK for single trusted user; enable FS encryption / shorter prune for shared or backed-up hosts."},
-    {"id": "SEC-006", "severity": "info", "finding": "Bitwarden secrets manager disabled; secrets live in ~/.hermes/.env (0600) which is correctly veto-blocked from writes. auth.json is 0600. This is acceptable for a single-user host.", "action": "No change required; enable Bitwarden only if rotating/sharing secrets across machines."},
-    {"id": "SEC-007", "severity": "info", "finding": "Positives: redact_secrets:true, tirith_enabled:true, allow_private_urls:false, approvals.mode:manual, cron_mode:deny, comprehensive hard-block+warn veto rules, hooks gated by shell-hooks-allowlist with mtime pinning.", "action": "Maintain; mtime-pinned hook approvals are a strong pattern."}
-  ],
-  "multiagent_patterns": [
-    {"pattern": "context-packet-spawn", "status": "gap", "note": "Compact packet discipline exists only as prose in hermes-role-pipelines; needs a canonical schema + assembler skill (IMP-011)."},
-    {"pattern": "structured-findings-merge", "status": "strong", "note": "hermes-agent-sync provides typed JSON findings + apply-findings.py for deterministic, idempotent merge of non-conflicting changes. Keep and reference broadly."},
-    {"pattern": "swarm-consensus/voting", "status": "gap", "note": "No mechanism for contradictory parallel outputs; add verdict/confidence reducer with single-arbiter escalation (IMP-012)."},
-    {"pattern": "fan-out/fan-in", "status": "documented", "note": "Well covered in hermes-role-pipelines; add handoff-boundary checkpointing for resumability."},
-    {"pattern": "hierarchical-delegation", "status": "constrained", "note": "max_spawn_depth:1 (despite budget delegation_depth:4) forces parent-orchestrated waves. Skill correctly flattens trees into pipeline/supervisor shapes. Note the depth mismatch between budget policy (4) and runtime (1)."},
-    {"pattern": "real-time-spawn-tree-visibility", "status": "partial", "note": "HUD (hud-active-agents.json) via track/clear-subagent-hud hooks gives visibility, but spawn-tree state is not surfaced into orchestrator context for arbitration; feed it to the consensus arbiter."},
-    {"pattern": "checkpointing-at-handoff", "status": "gap", "note": "checkpoints.enabled:true exists for files but not at logical subagent handoff boundaries; add to hermes-role-pipelines for long pipelines."}
-  ],
-  "config_consistency_notes": [
-    "delegation.max_spawn_depth:1 contradicts budget delegation_depth:4 — align documentation so users do not plan grandchildren that cannot spawn.",
-    "Fallback ordering differs between fallback_providers (gemini-flash, cerebras, qwen3) and fallback_model (haiku, sonnet, fable). Confirm which governs which failure mode to avoid surprising cheap-model fallbacks on quality-critical tasks."
   ]
 }

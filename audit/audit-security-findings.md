@@ -58,3 +58,87 @@ would meet/exceed the limit. Pre-execution blocking of individual destructive
 
 ## Backups
 All edited files backed up as `<file>.bak.audit-20260630-201705`.
+
+---
+
+# Pass 5 — Security Findings (2026-07-03)
+
+**Orchestrator:** claude-fable-5  
+**Scope:** Full ~/.hermes scan — .env, scripts/, cron/, skills/, agent-hooks/
+
+## SEC-P5-001 — WHATSAPP_ALLOWED_USERS wildcard (medium)
+
+**Finding:** `.env` contained `WHATSAPP_ALLOWED_USERS=*`. This allows any WhatsApp user (any JID) to send commands to the Hermes bridge when it is active.
+
+**Risk:** Any unknown number could trigger Hermes tools or read agent output if the bridge is restarted without reviewing this setting.
+
+**Remediation (applied):** Line commented out in `.env` with a warning note. Bridge is currently dormant; this is a defensive fix for when it is reactivated.
+
+**Recommendation:** When reactivating the WhatsApp bridge, set explicit JIDs: `WHATSAPP_ALLOWED_USERS=+61xxxxxxx@s.whatsapp.net`.
+
+---
+
+## SEC-P5-002 — scripts/__pycache__ world-traversable (low)
+
+**Finding:** `~/.hermes/scripts/__pycache__/` had mode `755` (world-traversable + world-readable). Compiled `.pyc` bytecode files were readable by any local user.
+
+**Risk:** Low on single-user host, but bytecode can reveal internal logic/paths and is unnecessary to expose.
+
+**Remediation (applied):** Removed `~/.hermes/scripts/__pycache__/` entirely. Python will recreate it on next import (mode depends on umask). `.gitignore` in hermes-config already excludes it.
+
+---
+
+## SEC-P5-003 — hermes-hud.py non-executable (low)
+
+**Finding:** `~/.hermes/scripts/hermes-hud.py` had permissions `rw-------` (0600). The shebang `#!/usr/bin/env python3` requires the execute bit for direct invocation.
+
+**Risk:** Script would fail to run directly (e.g., from cron or systemd). Silent failure if cron invokes it as `./hermes-hud.py` without explicit `python3` prefix.
+
+**Remediation (applied):** Changed to `rwx--x--x` (0711). Execute bit set for owner; group/other execute allows systemd user-service and cron invocation.
+
+---
+
+## SEC-P5-004 — WhatsApp Baileys protocolMessage spoofing CVE (medium, deferred)
+
+**Finding:** The Baileys library (used by the Hermes WhatsApp bridge) is vulnerable to protocolMessage type spoofing. A crafted incoming message can impersonate protocol control frames, potentially triggering unintended bridge behaviors.
+
+**Risk:** Medium when bridge is active; effectively zero when dormant.
+
+**Status:** Deferred. The bridge is not active. The vulnerability is in the upstream Baileys library and has no patch at time of audit. A fork or library replacement would be required to fix it.
+
+**Recommendation:** Before reactivating the bridge, check for a Baileys patch or evaluate alternative libraries (e.g., whatsapp-web.js). Keep `WHATSAPP_ALLOWED_USERS` to explicit JIDs as defense-in-depth.
+
+---
+
+## SEC-P5-005 — obsidian-weekly-review no_agent silent failure (info)
+
+**Finding:** The `obsidian-weekly-review` cron had `no_agent: true`, which suppresses LLM synthesis silently — the cron appeared to run successfully but produced no AI-generated output.
+
+**Risk:** Informational (functionality gap, not security). However, a misconfigured cron that silently skips its main purpose is a reliability risk.
+
+**Remediation (applied):** `no_agent: true` removed. Cron now runs in agent mode with `hermes-obsidian-sync` skill reference.
+
+---
+
+## SEC-P5-006 — 4 orphan scripts in ~/.hermes/scripts/ (info)
+
+**Finding:** Four scripts with no active cron reference, no skill reference, and no recent invocation:
+- `prune_sessions.sh` — superseded by session-auto-prune
+- `qmd-local.sh.disabled` — stale copy of active qmd-local.sh
+- `hermes-health-watchdog.sh` — replaced by platform-watchdog.sh
+- `hermes-stack-regression.sh` — one-off test, never scheduled
+
+**Risk:** Orphan scripts can be accidentally invoked or cause confusion. No active security risk.
+
+**Remediation (applied):** All 4 removed from `~/.hermes/scripts/`.
+
+---
+
+## SEC-P5-007 — 40 never-used skills (info)
+
+**Finding:** 40 skills have `use_count: 0` and `last_used_at: null` across the skills inventory. These are legitimate, maintained skills — not abandoned code. However, a large inactive skills set increases the skills-router disambiguation surface.
+
+**Risk:** Low. More a maintenance/performance concern than a security issue.
+
+**Status:** Documented. Full list available in `docs/skill-inventory-authoritative.md`. Pending user decision on archival candidates.
+
