@@ -1,9 +1,9 @@
 # Current Hermes Workflow Snapshot
 
-Generated from local runtime state. Last refreshed: 2026-07-03 (upgrade pass 4+5 + audit).
+Generated from local runtime state. Last refreshed: 2026-07-03 (session cleanup + git sync).
 
 ## Runtime
-- Hermes version: Hermes Agent v0.17.0 (2026.6.19) · upstream 3a55f666
+- Hermes version: Hermes Agent v0.18.0 (2026.7.1) · upstream ed412379
 - Config path: `/var/home/rainbow/.hermes/config.yaml`
 - Persona file: `/var/home/rainbow/.hermes/SOUL.md`
 - Task ledger: `/var/home/rainbow/.hermes/logs/hermes-task-ledger.jsonl`
