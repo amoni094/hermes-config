@@ -1,9 +1,9 @@
 # Current Hermes Workflow Snapshot
 
-Generated from local runtime state. Last refreshed: 2026-07-03 (session cleanup + git sync).
+Generated from local runtime state. Last refreshed: 2026-07-05 (architecture doc + scripts inventory update + delegation model / compression threshold drift fixes).
 
 ## Runtime
-- Hermes version: Hermes Agent v0.18.0 (2026.7.1) · upstream ed412379
+- Hermes version: Hermes Agent v0.18.0 (2026.7.1) · upstream dec4485d · local 7e8f50a1 (+1 carried commit)
 - Config path: `/var/home/rainbow/.hermes/config.yaml`
 - Persona file: `/var/home/rainbow/.hermes/SOUL.md`
 - Task ledger: `/var/home/rainbow/.hermes/logs/hermes-task-ledger.jsonl`
@@ -13,9 +13,9 @@ Generated from local runtime state. Last refreshed: 2026-07-03 (session cleanup 
 ## Core operating pattern
 - Main model/provider: `claude-sonnet-4-6` via `anthropic`
 - Fallback chain: `cerebras/gpt-oss-120b` → `sambanova/DeepSeek-V3.1` → `mistral/mistral-large-latest`
-- Delegation model/provider: `claude-opus-4-8` via `anthropic`
+- Delegation model/provider: `claude-sonnet-4-6` via `anthropic`
 - Terminal backend: `local` (persistent shell enabled)
-- Context compression: enabled at threshold `0.5`
+- Context compression: enabled at threshold `0.4`
 - `agent.tool_use_enforcement`: `permissive`; `agent.verify_on_stop`: `false`
 - Memory enabled: `True` / user profile enabled: `True`
 - Web search/extract: `searxng` + `firecrawl`

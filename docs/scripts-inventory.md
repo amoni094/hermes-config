@@ -42,10 +42,13 @@ purpose of each script is disclosed and auditable without opening the file.
 | `groq-split-tunnel.sh` | Route Groq API traffic via split tunnel (Groq blocks datacenter IPs) |
 | `qmd-local.sh` | Launch QMD MCP server (used by mcp_servers.qmd in config.yaml) |
 | `mempalace-mcp.sh` | Launch MemPalace MCP server (currently disabled in config.yaml) |
-| `stealth-browser-mcp.sh` | Launch stealth-browser MCP server |
-| `skills-commit.sh` | Commit current skills snapshot to hermes-config git |
-| `reboot-required-notify.sh` | Notify when a reboot is required (rpm-ostree pending) |
-| `daily-silverblue-update.sh` / `daily-silverblue-update-login-trigger.sh` | Fedora Silverblue layered package auto-update |
+| `stealth-browser-mcp.sh` | Launch stealth browser MCP server for headless browsing tasks |
+| `skills-commit.sh` | Commit and push local skill changes to git (skill snapshot helper) |
+| `daily-silverblue-update.sh` | Run rpm-ostree system update check and optional apply |
+| `daily-silverblue-update-login-trigger.sh` | Trigger daily-silverblue-update.sh on login session start |
+| `reboot-required-notify.sh` | Notify if a pending rpm-ostree deployment requires reboot |
+| `rainbow-silverblue-updates.sudoers` | Sudoers policy file granting passwordless rpm-ostree update commands |
+| `rainbow-toolbox-dnf-update.sudoers` | Sudoers policy file granting passwordless toolbox dnf update commands |
 
 ## Sudoers / access files
 
