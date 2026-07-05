@@ -6,17 +6,92 @@ password fields blanked).
 
 ## What's here
 
-- `config.yaml` — main Hermes config (all audit improvements applied, currently v33)
-- `budget-policy.yaml` — session budget limits
-- `SOUL.md` — agent persona
-- `TOOLS.md` — toolset config and local service summary
-- `veto/rules/` — pre-tool security governance rules
-- `agent-hooks/` — lifecycle hooks
-- `plugins/` — active plugin list
-- `skills-index.md` — skills inventory
-- `cron.snapshot.json` — snapshot of all scheduled cron jobs
-- `audit/` — audit report and change log
-- `scripts/` — repo maintenance scripts (sanitize, validate, inventory, migrate)
+### Files
+
+| Path | Purpose |
+|------|---------|
+| `config.sanitized.yaml` | Sanitized live config (credentials blanked) — v33 |
+| `budget-policy.yaml` | Session token/cost budget limits |
+| `SOUL.md` | Agent persona (~50 words, intentionally minimal) |
+| `TOOLS.md` | Toolset config and local service summary |
+| `veto/rules/` | Pre-tool security governance (hard blocks + warnings) |
+| `agent-hooks/` | Lifecycle hooks |
+| `plugins/` | Active plugin list |
+| `skills-index.md` | Full skills inventory (142 skills / 24 domains) |
+| `cron.snapshot.json` | Scheduled cron job snapshot |
+| `audit/` | Audit reports and change log |
+| `scripts/` | Repo maintenance scripts (sanitize, validate, inventory, migrate) |
+
+### Architecture Overview
+
+This is a self-hosted [Claude](https://claude.ai)-based AI agent running on Fedora 44
+Silverblue (Linux). The framework is [Hermes](https://github.com/nousresearch/hermes) by
+NousResearch. This config repo documents its architecture, customizations, and operational
+state. The full write-up is in [`docs/how-i-work.md`](docs/how-i-work.md); the summary below
+is the core architecture at a glance.
+
+#### Model routing
+
+| Role | Model | When |
+|------|-------|------|
+| Main + delegation | `claude-sonnet-4-6` | All sessions, all subagents |
+| Utility / compression | `claude-haiku-4-5` | Context compression (high-volume internal ops) |
+| Escalation | `claude-fable-5` | Formal verification, adversarial red-team, max reasoning |
+| Offline | `qwen3:8b` (Ollama local) | No network / air-gapped |
+
+Fallback chain: Anthropic → Cerebras (`gpt-oss-120b`) → SambaNova (`DeepSeek-V3.1`) →
+Mistral (`mistral-large-latest`). Context compression fires at threshold 0.4.
+
+#### Memory — 4-layer stack
+
+| Layer | Backend | Scope |
+|-------|---------|-------|
+| 1. Hermes durable | `MEMORY.md` / `USER.md` | Injected every session (~3.8K char budget) |
+| 2. Hindsight | Ollama `local_embedded` | Long-term semantic knowledge base; private (local embeddings) |
+| 3. Graphiti MCP | Neo4j at `:8765` | Episodic relational graph — entity facts, temporal ordering, provenance |
+| 4. QMD / FlowState | Obsidian vault corpus | Personal wiki search; research ingestion |
+
+Session history is always queryable via `session_search` (FTS5 over SQLite). MemPalace
+is installed but disabled.
+
+#### Skills — 142 across 24 domains
+
+Skills are `SKILL.md` files (YAML frontmatter + markdown) covering trigger conditions,
+numbered steps, exact commands, and pitfalls. Key families:
+
+- `autonomous-ai-agents/` — multi-agent orchestration, memory routing, config repo audit, MCP integration
+- `software-development/` — TDD, debugging, code review, context budgeting, routing hierarchy, skill authoring
+- `devops/` — Fedora Atomic ops, Podman, Wi-Fi stability, Wayland, thermal throttling
+- `github/` — issue triage, PR lifecycle, scoped fixes, CI workflow
+- `superpowers/` — brainstorming, plans, git worktrees, parallel agents, reviews
+- `research/` — arXiv, Firecrawl, academic lit review, music/film rec
+- `note-taking/` — Obsidian vault read/write/search, research ingestion
+- `computer-use/` — desktop automation, background UI driving
+
+101 enabled / 41 disabled. Enforced every 4 hours by the `skillspector-guard` cron.
+
+#### Orchestration
+
+- **Parallel subagents** via `delegate_task` — up to 3 concurrent workers; leaf-only
+  (no recursive delegation); full context packet required per worker
+- **8 scheduled cron jobs** — Obsidian sync, session hygiene, Firecrawl watchdog,
+  platform health, memory drift audit, mutation gate check, skill guard, weekly vault review
+- **Ouroboros** — quality escalation path for formal spec → execute → evaluate → iterate loops
+- **Pre-tool veto** — hard-blocks dangerous patterns (network backdoors, disk wipes,
+  credential exfiltration) before tool calls land; separate warn layer for elevated-privilege ops
+
+#### Improvements over out-of-the-box Hermes
+
+1. 4-layer memory stack (OOTB: 1 layer)
+2. Pre-tool veto governance with rule-based hard blocks (OOTB: approval prompts only)
+3. 118 custom skills across 24 domains (OOTB: ~20 builtin)
+4. Multi-provider fallback chain with capability routing (OOTB: single provider)
+5. 8 scheduled background jobs — Obsidian sync, session hygiene, watchdogs, weekly review (OOTB: none)
+6. Local-first search — SearXNG + Firecrawl self-hosted; no queries leave local network (OOTB: external APIs)
+7. Minimal persona (~50 words); behavioral rules in AGENTS.md + veto layer + skills (OOTB: monolithic constitution)
+8. Config versioning with structured upgrade passes and a dedicated reasoning model (OOTB: no versioning)
+9. Automated skill quality enforcement via `skillspector-guard` cron (OOTB: no quality layer)
+10. Hermes-to-Cowork port repo — translates all config to Claude Desktop Tasks equivalents
 
 ## Documentation (docs/)
 
