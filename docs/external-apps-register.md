@@ -37,12 +37,11 @@ Hermes instance depends on or interacts with.
 
 | Provider | Key env var | Quota / tier | Status | Notes |
 |----------|------------|--------------|--------|-------|
-| Anthropic | `ANTHROPIC_API_KEY` | Paid | Active (primary) | claude-sonnet-4-6 main session; claude-opus-4-8 delegation; claude-haiku-4-5 auxiliary |
-| Cerebras | `CEREBRAS_API_KEY` | Free (14,400 RPD) | Active | Fallback #1; free tier 8K ctx cap |
-| SambaNova | `SAMBANOVA_API_KEY` | Free (20 RPD/model) | Active | Fallback #2; no data training |
-| Mistral | `MISTRAL_API_KEY` | Free (~1B tok/month) | Active | Fallback #3; data training opt-in |
-| Google Gemini | `GOOGLE_API_KEY` | Free (1,500 RPD) | Key present, **not in fallback chain** | Prompts used for training outside EU/UK/EEA |
-| Groq | `GROQ_API_KEY` | Free (1,000 RPD) | Key commented out in .env | Blocked from datacenter IPs; split-tunnel required |
+| Anthropic | `ANTHROPIC_API_KEY` | Paid | Active (primary) | claude-sonnet-5 for both main session and delegation; no separate escalation/utility Anthropic tier configured |
+| Cerebras | `CEREBRAS_API_KEY` | Free (14,400 RPD) | Active | Fallback #1; also auxiliary.compression (zai-glm-4.7); free tier 8K ctx cap |
+| SambaNova | `SAMBANOVA_API_KEY` | Free (20 RPD/model) | Active | Fallback #2 (DeepSeek-V3.2); no data training |
+| Mistral | `MISTRAL_API_KEY` | Free (~1B tok/month) | Active | Fallback #3 (mistral-large-latest); data training opt-in |
+| OpenAI | `OPENAI_API_KEY` | Paid | Key present, **not in routing config** | Not wired into `config.yaml` (no `custom_providers` entry); usable only via explicit `-m`/provider override, e.g. cross-provider adversarial review |
 | Telegram | `TELEGRAM_BOT_TOKEN` | — | Active | Primary gateway for mobile notifications |
 | OpenAI Codex | — | — | Logged in | Used by `opencode-hermes-multiagent` / ACP skill |
 | WhatsApp | npm bridge | — | **Dormant / disconnected** | `hermes doctor` reports 1 critical + 2 high npm vulns; do not reconnect without explicit request |
@@ -83,6 +82,7 @@ Project entry point: `~/research-output/scripts/run_pipeline.py --demo`
 
 - **WhatsApp bridge**: intentionally dormant; npm vulns present; do not reconnect without explicit user request
 - **MemPalace**: present but disabled; no active use case
-- **Gemini key**: present but not in active fallback chain (training data risk outside EU)
-- **Groq key**: present but commented out (.env); split-tunnel needed; not active fallback
+- **OpenAI key**: present (paid) but not wired into `config.yaml` routing; no `GOOGLE_API_KEY` or
+  `GROQ_API_KEY` exists in `.env` on this instance — any prior doc claiming Gemini/Groq keys are
+  present described an earlier, unconfigured plan and was corrected 2026-07-06
 - **Stealth browser MCP**: installed but not wired into config.yaml mcp_servers; manual use only

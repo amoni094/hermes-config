@@ -34,13 +34,14 @@ is the core architecture at a glance.
 
 | Role | Model | When |
 |------|-------|------|
-| Main + delegation | `claude-sonnet-4-6` | All sessions, all subagents |
-| Utility / compression | `claude-haiku-4-5` | Context compression (high-volume internal ops) |
-| Escalation | `claude-fable-5` | Formal verification, adversarial red-team, max reasoning |
-| Offline | `qwen3:8b` (Ollama local) | No network / air-gapped |
+| Main + delegation | `claude-sonnet-5` (anthropic) | All sessions, all subagents |
+| Auxiliary / compression | `zai-glm-4.7` (cerebras) | Context compression (high-volume internal ops) |
 
-Fallback chain: Anthropic → Cerebras (`gpt-oss-120b`) → SambaNova (`DeepSeek-V3.1`) →
-Mistral (`mistral-large-latest`). Context compression fires at threshold 0.4.
+There is a single primary model (`claude-sonnet-5` via `anthropic`) used for both main
+sessions and delegated subagents — no separate escalation tier is configured. Fallback
+chain: Anthropic → Cerebras (`gpt-oss-120b`) → SambaNova (`DeepSeek-V3.2`) →
+Mistral (`mistral-large-latest`). Context compression fires at threshold 0.4, routed to
+Cerebras `zai-glm-4.7`.
 
 #### Memory — 4-layer stack
 
@@ -208,41 +209,39 @@ Ollama serves embeddings at `http://localhost:11434`. Installed models: `qwen3:8
 
 ## LLM Routing
 
-Provider-agnostic routing with an Anthropic primary chain, capability-based escalation,
-and a multi-provider fallback. Full routing table in `docs/routing-and-workflow.md`.
+Single-model Anthropic orchestration with a multi-provider fallback chain and dedicated
+auxiliary routing for compression. Full routing table in `docs/routing-and-workflow.md`.
 
-### Primary chain (Anthropic)
+### Primary model (Anthropic)
 
 | Role | Model | When |
 |------|-------|------|
-| Main orchestration | claude-sonnet-4-6 | Default for all sessions |
-| Delegation workers | claude-sonnet-4-6 | Subagents and parallel workers (same model as main) |
-| Auxiliary / utility | claude-haiku-4-5 | Context compression (high-volume internal operations) |
-| Escalation | claude-fable-5 | Formal verification, adversarial red-team, >100K token synthesis, max reasoning; escalate only when correctness > cost |
+| Main orchestration | claude-sonnet-5 | Default for all sessions |
+| Delegation workers | claude-sonnet-5 | Subagents and parallel workers (same model as main) |
+| Auxiliary / compression | zai-glm-4.7 (cerebras) | Context compression (high-volume internal operations) |
 
-**Escalation discipline:** Do not escalate to Fable-5 for routine edits, simple debug, or
-summarization. Escalate only when the task genuinely requires maximum reasoning or very large
-document synthesis.
+There is no separate escalation or utility model — main sessions and delegated subagents
+both use `claude-sonnet-5` via `anthropic`. Compression is the only auxiliary routing rule
+and is handled by Cerebras `zai-glm-4.7`, not by Anthropic.
 
 ### Fallback chain
 Fires automatically on Anthropic 429 / timeout / unavailability:
 1. `cerebras / gpt-oss-120b` — fast, high-volume free tier, 8K context cap
-2. `sambanova / DeepSeek-V3.1` — long-context, no data-training policy
+2. `sambanova / DeepSeek-V3.2` — long-context, no data-training policy
 3. `mistral / mistral-large-latest` — high token budget, 262K context
 
-### Capability-based routing (free-tier providers)
-Multiple free-tier providers are configured for cron jobs, leaf subagents, and auxiliary tasks.
+### Capability-based routing (configured free-tier providers)
+Cerebras, SambaNova, and Mistral are configured as free-tier fallback/auxiliary providers.
 Key routing heuristics:
-- Context >128K → Gemini 2.5 Flash (1M context window)
-- Context 32K–128K, code → Codestral (256K, purpose-built for code)
 - Context <8K, max throughput → Cerebras gpt-oss-120b (14,400 RPD, ~2,600 tok/s)
-- Speed-critical / real-time → Groq llama-3.3-70b (lowest latency, ~320 tok/s)
-- Privacy-sensitive → SambaNova or GitHub Models (no data-training policies)
-- Offline / no network → local Qwen3:8b via Ollama (always available)
+- Context 32K–196K, privacy-sensitive → SambaNova (no data-training policy)
+- Context up to 262K, code-heavy → Mistral codestral-latest / devstral-latest
+- Compression / high-volume internal ops → Cerebras zai-glm-4.7
 
 ### Context compression
-Enabled at threshold 0.4. Claude Haiku is the auxiliary model for compression operations.
-This reduces token spend on long sessions without changing the primary model's context.
+Enabled at threshold 0.4. Cerebras `zai-glm-4.7` is the auxiliary model for compression
+operations. This reduces token spend on long sessions without changing the primary model's
+context.
 
 ---
 
@@ -256,7 +255,7 @@ subagents.
 ### Delegate_task (parallel subagents)
 Used when work is independent across multiple subtasks or would flood the main context window
 with intermediate data. Each subagent gets an isolated terminal session and context packet.
-Config: `claude-sonnet-4-6` as delegation model, `max_concurrent_children: 3`,
+Config: `claude-sonnet-5` as delegation model, `max_concurrent_children: 3`,
 `max_spawn_depth: 1`.
 
 **When to delegate:**

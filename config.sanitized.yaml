@@ -1,7 +1,7 @@
 model:
   provider: anthropic
-  default: claude-sonnet-4-6
-  context_length: 128000
+  default: claude-sonnet-5
+  context_length: 200000
 toolsets:
 - hermes-cli
 agent:
@@ -16,18 +16,14 @@ terminal:
   timeout: 180
 compression:
   enabled: true
-  threshold: 0.5
-auxiliary:
-  compression:
-    provider: anthropic
-    model: claude-haiku-4-5
+  threshold: 0.4
 display:
   resume_display: compact
   resume_exchanges: 3
   tool_progress: all
 memory:
   memory_char_limit: 2200
-  user_char_limit: 1375
+  user_char_limit: 1600
   provider: hindsight
 approvals:
   destructive_slash_confirm: false
@@ -36,6 +32,7 @@ onboarding:
   seen:
     openclaw_residue_cleanup: true
     tool_progress_prompt: true
+    busy_input_prompt: true
 _config_version: 33
 plugins:
   enabled:
@@ -57,12 +54,85 @@ mcp_servers:
 fallback_model:
 - provider: cerebras
   model: gpt-oss-120b
+  base_url: https://api.cerebras.ai/v1
 - provider: sambanova
-  model: DeepSeek-V3.1
+  model: DeepSeek-V3.2
+  base_url: https://api.sambanova.ai/v1
 - provider: mistral
   model: mistral-large-latest
+  base_url: https://api.mistral.ai/v1
 delegation:
-  model: claude-opus-4-8
+  model: claude-sonnet-5
   provider: anthropic
   max_spawn_depth: 1
   max_concurrent_children: 3
+skills:
+  disabled:
+  - apple-notes
+  - apple-reminders
+  - architecture-diagram
+  - ascii-art
+  - ascii-video
+  - auto
+  - baoyu-infographic
+  - brownfield
+  - cancel
+  - claude-design
+  - codeql
+  - codex
+  - config
+  - design-md
+  - dogfood
+  - evaluate
+  - evolve
+  - excalidraw
+  - findmy
+  - fp-check
+  - gif-search
+  - heartmula
+  - help
+  - huggingface-hub
+  - humanizer
+  - imessage
+  - kanban-orchestrator
+  - kanban-worker
+  - macos-computer-use
+  - maps
+  - nab-formatting
+  - nano-pdf
+  - ocr-and-documents
+  - p5js
+  - pm
+  - political-source-monitoring
+  - popular-web-designs
+  - powerpoint
+  - pretext
+  - publish
+  - qa
+  - ralph
+  - research-document-output
+  - resume-session
+  - rich-pdf-generation
+  - run
+  - sarif-parsing
+  - seed
+  - simplify-code
+  - sketch
+  - songsee
+  - songwriting-and-ai-music
+  - source-backed-wiki-curation
+  - status
+  - thunderbird-cli-anything
+  - tutorial
+  - ucb-pharma-formatting
+  - unstuck
+  - update
+  - welcome
+  - xurl
+  - youtube-content
+  - yuanbao
+auxiliary:
+  compression:
+    provider: cerebras
+    model: zai-glm-4.7
+    base_url: https://api.cerebras.ai/v1

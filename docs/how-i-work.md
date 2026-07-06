@@ -100,7 +100,7 @@ The routing skill (`hermes-memory-surface-selection`) governs which layer to use
 
 ### Context compression
 - Triggered automatically when context approaches threshold (0.4 = 40% of max).
-- Compression model: `claude-haiku-4-5` (fast, cheap).
+- Compression model: `cerebras/zai-glm-4.7` (auxiliary.compression, off the main model).
 - Compressed context is a summarized handoff; tool results and intermediate data are
   elided. The primary model context is preserved at the summary level.
 - Resume display is set to compact (3 exchanges shown on resume).
@@ -120,7 +120,7 @@ The routing skill (`hermes-memory-surface-selection`) governs which layer to use
 - Used when: (a) subtasks are independent and can run in parallel, (b) a subtask
   would flood the main context window with intermediate data, (c) a subtask requires
   reasoning-heavy isolated work (code review, research synthesis, debugging).
-- **Config:** `delegation.model: claude-sonnet-4-6`, `max_concurrent_children: 3`,
+- **Config:** `delegation.model: claude-sonnet-5`, `max_concurrent_children: 3`,
   `max_spawn_depth: 1` (leaf subagents only; no recursive delegation).
 - **Context packet discipline:** Subagents have no memory of the parent conversation.
   All required context (file paths, error messages, constraints, goal, done criteria,

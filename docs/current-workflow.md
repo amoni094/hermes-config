@@ -11,9 +11,10 @@ Generated from local runtime state. Last refreshed: 2026-07-05 (architecture doc
 - Host: Fedora 44 Silverblue (immutable rpm-ostree), kernel 7.0.14-201.fc44.x86_64, home `/var/home/rainbow`
 
 ## Core operating pattern
-- Main model/provider: `claude-sonnet-4-6` via `anthropic`
-- Fallback chain: `cerebras/gpt-oss-120b` → `sambanova/DeepSeek-V3.1` → `mistral/mistral-large-latest`
-- Delegation model/provider: `claude-sonnet-4-6` via `anthropic`
+- Main model/provider: `claude-sonnet-5` via `anthropic`
+- Fallback chain: `cerebras/gpt-oss-120b` → `sambanova/DeepSeek-V3.2` → `mistral/mistral-large-latest`
+- Delegation model/provider: `claude-sonnet-5` via `anthropic`
+- Auxiliary compression model/provider: `cerebras/zai-glm-4.7` (auxiliary.compression, added and verified via `hermes doctor`)
 - Terminal backend: `local` (persistent shell enabled)
 - Context compression: enabled at threshold `0.4`
 - `agent.tool_use_enforcement`: `permissive`; `agent.verify_on_stop`: `false`
