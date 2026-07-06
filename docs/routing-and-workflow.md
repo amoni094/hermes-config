@@ -141,6 +141,35 @@ Pattern D — Anthropic with auto-fallback:
 | SambaNova | 20/model | 32K–196K | No | Yes |
 | Mistral | ~1B tok/mo | 256K–262K | YES (opt-in req) | Yes |
 
+## OpenAI — wired as explicit-override custom provider (2026-07-06)
+
+Not in the automatic fallback chain. Live in config.yaml as:
+
+```yaml
+custom_providers:
+- name: openai
+  base_url: https://api.openai.com/v1
+  key_env: OPENAI_API_KEY
+  api_mode: chat_completions
+  context_length: 128000
+  max_output_tokens: 16384
+  models:
+    gpt-5.4:
+      context_length: 1050000
+    gpt-5.5:
+      context_length: 1050000
+```
+
+Use only via explicit override (`-m gpt-5.4 --provider custom:openai` or a
+`delegate_task`/cron `model={"provider": "custom:openai", "model": "gpt-5.4"}` override) —
+never assume it's auto-routed. Intended use: cross-provider adversarial review / independent
+verifier role, not a routing default (SWE-bench Pro and OSWorld both favor claude-sonnet-5 for
+this account's workload — see `docs/routing-proposal-2026-07-06.md` §"Should gpt-5.4/gpt-5.5
+replace..." for the full comparison). See the `claude-routing-hierarchy` skill for the CLI
+max_tokens gotcha (`cli.py`'s max_tokens resolution ignores a custom provider's
+`max_output_tokens` — the gateway path honors it, the plain `hermes chat` CLI path does not;
+workaround is a per-call `HERMES_MAX_TOKENS` override, not a global config change).
+
 ## Notes
 
 - Cerebras 8K context cap on free tier is a hard limit — do not use for long documents.

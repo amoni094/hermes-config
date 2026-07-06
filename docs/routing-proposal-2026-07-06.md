@@ -1,6 +1,11 @@
 # Routing & Multi-Model Workflow Proposal — 2026-07-06
 
-Status: DRAFT — pending adversarial review round 1
+Status: IMPLEMENTED (2026-07-06) — the `auxiliary.compression` block and the
+`custom_providers: openai` entry proposed below are both now live in
+`~/.hermes/config.yaml` and confirmed working end-to-end (see
+`docs/current-workflow.md` and the `claude-routing-hierarchy` skill for the
+verified live state; this file is kept as the design rationale, not a
+pending draft).
 Author: agent (this session), grounded in live-verified state, not the existing docs.
 
 ## 0. Why this doc exists

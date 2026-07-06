@@ -46,6 +46,7 @@ ALLOWLIST = {
     "redact_secrets",    # boolean policy flag
     "redact_pii",        # boolean policy flag
     "max_tokens",        # numeric model param, not a secret
+    "max_output_tokens", # numeric model param, not a secret (contains "token" substring)
     "show_token_analytics",  # boolean display flag
     "session_ttl_seconds",   # numeric TTL, not a secret
 }
