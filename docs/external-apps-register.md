@@ -1,7 +1,7 @@
 # External Apps and Services Register
 
 Last updated: 2026-08-18 (Ollama removed; FalkorDB replaces Neo4j; model names corrected to sonnet-4-6;
-Hindsight API-based; new integrations documented)
+Hindsight API-based; new integrations documented; repo1 LLM gateway project added)
 
 All external apps, local services, and third-party integrations this Hermes instance depends on.
 
@@ -71,3 +71,11 @@ All inference uses cloud APIs (Anthropic, OpenAI embeddings).
 - Home: /var/home/rainbow
 - Toolbox: available for mutable container work
 - Python: 3.11.15 (Hermes venv); system also has 3.14.6
+
+---
+
+## Active local projects
+
+| Project | Path | Purpose |
+|---------|------|---------|
+| repo1 (LLM Efficiency Gateway) | `/var/home/rainbow/repo1` | FastAPI gateway applying policy redaction, prompt optimization, and cost-tier model routing. Monorepo with packages: evals, policy, optimizer, router, telemetry. See `docs/repo1-eval-harness.md`. |

@@ -104,6 +104,7 @@ numbered steps, exact commands, and pitfalls. Key families:
 - `docs/operations-surface-register.md` — cron job table, delivery modes, watchdog coverage
 - `docs/routing-and-workflow.md` — provider/model reference and routing rationale
 - `docs/upgrade-pass-*.md` — historical upgrade passes and security hardening decisions
+- `docs/repo1-eval-harness.md` — LLM Efficiency Gateway (repo1): eval harness design, regression suite, EWMA drift detection, and adversarial pass findings (2026-08-18)
 
 ---
 
@@ -343,7 +344,7 @@ The system is designed to improve itself over time without requiring explicit us
   passes from stale hardcoded keys
 
 ### Config evolution
-- Config is versioned (`_config_version: 33`). Upgrade passes are logged in `docs/upgrade-pass-*.md`.
+- Config is versioned (`_config_version: 37`). Upgrade passes are logged in `docs/upgrade-pass-*.md`.
 - Conservative disable-only approach for capabilities: features are disabled (reversible)
   before being deleted
 - `hermes config check` is run after every config change; `hermes doctor` on a maintenance
