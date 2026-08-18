@@ -1,75 +1,128 @@
 {
-  "snapshot_date": "2026-07-03",
-  "total_jobs": 8,
+  "snapshot_date": "2026-08-18",
+  "total_jobs": 15,
   "jobs": [
     {
-      "name": "hourly-hermes-chat-sync",
+      "name": "hermes-chat-sync-4h",
       "schedule": "every 240m",
       "mode": "agent",
       "skills": ["hermes-obsidian-sync"],
       "deliver": "local",
-      "last_run": "ok"
+      "workdir": "/var/home/rainbow",
+      "status": "active"
     },
     {
       "name": "hermes-mutation-gate-watch",
       "schedule": "every 1440m",
-      "mode": "no-agent",
+      "mode": "no_agent",
       "script": "hermes-mutation-gate-watch.sh",
       "deliver": "local",
-      "last_run": "ok"
+      "status": "active"
     },
     {
       "name": "hermes-memory-drift-audit",
       "schedule": "every 1440m",
-      "mode": "no-agent",
+      "mode": "no_agent",
       "script": "hermes-memory-drift-audit.py",
       "deliver": "local",
-      "last_run": "ok"
+      "status": "active"
     },
     {
       "name": "skillspector-guard",
       "schedule": "every 240m",
-      "mode": "no-agent",
+      "mode": "no_agent",
       "script": "skillspector_guard_enforce.sh",
       "deliver": "local",
-      "last_run": "ok"
+      "status": "active"
     },
     {
       "name": "firecrawl-watchdog",
       "schedule": "every 10m",
-      "mode": "no-agent",
+      "mode": "no_agent",
       "script": "firecrawl_watchdog.sh",
       "deliver": "local",
-      "last_run": "ok"
+      "status": "active"
     },
     {
       "name": "hermes-platform-watchdog",
       "schedule": "every 720m",
-      "mode": "no-agent",
+      "mode": "no_agent",
       "script": "hermes-platform-watchdog.sh",
       "deliver": "local",
-      "last_run": "ok"
+      "status": "active"
     },
     {
       "name": "session-auto-prune",
       "schedule": "every 240m",
-      "mode": "no-agent",
+      "mode": "no_agent",
       "script": "session-prune.sh",
       "deliver": "local",
-      "last_run": "ok"
+      "status": "active"
     },
     {
       "name": "obsidian-weekly-review",
       "schedule": "0 17 * * 5",
       "mode": "agent",
-      "skills": ["hermes-obsidian-sync"],
+      "skills": ["hermes-obsidian-sync", "obsidian"],
       "script": "obsidian_weekly_review.sh",
       "deliver": "local",
-      "note": "Fixed 2026-07-03: was no_agent=true (silently dropped LLM synthesis); now agent mode"
+      "status": "active"
+    },
+    {
+      "name": "browser-orphan-watchdog",
+      "schedule": "every 30m",
+      "mode": "no_agent",
+      "script": "browser_orphan_watchdog.sh",
+      "deliver": "local",
+      "status": "active"
+    },
+    {
+      "name": "l1-extract-periodic",
+      "schedule": "every 180m",
+      "mode": "no_agent",
+      "script": "l1-extract.py",
+      "deliver": "local",
+      "status": "active"
+    },
+    {
+      "name": "l1-hindsight-promote",
+      "schedule": "every 240m",
+      "mode": "agent",
+      "skills": ["hindsight-stack-operations"],
+      "deliver": "local",
+      "status": "active"
+    },
+    {
+      "name": "l1-promote-periodic",
+      "schedule": "every 220m",
+      "mode": "no_agent",
+      "script": "l1-promote.py",
+      "deliver": "local",
+      "status": "active"
+    },
+    {
+      "name": "omni-skill-quality-scan",
+      "schedule": "0 3 * * 0",
+      "mode": "no_agent",
+      "script": "omni_skill_scan.py",
+      "deliver": "local",
+      "status": "active"
+    },
+    {
+      "name": "skill-prune-audit",
+      "schedule": "0 9 1 * *",
+      "mode": "no_agent",
+      "script": "skill_prune_audit.py",
+      "deliver": "local",
+      "status": "active"
+    },
+    {
+      "name": "g-memory-tier3-nightly",
+      "schedule": "0 3 * * *",
+      "mode": "no_agent",
+      "script": "l1-gmemory-consolidation.py",
+      "deliver": "local",
+      "status": "active"
     }
-  ],
-  "notes": [
-    "prune-sessions-daily removed (duplicate of session-auto-prune) 2026-07-03",
-    "All 8 jobs last-run: ok as of 2026-07-03"
   ]
 }

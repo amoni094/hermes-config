@@ -11,21 +11,22 @@ author: Hermes
 
 | Role | Model | When to use |
 |------|-------|-------------|
-| Main session | claude-sonnet-5 | Default orchestration |
-| Delegation workers | claude-sonnet-5 | Subagents and parallel workers (same model as main) |
-| Auxiliary / compression | zai-glm-4.7 (cerebras) | Context compression, high-volume internal ops |
+| Main session | claude-sonnet-4-6 | Default orchestration |
+| Delegation workers | claude-sonnet-4-6 | Subagents and parallel workers (same model as main) |
+| Auxiliary vision | claude-haiku-4-5 (anthropic) | Vision analysis tasks |
+| Auxiliary / compression | zai-glm-4.7 (cerebras) | Context compression, web_extract, high-volume internal ops |
 
-There is a single configured Anthropic model — `claude-sonnet-5` — used for both main
+There is a single configured Anthropic chat model — `claude-sonnet-4-6` — used for both main
 orchestration and delegated subagents. No separate escalation or utility Anthropic tier is
-configured. The only auxiliary routing rule is context compression, which is routed off
-Anthropic entirely to Cerebras `zai-glm-4.7` (see `auxiliary.compression` in config.yaml).
+configured. Auxiliary routing: compression and web_extract route to Cerebras `zai-glm-4.7`;
+vision routes to `claude-haiku-4-5` (see `auxiliary.*` in config.yaml).
 
 ---
 
 ## Fallback chain (config.yaml fallback_model)
 
 Fires automatically when Anthropic is unavailable/429/timeout:
-  1. anthropic / claude-sonnet-5             (primary)
+  1. anthropic / claude-sonnet-4-6           (primary)
   2. cerebras / gpt-oss-120b                 (free, high RPD, 8K ctx cap on free tier)
   3. sambanova / DeepSeek-V3.2               (free, long-context, no data-training policy)
   4. mistral / mistral-large-latest          (free-tier volume, 262K ctx, data training opt-in)
@@ -86,7 +87,7 @@ individually confirmed present in that live response:
 
 | Scenario | Model | Provider | Why |
 |----------|-------|----------|-----|
-| Anthropic primary orchestration | claude-sonnet-5 | anthropic | Default, only configured Anthropic model |
+| Anthropic primary orchestration | claude-sonnet-4-6 | anthropic | Default, only configured Anthropic chat model |
 | Context <8K, max throughput | gpt-oss-120b | cerebras | 14,400 RPD, ~2600 tok/s |
 | Context 32K, best one-shot quality | DeepSeek-V3.2 | sambanova | Best reasoning, 20 RPD, first fallback hop |
 | Context 32K–196K, privacy-safe | gpt-oss-120b or MiniMax-M2.7 | sambanova | No data training |
@@ -104,8 +105,10 @@ Internal Hermes ops — routed off the primary Anthropic model to save cost/late
 
 | Task | Provider | Model |
 |------|----------|-------|
-| compression | cerebras | zai-glm-4.7 (auxiliary.compression, threshold 0.4) |
-| everything else | anthropic | claude-sonnet-5 |
+| compression | cerebras | zai-glm-4.7 (auxiliary.compression, threshold 0.35) |
+| web_extract | cerebras | zai-glm-4.7 (auxiliary.web_extract) |
+| vision | anthropic | claude-haiku-4-5 (auxiliary.vision) |
+| everything else | anthropic | claude-sonnet-4-6 |
 
 There is no separate title-generation or skills-hub auxiliary route configured; those
 operations use the primary model unless/until a dedicated auxiliary entry is added to
@@ -128,7 +131,7 @@ Pattern C — best quality, once-daily task:
   model={"provider": "sambanova", "model": "DeepSeek-V3.2"}
 
 Pattern D — Anthropic with auto-fallback:
-  model={"provider": "anthropic", "model": "claude-sonnet-5"}
+  model={"provider": "anthropic", "model": "claude-sonnet-4-6"}
   (fallback chain: cerebras -> sambanova -> mistral kicks in if Anthropic is down)
 
 ---

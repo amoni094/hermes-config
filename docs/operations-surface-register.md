@@ -1,78 +1,49 @@
 # Operations Surface Register
 
-Generated: 2026-06-30
+Generated: 2026-08-18 (refreshed from 2026-07-03; 7 new jobs added, job names corrected)
 
-This note exists to reduce background-complexity debt. It records the live cron/watchdog estate and the current posture of optional integrations that showed up in the latest adversarial pass.
+This note records the live cron/watchdog estate and the current posture of optional integrations.
 
 ## Cron and watchdog jobs
 
-Verified with:
-- `hermes cron list --all`
-- repo snapshot `cron.snapshot.json`
+Verified with `hermes cron list --all` on 2026-08-18. All 15 jobs active, all last-run: ok.
 
-Last refreshed: 2026-07-03 (8 jobs active)
-
-| Job | Schedule | Deliver | Mode | Purpose | Current status |
-|---|---|---:|---|---|---|
-| `hourly-hermes-chat-sync` | every 240m | `local` | agent | sync recent Hermes activity into the Obsidian vault | active / last run ok |
-| `hermes-mutation-gate-watch` | every 1440m | `local` | script | check mutation-gate state | active / last run ok |
-| `hermes-memory-drift-audit` | every 1440m | `local` | script | audit durable memory drift | active / last run ok |
-| `skillspector-guard` | every 240m | `local` | script | enforce skill guard checks | active / last run ok |
-| `firecrawl-watchdog` | every 10m | `local` | script | keep Firecrawl healthy | active / last run ok |
-| `hermes-platform-watchdog` | every 720m | `local` | script | broad Hermes platform health check | active / last run ok |
-| `session-auto-prune` | every 240m | `local` | script | prune stale Hermes sessions | active / last run ok |
-| `obsidian-weekly-review` | 0 17 * * 5 | `local` | agent + script | weekly Obsidian vault review | active / last run ok |
+| Job | Schedule | Deliver | Mode | Purpose |
+|-----|----------|---------|------|---------|
+| `hermes-chat-sync-4h` | every 240m | `local` | agent | Sync recent Hermes activity into Obsidian vault |
+| `hermes-mutation-gate-watch` | every 1440m | `local` | script | Check mutation-gate state; alert if wrong |
+| `hermes-memory-drift-audit` | every 1440m | `local` | script | Audit durable memory drift vs actual state |
+| `skillspector-guard` | every 240m | `local` | script | Enforce skill-guard checks |
+| `firecrawl-watchdog` | every 10m | `local` | script | Firecrawl health check at :3002 |
+| `hermes-platform-watchdog` | every 720m | `local` | script | Broad platform health (config, MCP, Graphiti) |
+| `session-auto-prune` | every 240m | `local` | script | Prune stale Hermes sessions from session DB |
+| `obsidian-weekly-review` | 0 17 * * 5 | `local` | agent+script | Weekly Obsidian vault review |
+| `browser-orphan-watchdog` | every 30m | `local` | script | Kill orphaned Playwright/Chrome processes |
+| `l1-extract-periodic` | every 180m | `local` | script | Extract L1 facts from session transcripts |
+| `l1-hindsight-promote` | every 240m | `local` | agent | Promote extracted L1 facts to Hindsight |
+| `l1-promote-periodic` | every 220m | `local` | script | L1 promote pipeline (script mode, separate interval to avoid race) |
+| `omni-skill-quality-scan` | 0 3 * * 0 | `local` | script | Weekly skill quality scan across all 179 skills |
+| `skill-prune-audit` | 0 9 1 * * | `local` | script | Monthly skill prune audit |
+| `g-memory-tier3-nightly` | 0 3 * * * | `local` | script | Nightly Graphiti memory consolidation |
 
 ## Delivery semantics note
 
-Important CLI-specific reminder:
-- `deliver: local` means the job output is stored locally; it does not message this terminal session.
-- `deliver: origin` is meaningful for jobs created from gateway-connected chats, but should not be assumed to notify this CLI session.
-
-This matters because an adversarial review should treat silent-or-misread delivery assumptions as operational risk.
+- `deliver: local` means job output is stored locally in `~/.hermes/cron/output/`; it does not message the CLI terminal.
+- `deliver: origin` is meaningful only for jobs created from gateway-connected chats (Telegram etc.).
+- All current jobs use `deliver: local`.
 
 ## Optional integration posture
 
-Verified with:
-- `hermes doctor`
-- `hermes config check`
-
 ### Healthy / intentionally in use
-- Telegram gateway variables are present.
-- Firecrawl local endpoint is configured.
-- SearXNG URL is configured.
-- OpenAI Codex auth is logged in.
+- Telegram gateway: active (primary mobile notifications)
+- Firecrawl: active local endpoint at :3002 (watchdog every 10m)
+- SearXNG: active at local port :8888
+- Graphiti MCP: active at :8765, FalkorDB backend at :6379
+- Hindsight: active at :9177, API-based (Anthropic + OpenAI embeddings) — Ollama NOT used
 
-### Present but needs explicit ownership
-- WhatsApp bridge variables are present and `hermes doctor` reports:
-  - `1 critical`
-  - `2 high`
-  - `2 moderate`
-  npm vulnerabilities in the bridge dependencies
-- Current intended posture for this environment: keep WhatsApp disconnected/dormant unless explicitly re-enabled
+### Present but dormant
+- WhatsApp bridge: variables present; intentionally disconnected/dormant (npm vulns)
+- MemPalace MCP: script present, disabled in config.yaml
 
-## Required posture decisions
-
-### 1. WhatsApp bridge
-Current state is intentionally disconnected/dormant.
-
-User decision captured for this pass:
-- keep WhatsApp disconnected
-- do not remediate or reconnect it as part of this optimization wave
-
-Operational rule:
-- treat the bridge as intentionally out of scope until the user explicitly asks to re-enable it
-- keep documentation honest that `hermes doctor` may still report dependency vulnerabilities while the bridge remains dormant
-
-This removes the ambiguity without changing the runtime bridge state.
-
-### 2. Cron estate
-Current cron count is still small enough to reason about, but large enough to justify a standing register like this one.
-
-Recommended maintenance rule:
-- every new job should have an obvious owner, purpose, delivery mode, and expected success signal
-- prune jobs whose value no longer exceeds their debugging cost
-
-## Implemented this pass
-- Added this register to the repo.
-- Expanded the root `/var/home/rainbow/AGENTS.md` with cron/watchdog and export-hygiene rules so the policy also exists outside this repo snapshot.
+### Removed
+- Ollama: uninstalled 2026-07-12. Neither Hindsight nor Graphiti use local Ollama anymore.
