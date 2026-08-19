@@ -645,13 +645,7 @@ def main() -> int:
         print(f"ERROR: Unsupported file type '{suffix}'. Supported: .pdf, .docx", file=sys.stderr)
         return 1
 
-    # Dependency check
-    missing = check_deps(no_ner=args.no_ner)
-    if missing:
-        print("ERROR: Missing required packages. Install with:\n" + "\n".join(missing), file=sys.stderr)
-        return 1
-
-    # Derive output paths
+    # Derive output paths (needed for quality report even in --check-ocr-only)
     output_path = (
         Path(args.output).expanduser().resolve()
         if args.output
@@ -684,6 +678,12 @@ def main() -> int:
     if args.check_ocr_only:
         print(json.dumps(quality, indent=2))
         return 0
+
+    # Dependency check (deferred until after --check-ocr-only early exit)
+    missing = check_deps(no_ner=args.no_ner)
+    if missing:
+        print("ERROR: Missing required packages. Install with:\n" + "\n".join(missing), file=sys.stderr)
+        return 1
 
     # Halt on unreadable
     if quality["ocr_quality"] == "unreadable":
