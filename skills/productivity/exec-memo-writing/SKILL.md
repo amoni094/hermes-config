@@ -6,7 +6,7 @@ triggers:
   - User asks to turn notes/analysis into a concise executive document
   - User needs a 1–2 page brief for a board, CEO, or executive team
 description: "Use when writing exec memos or briefings (2-page max)."
-version: 1.0.0
+version: 1.1.0
 license: MIT
 platforms: [linux, macos, windows]
 metadata:
@@ -58,6 +58,8 @@ Ask (yourself or the user) before writing:
 
 If you can't answer these, ask before drafting.
 
+For AI-generated memos: also ask — what is the relationship between the writer and the reader (direct report to CEO, peer-to-peer, external to board)? AI drafts tend to be transactionally correct but relationally flat. Without this context, the tone may be technically accurate but inappropriate for the relationship.
+
 ---
 
 ## Structure — Default (BLUF + Minto hybrid)
@@ -103,6 +105,8 @@ MECE: mutually exclusive, collectively exhaustive — no overlap, no gaps.
 Example: three arguments = "Cost savings justify the switch" + "Vendor Y's reliability record is stronger" + "Transition risk is manageable." Each stands alone; together they cover the decision space.
 Bullets only for truly parallel items (≤5); otherwise prose.
 
+SCQ option: if the memo was triggered by a discrete event (cost spike, new regulation, competitive move), use Situation → Complication → Question → Answer instead of pure deductive pyramid. More natural narrative arc; less mechanical than MECE groupings for event-triggered memos.
+
 Uncertainty: if genuine, use scenario framing:
   Base case: [X] | Downside: [Y] | Upside: [Z]
 
@@ -132,7 +136,8 @@ Referenced from body; not required for the decision.
 ## Structure variants by context
 
 ### Variant A: Crisis / Operational SitRep (SBAR)
-Use when: incident, outage, regulatory breach, safety event, fast-moving situation.
+Use when: incident, outage, regulatory breach, safety event, fast-moving situation, or healthcare-adjacent context.
+Scope note: SBAR has limited diffusion into general business writing — use it only for genuine crisis/risk/safety contexts. For standard strategy or operational memos, use the default hybrid above.
 
 ```
 SITUATION:      What is happening right now. One paragraph.
@@ -153,7 +158,7 @@ Structure: Situation → Background → Analysis → (softly framed) Recommendat
 Lead paragraph: shared context, not the ask.
 Recommendation: "Based on this analysis, the team believes X is the strongest path" — not "Recommend X."
 
-### Variant E: Sensitive / Political Topic (board conflict, regulatory failure, executive conduct)
+### Variant D: Sensitive / Political Topic (board conflict, regulatory failure, executive conduct)
 Use when: the subject is politically charged and recommendation-first may close minds before the reader has accepted the framing.
 
 Structure: Situation (neutral, factual) → Background (shared context, no loaded language) → Analysis (objective, evidence-only) → Softly framed recommendation or options.
@@ -161,10 +166,20 @@ Do NOT use the word "problem" — use "situation" or "challenge." Avoid assignin
 Tone: measured, not alarmed. "This warrants attention" not "This is a crisis." Let the evidence carry the weight.
 Close: offer options or invite direction rather than advocating strongly — preserves the reader's agency.
 
-### Variant D: Options Memo (no single recommendation)
+### Variant E: Options Memo (no single recommendation)
 Use when: genuinely uncertain, or the political decision is above the writer's level.
 Structure: Issue → Context → Option A (pros/cons) → Option B (pros/cons) → Option C (pros/cons) → Framing question.
 Close: "Which direction would you like us to pursue? We can move immediately upon your guidance."
+
+### Variant F: Product / Innovation Go-No-Go (PR/FAQ)
+Use when: the memo's purpose is a go/no-go decision on a new product, feature, or initiative (Amazon-derived).
+Structure:
+  1. Press release paragraph (≤150 words): written as if the initiative succeeded — customer benefit, outcome, headline metric.
+     Example opening: "Today [Company] launches [X], reducing customer onboarding time from 14 days to 2, saving $1.2M annually."
+  2. FAQs (5–8 Q&A pairs): anticipated stakeholder questions, answered honestly — including hard ones (cost, risk, alternatives).
+Key rule: write the FAQs first; the press release paragraph emerges from what the FAQs reveal. The press release IS the BLUF.
+Page limit: up to 3 pages (FAQ structure inherently expands; this is expected and acceptable).
+Do not use for operational, financial, or policy memos — purpose-built for product/initiative decisions only.
 
 ---
 
@@ -178,6 +193,7 @@ Close: "Which direction would you like us to pursue? We can move immediately upo
 
 ### Word choice
 - Cut nominalizations: utilization→use, implementation→rollout, consideration→review, facilitation→help.
+- Note: nominal style (noun-heavy writing, even grammatically active) reduces both readability AND reader interest. An executive bored by the writing will discount the content. Cut zombie nouns not just for clarity but for persuasion.
 - Cut hedges: "might perhaps be worth considering" → "recommend."
 - Cut filler: "In order to"→"To"; "Due to the fact that"→"Because"; "At this point in time"→"Now."
 - Concrete over abstract: name the thing, not the category.
@@ -237,6 +253,7 @@ Executives increasingly receive AI pre-summaries of documents. The first 50 word
 - [ ] Does the opening sentence arrest a scanner? (Concrete or counter-intuitive hook)
 - [ ] Is the key number concrete and memorable?
 - [ ] Is the recommendation phrased confidently, not hedged?
+- [ ] Relational tone check (AI gap): is the tone appropriate to the specific relationship — not just technically correct? For board/sensitive/political memos, does the memo acknowledge the relationship context before the ask?
 
 ---
 

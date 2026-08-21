@@ -1,5 +1,5 @@
 # Executive Memo Writing — Research Synthesis
-**Date:** 2026-08-21
+**Date:** 2026-08-21 (v1.1 updated 2026-08-21 — SearXNG research pass 2)
 **Purpose:** Evidence base for the `exec-memo-writing` Hermes skill.
 **Scope:** Academic literature, practitioner frameworks, plain-language policy, GitHub tooling, social signals.
 
@@ -32,8 +32,11 @@ A two-page limit is not arbitrary: it matches the natural scan-depth of one prin
 - Strictly MECE groupings sometimes destroy narrative flow and feel artificial to non-consulting audiences.
 - Doesn't handle uncertainty well — forces a recommendation even when "we don't know yet" is the honest answer.
 - Cultural mismatch: East Asian, Southern European, and many public-sector contexts expect context-before-conclusion (inductive structure). Minto is deductive-first.
+- Falls short for decision consultants under genuine uncertainty: alternatives generation and alternatives framing is a documented gap (Google Scholar, "Some Assembly Required," "Communicating analytic results").
 
 **Verdict:** Use Minto as the default spine for most internal corporate memos. Modify or invert when: (a) audience is culturally inductive, (b) the topic is politically charged and the recommendation needs to land softly, or (c) uncertainty is genuine and the memo's purpose is to frame options not advocate.
+
+**SCQ variant (Situation-Complication-Question):** A lesser-known Minto extension. Adds an explicit "complication" bridge between situation and recommendation — useful when the trigger is a changed condition (cost spike, new regulation, competitive move) that creates the urgency for action. Structure: Situation (the stable baseline) → Complication (what changed/went wrong) → Question (what should we do?) → Answer (recommendation). More natural narrative arc than pure deductive pyramid; recommended for memos triggered by a discrete event.
 
 ### 2b. BLUF — Bottom Line Up Front (US Military origin, widely adopted)
 **Core claim:** First sentence = the single most important thing the reader must know or do. Everything after is support.
@@ -64,7 +67,9 @@ Key principles from plainlanguage.gov:
 - Headers as signposts, not decorations.
 
 ### 2d. SitRep / SBAR (Situation-Background-Assessment-Recommendation)
-Originated in clinical medicine (IHI), now common in healthcare ops, risk teams, and military. Maps naturally to executive memos:
+Originated in clinical medicine (IHI), now common in **healthcare ops, risk teams, and safety-critical contexts**. Scope note: literature search confirms SBAR has limited diffusion into general business executive writing — it is primarily a crisis/clinical/risk tool, not a general-purpose memo structure.
+
+Maps naturally to executive memos in those specific contexts:
 
 | SBAR Component | Memo Equivalent |
 |---|---|
@@ -73,10 +78,14 @@ Originated in clinical medicine (IHI), now common in healthcare ops, risk teams,
 | Assessment | What it means / analysis |
 | Recommendation | What to do |
 
-SBAR preserves the narrative arc that Minto can strip out. Strong for crisis memos, operational updates, and safety/risk situations where context precedes recommendation.
+SBAR preserves the narrative arc that Minto can strip out. Strong for: incident reports, outage communications, safety/risk escalations, and healthcare-adjacent executive briefings. **Do not use SBAR as the default for standard strategy or operational memos** — executives without clinical or military backgrounds find the rigid 4-section label structure mechanical.
 
-### 2e. Amazon's "6-pager" and Narrative Prose tradition
-Amazon famously banned PowerPoint in favour of narrative memos read in silence at the start of meetings. Key insight: prose forces reasoning coherence that bullets hide. Fragmented bullet lists can conceal weak logic.
+### 2e. Amazon's "6-pager", PR/FAQ, and Narrative Prose tradition
+Amazon famously banned PowerPoint in favour of narrative memos read in silence at the start of meetings. Key insight: prose forces reasoning coherence that bullets hide. Fragmented bullet lists can conceal weak logic. Bezos: "Writing a good 4-page memo is harder than writing a 20-slide deck — the act of writing forces you to think clearly." (Quartr/Amazon writing culture, updated Sep 2025)
+
+**Two distinct formats in Amazon's system:**
+- **6-pager (operational/strategy memo):** Narrative prose, ~6 pages, covers problem → context → options → recommendation → metrics. Not practical for the 2-page executive brief format this skill targets.
+- **PR/FAQ (press release + FAQ):** Forward-looking format for product/innovation decisions. Starts with a hypothetical press release for the finished product, then answers likely customer/stakeholder FAQs. Forces teams to think from the customer's perspective before committing resources. Useful as a variant when the memo's purpose is a **go/no-go on a new product or initiative.**
 
 **Relevant takeaway for short memos:**
 - Don't use bullets to avoid writing a sentence. If a point is important, write it as a sentence with a verb.
@@ -107,6 +116,8 @@ SUCCESs framework (Simple, Unexpected, Concrete, Credible, Emotional, Story) is 
 Helen Sword's research (2012, "Stylish Academic Writing") quantifies how nominalizations ("utilization," "implementation," "consideration") bloat sentences and reduce impact.
 - Cut: make a decision → decide; provide assistance → help; in the event that → if.
 - Replace process nouns with verbs wherever possible.
+
+**New finding (v1.1):** Nominal style (noun-heavy writing, even when grammatically active) is rated as harder to read AND less interesting by readers — Sword and subsequent cognitive load research confirm that noun-heavy style reduces engagement independent of sentence length. This matters for executive memos where interest and persuasion are goals, not just information transfer. An executive who is bored by the writing will anchor on form over content.
 
 ### Paragraph structure
 - First sentence of every paragraph = its most important claim (inverted pyramid at paragraph level).
@@ -148,6 +159,12 @@ Post-COVID, post-rate-shock era: executives are more comfortable with "3 scenari
 ### Trend 5: Decision-forcing design
 Best-in-class memos end with a forced choice: "Option A / Option B / Approve as proposed." This prevents "I'll read it later" from becoming "nothing happens." If you want a decision, design for it structurally.
 
+### Trend 6: AI-generated memos — relational gap
+A 2026 academic study ("Communicative Effectiveness and Authenticity in Business English Email Writing: Human-written vs AI-generated," 2026) found: AI-generated business communications score *higher* on task completion (clear ask, explicit action) but *lower* on relational markers — rapport, warmth, contextual sensitivity. This is a systematic bias. For executive memos where relationship context matters (board communication, politically charged topics, sensitive personnel situations), AI drafts need explicit prompting to add relational framing. Checklist item added to skill: "Is the tone appropriate for the specific relationship — not just technically correct?"
+
+### Trend 7: Async Monday Memo (remote finance/ops teams, 2024)
+Practitioner pattern gaining traction in remote-first organisations: a weekly 1-page "Monday Memo" in Notion/Confluence that replaces the Monday status meeting. Fixed structure: Last week's outcomes → This week's priorities → Blockers / decisions needed. Key design features: async-consumable (no meeting needed), bold-scan readable, decision section explicitly names owner + deadline. Relevant extension of the skill's async-first guidance — supports the argument for memo-over-meeting in distributed teams.
+
 ---
 
 ## 5. GitHub and Tooling Landscape
@@ -188,9 +205,16 @@ Surveyed GitHub for exec-memo templates, writing tools, and AI prompt repos. Key
 | Flesch, R. (1948). *A new readability yardstick.* | Academic | Readability formula basis |
 | Charrow & Charrow (1979). *Making legal language understandable.* | Academic | Active voice speed studies |
 | Heath & Heath (2007). *Made to Stick.* | Book | Cognitive stickiness SUCCESs framework |
-| Sword, H. (2012). *Stylish Academic Writing.* | Book | Nominalization research |
-| IHI SBAR Framework | Practitioner | Situation-Background-Assessment-Recommendation |
-| Amazon 6-pager culture (Bezos memos) | Practitioner | Prose > bullets; narrative coherence |
+| Sword, H. (2012). *Stylish Academic Writing.* | Book | Nominalization + nominal style engagement research |
+| IHI SBAR Framework | Practitioner | Situation-Background-Assessment-Recommendation (crisis/clinical only) |
+| Amazon 6-pager + PR/FAQ culture (Bezos memos; Quartr Sep 2025) | Practitioner | Prose > bullets; narrative coherence; PR/FAQ variant |
 | Naumova, I. (2026). *Writing a memo as part of business communication training in a foreign language.* | Academic | Multilingual memo genre analysis |
 | GSA/plainlanguage.gov GitHub (archived) | Open source | Inverted pyramid, sentence length guidelines |
 | ASD-STE100 (Simplified Technical English) | Standard | Controlled vocabulary, one-topic-per-sentence rules |
+| "Some Assembly Required" — SCQ framework analysis | Google Scholar | SCQ variant of Minto for event-triggered memos |
+| "Communicating analytic results" — Alternatives framing | Google Scholar | Pyramid weaknesses under uncertainty |
+| "Building Logic into Communication Using the Minto Pyramid Principle" | Semantic Scholar | Minto validation in business communication |
+| "Communicative Effectiveness and Authenticity in Business English Email Writing: Human-written vs AI-generated" (2026) | Academic | AI memo relational gap — task completion high, warmth low |
+| "AI-Enhanced Cybersecurity Executive Reporting" ACM (2026) | Academic | BLUF in technical executive reporting; maturity model |
+| "Leading With Effective Communication" (2025) | Book | BLUF technique formalised in leadership communication |
+| "Communication Is the Key — Tips for the Judge Advocate, Staff Officer and Leader" (Army Law 2016) | Military Law | BLUF canonical definition and application |
