@@ -1,16 +1,18 @@
 # How This Agent Works — Architecture Reference
 
-Generated: 2026-07-05. Source of truth for system design, memory handling, task execution,
-orchestration, skills, and improvements over out-of-the-box Hermes.
+Generated: 2026-07-05; last refreshed 2026-08-26 for live routing/memory/cron drift.
+Source of truth for system design, memory handling, task execution, orchestration, skills,
+and improvements over out-of-the-box Hermes. Prefer `docs/current-workflow.md` +
+`config.sanitized.yaml` for exact live values when this narrative lags.
 
 ---
 
 ## Overview
 
-This is a self-hosted Claude-based agentic assistant running on Fedora 44 Silverblue.
-The framework is Hermes (NousResearch). The agent runs as a persistent local daemon with
-a persistent shell, multi-layer memory, a skills library, scheduled background automation,
-and a pre-tool security governance layer.
+This is a self-hosted Hermes (NousResearch) agentic assistant on Fedora 44 Silverblue,
+with multi-provider routing (xAI grok-4.5 primary). The agent runs as a persistent local
+daemon with a persistent shell, multi-layer memory, a skills library, scheduled background
+automation, and a pre-tool security governance layer.
 
 The core loop is: receive task → consult memory + skills → plan → execute tools → verify →
 update memory + skills → respond. Most tasks are handled in a single session. Complex,
@@ -35,17 +37,18 @@ The routing skill (`hermes-memory-surface-selection`) governs which layer to use
 - **When NOT to write:** Task progress, PR numbers, completed-work logs, or facts
   that will be stale in 7 days. Those belong in session_search.
 
-### Layer 2 — Hindsight (local_embedded via Ollama)
-- **Backend:** Hindsight library using Ollama embeddings (localhost:11434)
+### Layer 2 — Hindsight (API-based)
+- **Backend:** Hindsight API on :9177 (systemd `hindsight-api.service`); Anthropic LLM inference;
+  OpenAI `text-embedding-3-small` embeddings. Ollama is not used.
 - **Scope:** Long-term structured knowledge, queryable by concept
 - **Retrieval:** `hindsight_recall(query)` for semantic search; `hindsight_reflect(query)`
   for synthesis across stored facts; `hindsight_retain(content)` to write
 - **Content:** Reference data, research synthesis outputs, facts that need semantic
   retrieval across sessions — too large or too volatile for the char-limited durable memory
-- **Privacy:** All embeddings are generated locally by Ollama; nothing is sent to external services
+- **Banks:** `hermes-default` (primary), `hermes` (secondary); helper `unified-recall.py`
 
-### Layer 3 — Graphiti MCP (Neo4j knowledge graph)
-- **Backend:** Graphiti server at localhost:8765, Neo4j database
+### Layer 3 — Graphiti MCP (FalkorDB knowledge graph)
+- **Backend:** Graphiti server at localhost:8765, FalkorDB database
 - **Scope:** Episodic and relational knowledge — entity relationships, temporal facts,
   provenance chains, decision history
 - **Retrieval:** `mcp__graphiti_search_memory_facts(query)` for fact search;
@@ -53,23 +56,18 @@ The routing skill (`hermes-memory-surface-selection`) governs which layer to use
 - **Group IDs:** `hermes` (general agent knowledge), `hermes-reasoning` (reasoning traces)
 - **When to use:** When the relationship between entities matters (who decided what, when,
   under what circumstances); when temporal ordering of facts is relevant
-- **Dependency:** Requires Graphiti server + Neo4j to be running. If the MCP endpoint is
+- **Dependency:** Requires Graphiti server + FalkorDB to be running. If the MCP endpoint is
   unreachable, fall back to Hindsight or durable memory.
 
-### Layer 4 — QMD / FlowState-QMD (Obsidian vault)
-- **Backend:** FlowState QMD MCP server (local script: `~/.hermes/scripts/qmd-local.sh`)
-- **Scope:** Personal wiki corpus — Obsidian vault, notes, research ingestion
-- **Retrieval:** `mcp__qmd_query(searches)` for semantic+keyword search;
-  `mcp__qmd_get(file)` for full document retrieval
-- **Content:** Vault notes, research articles ingested via `obsidian-research-ingestion` skill,
-  session highlights from the Obsidian sync cron
-- **When to use:** When the user references a note, article, or document that may be in the
-  Obsidian vault (~/Documents/SecondBrain)
+### Layer 4 — QMD / FlowState-QMD (DISABLED)
+- **Backend:** FlowState QMD MCP server script present (`~/.hermes/scripts/qmd-local.sh`)
+- **Status:** **disabled** in config.yaml — do not route live queries here
+- **Note:** Obsidian sync still runs via `hermes-chat-sync-4h` / weekly review without QMD MCP
 
 ### Layer 5 — Session search (always-on)
-- **Backend:** SQLite FTS5 (Hermes session database at ~/.hermes/state/)
+- **Backend:** SQLite FTS5 over `~/.hermes/state.db` (`messages_fts`)
 - **Scope:** Full conversation history across all sessions
-- **Retrieval:** `mcp__session_search(query)` — FTS5 keyword and boolean search
+- **Retrieval:** `session_search(query)` — FTS5 keyword and boolean search
 - **Rule:** Always reach for this before asking the user to repeat themselves.
   If a user references something from a past session, search first.
 
@@ -78,10 +76,11 @@ The routing skill (`hermes-memory-surface-selection`) governs which layer to use
   Do not reference it. If re-enabled in future, update this doc.
 
 ### Embedding backend
-- Ollama at localhost:11434 serves embeddings for both Hindsight and Graphiti.
-- Installed models: `qwen3:8b` (general), `llama3.2:3b` (lightweight)
-- If Ollama is down, Hindsight and Graphiti writes/reads may degrade; session_search
-  and durable memory are unaffected.
+- OpenAI `text-embedding-3-small` (1536d) for Hindsight and Graphiti via OPENAI_API_KEY.
+- Hindsight LLM inference uses the Anthropic API.
+- Ollama is **UNINSTALLED** (2026-07-12). Do not reference port 11434.
+- Hindsight is supervised by systemd user unit `hindsight-api.service` on :9177.
+
 
 ---
 
@@ -99,16 +98,15 @@ The routing skill (`hermes-memory-surface-selection`) governs which layer to use
 8. Updates durable memory if a new stable fact was learned.
 
 ### Context compression
-- Triggered automatically when context approaches threshold (0.4 = 40% of max).
-- Compression model: `cerebras/zai-glm-4.7` (auxiliary.compression, off the main model).
+- Triggered automatically when context approaches threshold (0.35).
+- Compression model: `mistral/mistral-small-latest` (auxiliary.compression; fallback sambanova/DeepSeek-V3.2 → mistral/mistral-large-latest).
 - Compressed context is a summarized handoff; tool results and intermediate data are
   elided. The primary model context is preserved at the summary level.
 - Resume display is set to compact (3 exchanges shown on resume).
 
 ### Verification discipline
-- `verify_on_stop: false` — the agent does not auto-pause to verify completion.
-  Verification is done explicitly by loading the `verification-before-completion` skill
-  when the task is high-stakes.
+- `verify_on_stop: auto` — stop-path verification is automatic when appropriate.
+  High-stakes work still loads the `verification-before-completion` skill explicitly.
 - `tool_use_enforcement: permissive` — the agent does not require explicit approval for
   every tool call. The pre-tool veto layer (not the agent config) handles blocking.
 
@@ -120,8 +118,8 @@ The routing skill (`hermes-memory-surface-selection`) governs which layer to use
 - Used when: (a) subtasks are independent and can run in parallel, (b) a subtask
   would flood the main context window with intermediate data, (c) a subtask requires
   reasoning-heavy isolated work (code review, research synthesis, debugging).
-- **Config:** `delegation.model: claude-sonnet-5`, `max_concurrent_children: 3`,
-  `max_spawn_depth: 1` (leaf subagents only; no recursive delegation).
+- **Config:** `delegation.model: mistral-small-latest` (provider mistral), `max_concurrent_children: 10`,
+  `max_spawn_depth: 1` (leaf subagents only; no recursive delegation); hierarchy_aware + toolset profiles.
 - **Context packet discipline:** Subagents have no memory of the parent conversation.
   All required context (file paths, error messages, constraints, goal, done criteria,
   proof commands) must be passed in the `context` field of the task spec.
@@ -138,18 +136,29 @@ The routing skill (`hermes-memory-surface-selection`) governs which layer to use
 - The `hermes-role-pipelines` skill documents the standard role templates.
 
 ### Cron / background automation
-8 scheduled jobs run on a defined cadence. All deliver locally (no gateway delivery).
+18 scheduled jobs run on a defined cadence. All deliver locally (no gateway delivery).
+Authoritative table: `docs/operations-surface-register.md` + `cron.snapshot.json`.
 
 | Job | Schedule | Mode | Purpose |
 |-----|----------|------|---------|
-| `hourly-hermes-chat-sync` | every 240m | agent | Sync session highlights into Obsidian vault |
+| `hermes-chat-sync-4h` | every 240m | agent | Sync session highlights into Obsidian vault |
 | `skillspector-guard` | every 240m | no-agent script | Enforce skill quality rules; flag violations |
-| `session-auto-prune` | every 240m | no-agent script | Prune stale sessions from Hermes SQLite DB |
+| `session-auto-prune` | every 240m | no-agent script | Prune stale sessions from state.db |
 | `firecrawl-watchdog` | every 10m | no-agent script | Health-check Firecrawl at :3002 |
-| `hermes-platform-watchdog` | every 720m | no-agent script | Broad platform health (config, MCP, Ollama, Graphiti) |
+| `browser-orphan-watchdog` | every 30m | no-agent script | Kill orphaned Playwright/Chrome processes |
+| `hermes-platform-watchdog` | every 720m | no-agent script | Broad platform health (config, MCP, Graphiti) |
 | `hermes-mutation-gate-watch` | every 1440m | no-agent script | Check mutation-gate integrity |
 | `hermes-memory-drift-audit` | every 1440m | no-agent script | Detect drift between durable memory and actual state |
-| `obsidian-weekly-review` | Fridays 17:00 | agent + script | Weekly vault synthesis — LLM-driven, not just file copy |
+| `l1-extract-periodic` | every 180m | no-agent script | Extract L1 facts from sessions |
+| `l1-promote-periodic` | every 220m | no-agent script | Dual-track L1 promote |
+| `l1-hindsight-promote` | every 240m | agent | Promote L1 facts to Hindsight |
+| `l1-graphiti-periodic` | every 240m | no-agent script | Graphiti reconcile |
+| `g-memory-tier3-nightly` | 0 3 * * * | no-agent script | Nightly Graphiti consolidation |
+| `memory-ttl-purge` | 0 3 * * * | no-agent script | Expire ephemeral/volatile tiers |
+| `omni-skill-quality-scan` | 0 3 * * 0 | no-agent script | Weekly skill quality scan |
+| `skill-prune-audit` | 0 9 1 * * | no-agent script | Monthly skill prune audit |
+| `pending-improvements-review` | 0 10 * * 0 | agent | Weekly curator review of staged improvements |
+| `obsidian-weekly-review` | Fridays 17:00 | agent + script | Weekly vault synthesis |
 
 **CLI note:** On this CLI session, `deliver=local` means output is stored in the cron
 log; it does NOT message this terminal. Use `hermes cron list` to inspect results.
@@ -247,26 +256,26 @@ This configuration makes several significant improvements beyond a default Herme
 
 ### 1. 4-layer memory stack (OOTB: 1 layer)
 Default Hermes has only the built-in durable memory (MEMORY.md/USER.md). This config adds:
-- **Hindsight** (local_embedded/Ollama) — semantic, long-term, private knowledge base
-- **Graphiti MCP** (Neo4j) — episodic relational graph with temporal facts
-- **QMD** (FlowState-QMD) — Obsidian vault corpus search
-- **session_search** — FTS5 over full conversation history (always-on, built-in)
-The `hermes-memory-surface-selection` skill governs routing between all five surfaces.
+- **Hindsight** (API-based Anthropic + OpenAI embeddings) — semantic long-term knowledge
+- **Graphiti MCP** (FalkorDB) — episodic relational graph with temporal facts
+- **session_search** — FTS5 over full conversation history on state.db (always-on)
+- QMD present but disabled; MemPalace disabled
+The `hermes-memory-surface-selection` skill governs routing between active surfaces.
 
 ### 2. Pre-tool veto governance (OOTB: approval prompts only)
 Default Hermes can prompt before destructive commands. This config adds a rule-based
 pre-tool evaluation layer that hard-blocks dangerous patterns (network backdoors,
 disk wipes, exfiltration) without needing to recognize them in the moment.
 
-### 3. Skills library (142 skills / 24 domains — OOTB: ~20 builtin skills)
-118 local custom skills covering: multi-agent orchestration, Fedora Atomic devops,
+### 3. Skills library (160 enabled live — OOTB: ~20–31 builtin)
+135 local custom skills covering: multi-agent orchestration, Fedora Atomic devops,
 research workflows, Obsidian integration, security review patterns, model routing
 hierarchies, config repo auditing, and cowork port translation.
 Skills are continuously maintained: patched on use, guarded by automated cron enforcement.
 
 ### 4. Multi-provider fallback chain (OOTB: single provider)
-Anthropic primary with automatic fallback to Cerebras → SambaNova → Mistral on 429/timeout.
-Capability-based routing heuristics route cron jobs and leaf subagents to free-tier providers
+xAI grok-4.5 primary with automatic fallback to Cerebras → SambaNova → Mistral on 429/timeout.
+Delegation + most auxiliary routes use Mistral small. Capability-based heuristics still apply for free-tier hops
 by context size, speed, and privacy requirements.
 
 ### 5. 8 scheduled background jobs (OOTB: none)

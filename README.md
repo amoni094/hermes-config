@@ -1,5 +1,15 @@
 # hermes-config
 
+## Snapshot freshness
+- As of: **2026-08-26**
+- Hermes: **v0.20.5 (2026.8.19)** · upstream `f751a8c5`
+- Config version: **39**
+- Primary model: **xai / grok-4.5**
+- Web: **brave** search + **firecrawl** extract
+- Memory provider: **hindsight** (QMD + MemPalace disabled)
+- Cron jobs mirrored: **18** (see `cron.snapshot.json`)
+
+
 Private repository snapshot of the active local Hermes configuration and workflow.
 `config.sanitized.yaml` is a sanitized copy of the active Hermes config (all api_key, token, and
 password fields blanked).
@@ -10,89 +20,73 @@ password fields blanked).
 
 | Path | Purpose |
 |------|---------|
-| `config.sanitized.yaml` | Sanitized live config (credentials blanked) — v33 |
+| `config.sanitized.yaml` | Sanitized live config (credentials blanked) — v39 |
 | `budget-policy.yaml` | Session token/cost budget limits |
 | `SOUL.md` | Agent persona (~50 words, intentionally minimal) |
 | `TOOLS.md` | Toolset config and local service summary |
 | `veto/rules/` | Pre-tool security governance (hard blocks + warnings) |
 | `agent-hooks/` | Lifecycle hooks |
 | `plugins/` | Active plugin list |
-| `skills-index.md` | Full skills inventory (142 skills / 24 domains) |
+| `skills-index.md` | Skills inventory snapshot (regenerate after large skill churn) |
 | `cron.snapshot.json` | Scheduled cron job snapshot |
 | `audit/` | Audit reports and change log |
 | `scripts/` | Repo maintenance scripts (sanitize, validate, inventory, migrate) |
 
 ### Architecture Overview
 
-This is a self-hosted [Claude](https://claude.ai)-based AI agent running on Fedora 44
-Silverblue (Linux). The framework is [Hermes](https://github.com/nousresearch/hermes) by
-NousResearch. This config repo documents its architecture, customizations, and operational
-state. The full write-up is in [`docs/how-i-work.md`](docs/how-i-work.md); the summary below
-is the core architecture at a glance.
+Self-hosted Hermes agent (Nous Research) on Fedora 44 Silverblue. Primary chat is
+**xAI grok-4.5**; Anthropic/OpenAI/Cerebras/SambaNova/Mistral fill auxiliary, embedding,
+and fallback roles. Full write-up: [`docs/how-i-work.md`](docs/how-i-work.md).
 
 #### Model routing
 
 | Role | Model | When |
 |------|-------|------|
-| Main + delegation | `claude-sonnet-5` (anthropic) | All sessions, all subagents |
-| Auxiliary / compression | `zai-glm-4.7` (cerebras) | Context compression (high-volume internal ops) |
+| Main session | `grok-4.5` (xai) | Default orchestration (200k context) |
+| Delegation workers | `mistral-small-latest` (mistral) | Subagents; max_concurrent_children=10, max_spawn_depth=1 |
+| Auxiliary / compression / title / triage / curator / web_extract | `mistral-small-latest` (mistral) | High-volume internal ops |
+| Auxiliary vision | `claude-haiku-4-5` (anthropic) | Vision |
+| Automatic fallback | cerebras `gpt-oss-120b` → sambanova `DeepSeek-V3.2` → mistral `mistral-large-latest` | Primary unavailable |
 
-There is a single primary model (`claude-sonnet-5` via `anthropic`) used for both main
-sessions and delegated subagents — no separate escalation tier is configured. Fallback
-chain: Anthropic → Cerebras (`gpt-oss-120b`) → SambaNova (`DeepSeek-V3.2`) →
-Mistral (`mistral-large-latest`). Context compression fires at threshold 0.4, routed to
-Cerebras `zai-glm-4.7`.
+Context compression threshold **0.35**; micro_compact every 3 turns. Escalation to grok-4.6 /
+Anthropic long-context / openai `gpt-5.6-sol` is manual/skill-driven, not automatic fallback.
 
-#### Memory — 4-layer stack
+#### Memory stack
 
 | Layer | Backend | Scope |
 |-------|---------|-------|
-| 1. Hermes durable | `MEMORY.md` / `USER.md` | Injected every session (~3.8K char budget) |
-| 2. Hindsight | Ollama `local_embedded` | Long-term semantic knowledge base; private (local embeddings) |
-| 3. Graphiti MCP | Neo4j at `:8765` | Episodic relational graph — entity facts, temporal ordering, provenance |
-| 4. QMD / FlowState | Obsidian vault corpus | Personal wiki search; research ingestion |
+| 1. Hermes durable | `MEMORY.md` / `USER.md` | Injected every session (~2.2k + ~1.6k) |
+| 2. Hindsight | API (Anthropic LLM + OpenAI embeddings) :9177 | Long-term structured knowledge |
+| 3. Graphiti MCP | FalkorDB + Graphiti :8765 | Episodic relational graph |
+| 4. Session search | FTS5 on `~/.hermes/state.db` | Conversation history |
 
-Session history is always queryable via `session_search` (FTS5 over SQLite). MemPalace
-is installed but disabled.
+QMD and MemPalace are installed on disk but **disabled** in config. Ollama is uninstalled.
 
-#### Skills — 142 across 24 domains
+#### Skills
 
-Skills are `SKILL.md` files (YAML frontmatter + markdown) covering trigger conditions,
-numbered steps, exact commands, and pitfalls. Key families:
-
-- `autonomous-ai-agents/` — multi-agent orchestration, memory routing, config repo audit, MCP integration
-- `software-development/` — TDD, debugging, code review, context budgeting, routing hierarchy, skill authoring
-- `devops/` — Fedora Atomic ops, Podman, Wi-Fi stability, Wayland, thermal throttling
-- `github/` — issue triage, PR lifecycle, scoped fixes, CI workflow
-- `superpowers/` — brainstorming, plans, git worktrees, parallel agents, reviews
-- `research/` — arXiv, Firecrawl, academic lit review, music/film rec
-- `note-taking/` — Obsidian vault read/write/search, research ingestion
-- `computer-use/` — desktop automation, background UI driving
-
-101 enabled / 41 disabled. Enforced every 4 hours by the `skillspector-guard` cron.
+Live index: **160 enabled** (135 local + 31 builtin), **6 disabled**, 0 hub.
+`skillspector-guard` every 4h; weekly quality scan; monthly prune audit.
 
 #### Orchestration
 
-- **Parallel subagents** via `delegate_task` — up to 3 concurrent workers; leaf-only
-  (no recursive delegation); full context packet required per worker
-- **8 scheduled cron jobs** — Obsidian sync, session hygiene, Firecrawl watchdog,
-  platform health, memory drift audit, mutation gate check, skill guard, weekly vault review
-- **Ouroboros** — quality escalation path for formal spec → execute → evaluate → iterate loops
-- **Pre-tool veto** — hard-blocks dangerous patterns (network backdoors, disk wipes,
-  credential exfiltration) before tool calls land; separate warn layer for elevated-privilege ops
+- **Parallel subagents** via `delegate_task` — up to 10 concurrent; leaf-only (`max_spawn_depth: 1`)
+- **18 scheduled cron jobs** — Obsidian sync, L1 extract/promote/graphiti, TTL purge, session hygiene, Firecrawl/platform/browser watchdogs, skill guard/scan/prune, pending-improvements review, memory drift + mutation gate
+- **Ouroboros** — quality escalation path for formal evaluate/iterate loops when enabled
+- **Pre-tool veto** — hard-blocks dangerous patterns before tool calls land
 
 #### Improvements over out-of-the-box Hermes
 
-1. 4-layer memory stack (OOTB: 1 layer)
-2. Pre-tool veto governance with rule-based hard blocks (OOTB: approval prompts only)
-3. 118 custom skills across 24 domains (OOTB: ~20 builtin)
-4. Multi-provider fallback chain with capability routing (OOTB: single provider)
-5. 8 scheduled background jobs — Obsidian sync, session hygiene, watchdogs, weekly review (OOTB: none)
-6. Local-first search — SearXNG + Firecrawl self-hosted; no queries leave local network (OOTB: external APIs)
-7. Minimal persona (~50 words); behavioral rules in AGENTS.md + veto layer + skills (OOTB: monolithic constitution)
-8. Config versioning with structured upgrade passes and a dedicated reasoning model (OOTB: no versioning)
-9. Automated skill quality enforcement via `skillspector-guard` cron (OOTB: no quality layer)
-10. Hermes-to-Cowork port repo — translates all config to Claude Desktop Tasks equivalents
+1. Multi-layer memory (durable + Hindsight + Graphiti + session FTS)
+2. Pre-tool veto governance with rule-based hard blocks
+3. Large custom skill library with guard + quality cron
+4. Multi-provider fallback + capability routing (xAI primary)
+5. 18 scheduled background jobs (sync, L1 pipeline, watchdogs, curator)
+6. Local Firecrawl + Brave search; SearXNG retained as spare
+7. Minimal persona; behavioral rules in AGENTS.md + veto + skills
+8. Config versioning with structured upgrade passes
+9. Automated skill quality enforcement via skillspector-guard
+10. Hermes-to-Cowork port repo for Desktop Tasks equivalents
+
 
 ## Documentation (docs/)
 
@@ -134,8 +128,8 @@ They contain trigger conditions, numbered steps with exact commands, pitfalls, a
 verification steps. The agent loads a skill on demand when a matching task is recognized.
 
 ### Current inventory
-- ~142 skills across 24 domains
-- ~101 enabled, ~41 disabled (platform-incompatible, dependency-missing, or stale)
+- Live index: 160 enabled (135 local + 31 builtin), 6 disabled, 0 hub
+- Additional names listed under `skills.disabled` in config for platform/stale skills
 - Skill usage is tracked per-entry: `use_count`, `last_used_at`, `created_at`, `state`
 
 ### Lifecycle
@@ -151,9 +145,8 @@ verification steps. The agent loads a skill on demand when a matching task is re
    enabled skills surface and flag violations without human intervention
 
 ### Optimization applied
-- 41 skills disabled in `config.yaml` covering macOS-only skills (no toolset dependency),
-  platform tools with no installed dependency (e.g. toolsets disabled in config), and stale
-  skills with zero use count and no active workflow
+- `skills.disabled` in config.yaml covers platform-incompatible, dependency-missing, and stale skills
+  (macOS-only, unused tool surfaces, etc.)
 - Skill families with overlap are flagged for consolidation rather than silent duplication
 - Large never-used skills (e.g. 1.5 MB `research-paper-writing`, `use_count: 0`) deleted outright
 - Skills are kept current: stale steps patched immediately when discovered during use
@@ -174,77 +167,63 @@ verification steps. The agent loads a skill on demand when a matching task is re
 
 ## Memory System — Topology and Routing
 
-The agent runs a 4-layer memory stack. Each layer has a distinct scope, retrieval mechanism,
-and cost profile. Routing between layers is governed by the `hermes-memory-surface-selection`
-skill. See `docs/memory-topology.md` for the full routing decision tree and MCP endpoints.
+Routing between layers is governed by the `hermes-memory-surface-selection` skill.
+Authoritative detail: `docs/memory-topology.md`.
 
 ### Layer overview
 
 | Layer | Backend | Scope | When to use |
 |-------|---------|-------|-------------|
-| **Hermes durable** | Built-in (`MEMORY.md` / `USER.md`) | Session-injected, always-on | Cross-session preferences, environment facts, stable conventions; 2,200 char budget |
-| **Hindsight** | local_embedded via Ollama | Long-term structured knowledge | Reference data, synthesis outputs, semantic recall; `hindsight_retain` / `hindsight_recall` |
-| **Graphiti MCP** | Neo4j + Graphiti server at `localhost:8765` | Episodic/relational knowledge graph | Entity relationships, temporal facts, provenance chains; group_id=`hermes` |
-| **QMD** | FlowState-QMD → Obsidian vault | Personal wiki corpus search | Articles, notes, research ingestion; `mcp_qmd_query` / `mcp_qmd_get` |
-| **Session search** | SQLite (`~/.hermes/state/sessions.db`) | Conversation history | Prior decisions, task outcomes, what was said/done in past sessions; always-on |
-| **MemPalace** | MCP server (disabled) | — | Disabled; not loaded; do not reference |
+| **Hermes durable** | Built-in (`MEMORY.md` / `USER.md`) | Session-injected | Preferences, environment facts, stable conventions; 2,200 + 1,600 char budgets |
+| **Hindsight** | API (Anthropic LLM + OpenAI embeddings) :9177 | Long-term structured knowledge | Semantic recall; hindsight_retain/recall/reflect |
+| **Graphiti MCP** | FalkorDB + Graphiti :8765 | Episodic/relational graph | Entity relationships, temporal facts, provenance |
+| **Session search** | SQLite FTS5 (`~/.hermes/state.db`) | Conversation history | Prior decisions/outcomes; always-on |
+| **QMD** | FlowState-QMD (disabled) | — | Present on disk; disabled in config |
+| **MemPalace** | MCP (disabled) | — | Disabled; skip |
 
 ### Routing rules (summary)
-- **Durable memory** — preferences, environment constants, tool quirks that must survive a
-  session reset and be injected automatically. Keep compact (~2,200 char).
-- **Hindsight** — store detailed structured knowledge, long reference outputs, and facts that
-  need semantic retrieval by concept. Backed by Ollama embeddings (local, private).
-- **Graphiti** — entity-entity relationships, time-stamped facts, provenance (who decided
-  what and when). Episodic memory with graph traversal.
-- **QMD** — search the Obsidian vault and personal wiki corpus. Fed by the hourly Obsidian
-  sync cron (`hourly-hermes-chat-sync`).
-- **Session search** — always reach for this before asking the user to repeat something. FTS5
-  over the full conversation history.
-- **MemPalace** — disabled; skip.
+- **Durable memory** — must inject every turn; keep compact.
+- **Hindsight** — long-form structured knowledge, concept recall.
+- **Graphiti** — entity/relationship/temporal/provenance.
+- **Session search** — what was said/done in past chats (state.db FTS).
+- **QMD / MemPalace** — disabled; skip.
 
 ### Embedding backend
-Ollama serves embeddings at `http://localhost:11434`. Installed models: `qwen3:8b`,
-`llama3.2:3b`. Both Hindsight and Graphiti depend on Ollama being healthy.
+OpenAI `text-embedding-3-small` for Hindsight and Graphiti. Ollama uninstalled (2026-07-12).
+Hindsight supervised by systemd `hindsight-api.service` (`idle_timeout=0`).
 
----
 
 ## LLM Routing
 
-Single-model Anthropic orchestration with a multi-provider fallback chain and dedicated
-auxiliary routing for compression. Full routing table in `docs/routing-and-workflow.md`.
+Authoritative detail: `docs/routing-and-workflow.md` + `config.sanitized.yaml`.
 
-### Primary model (Anthropic)
+### Primary roles
 
-| Role | Model | When |
-|------|-------|------|
-| Main orchestration | claude-sonnet-5 | Default for all sessions |
-| Delegation workers | claude-sonnet-5 | Subagents and parallel workers (same model as main) |
-| Auxiliary / compression | zai-glm-4.7 (cerebras) | Context compression (high-volume internal operations) |
+| Role | Model | Provider |
+|------|-------|----------|
+| Main orchestration | grok-4.5 | xai |
+| Delegation workers | mistral-small-latest | mistral |
+| Auxiliary compression / title / triage / curator / web_extract | mistral-small-latest | mistral |
+| Auxiliary vision | claude-haiku-4-5 | anthropic |
 
-There is no separate escalation or utility model — main sessions and delegated subagents
-both use `claude-sonnet-5` via `anthropic`. Compression is the only auxiliary routing rule
-and is handled by Cerebras `zai-glm-4.7`, not by Anthropic.
+Manual escalation (not automatic fallback): grok-4.6, Anthropic long-context, openai `gpt-5.6-sol` (adversarial).
 
 ### Fallback chain
-Fires automatically on Anthropic 429 / timeout / unavailability:
-1. `cerebras / gpt-oss-120b` — fast, high-volume free tier, 8K context cap
-2. `sambanova / DeepSeek-V3.2` — long-context, no data-training policy
-3. `mistral / mistral-large-latest` — high token budget, 262K context
+Fires automatically when the primary provider is unavailable:
+1. `cerebras / gpt-oss-120b` — fast free tier, 8K context cap
+2. `sambanova / DeepSeek-V3.2` — quality hop, no data-training policy
+3. `mistral / mistral-large-latest` — high token budget
 
-### Capability-based routing (configured free-tier providers)
-Cerebras, SambaNova, and Mistral are configured as free-tier fallback/auxiliary providers.
-Key routing heuristics:
-- Context <8K, max throughput → Cerebras gpt-oss-120b (14,400 RPD, ~2,600 tok/s)
-- Context 32K–196K, privacy-sensitive → SambaNova (no data-training policy)
-- Context up to 262K, code-heavy → Mistral codestral-latest / devstral-latest
-- Compression / high-volume internal ops → Cerebras zai-glm-4.7
+### Capability-based heuristics
+- Context <8K, max throughput → Cerebras gpt-oss-120b
+- Privacy-sensitive quality hop → SambaNova DeepSeek-V3.2
+- Code-heavy free-tier → Mistral codestral/devstral (manual select)
+- Compression / high-volume internal ops → Mistral small (configured auxiliary)
 
 ### Context compression
-Enabled at threshold 0.4. Cerebras `zai-glm-4.7` is the auxiliary model for compression
-operations. This reduces token spend on long sessions without changing the primary model's
-context.
+Enabled at threshold **0.35**. Auxiliary model: `mistral/mistral-small-latest` with
+sambanova → mistral-large fallback_chain. micro_compact every 3 turns; protect_last_n=32.
 
----
 
 ## Workflow Patterns
 
@@ -256,7 +235,7 @@ subagents.
 ### Delegate_task (parallel subagents)
 Used when work is independent across multiple subtasks or would flood the main context window
 with intermediate data. Each subagent gets an isolated terminal session and context packet.
-Config: `claude-sonnet-5` as delegation model, `max_concurrent_children: 3`,
+Config: `mistral-small-latest` (mistral) as delegation model, `max_concurrent_children: 10`,
 `max_spawn_depth: 1`.
 
 **When to delegate:**

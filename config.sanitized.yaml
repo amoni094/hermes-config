@@ -1,83 +1,219 @@
 model:
-  provider: anthropic
-  default: claude-sonnet-5
   context_length: 200000
-custom_providers:
-- name: openai
-  base_url: https://api.openai.com/v1
-  key_env: OPENAI_API_KEY
-  api_mode: chat_completions
-  context_length: 128000
-  max_output_tokens: 16384
-  models:
-    gpt-5.4:
-      context_length: 1050000
-    gpt-5.5:
-      context_length: 1050000
+  default: grok-4.5
+  provider: xai
+providers:
+  anthropic:
+    stale_timeout_seconds: 900
+fallback_providers:
+- base_url: https://api.cerebras.ai/v1
+  model: gpt-oss-120b
+  provider: cerebras
+- base_url: https://api.sambanova.ai/v1
+  model: DeepSeek-V3.2
+  provider: sambanova
+- base_url: https://api.mistral.ai/v1
+  model: mistral-large-latest
+  provider: mistral
 toolsets:
 - hermes-cli
 agent:
-  max_turns: 150
+  max_turns: 500
   gateway_timeout: 1800
+  api_max_retries: 5
   tool_use_enforcement: permissive
   task_completion_guidance: false
   environment_probe: false
-  verify_on_stop: false
+  verify_on_stop: auto
+  session_stall_timeout: 1800
 terminal:
   backend: local
   timeout: 180
+web:
+  search_backend: brave
+  extract_backend: firecrawl
+  brave_api_key: ''
+browser:
+  args: --no-sandbox,--disable-setuid-sandbox,--disable-dev-shm-usage
+  executable_path: /var/home/rainbow/.cache/ms-playwright/chromium-1223/chrome-linux64/chrome
+file_read_max_chars: 200000
+mcp_discovery_timeout: 3
+tool_loop_guardrails:
+  warnings_enabled: true
+  hard_stop_enabled: true
+  warn_after:
+    exact_failure: 2
+    same_tool_failure: 3
+    idempotent_no_progress: 2
+  tool_result_cache:
+    enabled: true
+    scope: session
+    max_entries: 200
+    excluded_tools:
+    - terminal
+    - browser_navigate
+    - browser_click
+    - browser_type
+    - computer_use
+    - cronjob
+    - delegate_task
+    - process
+    - write_file
+    - patch
 compression:
   enabled: true
-  threshold: 0.4
+  threshold: 0.35
+  threshold_tokens: ''
+  protect_last_n: 32
+  min_tail_user_messages: 3
+  proactive_prune_tokens: ''
+  micro_compact: true
+  micro_compact_every_n_turns: 3
+  idle_compact_after_seconds: 1800
+prompt_caching:
+  cache_ttl: 1h
+auxiliary:
+  vision:
+    provider: anthropic
+    model: claude-haiku-4-5
+  compression:
+    provider: mistral
+    model: mistral-small-latest
+    base_url: https://api.mistral.ai/v1
+    reasoning_effort: medium
+    fallback_chain:
+    - base_url: https://api.sambanova.ai/v1
+      model: DeepSeek-V3.2
+      provider: sambanova
+    - base_url: https://api.mistral.ai/v1
+      model: mistral-large-latest
+      provider: mistral
+    max_concurrency: 2
+    max_tokens: 4096
+  title_generation:
+    provider: mistral
+    model: mistral-small-latest
+    base_url: https://api.mistral.ai/v1
+  triage_specifier:
+    provider: mistral
+    model: mistral-small-latest
+    base_url: https://api.mistral.ai/v1
+  curator:
+    provider: mistral
+    model: mistral-small-latest
+    base_url: https://api.mistral.ai/v1
+  web_extract:
+    provider: mistral
+    model: mistral-small-latest
+    base_url: https://api.mistral.ai/v1
 display:
   resume_display: compact
   resume_exchanges: 3
+  show_cost: true
   tool_progress: all
 memory:
   memory_char_limit: 2200
   user_char_limit: 1600
   provider: hindsight
-approvals:
-  destructive_slash_confirm: false
-command_allowlist: '["stop/restart system service", "hermes update"]'
-onboarding:
-  seen:
-    openclaw_residue_cleanup: true
-    tool_progress_prompt: true
-    busy_input_prompt: true
-_config_version: 33
-plugins:
-  enabled:
-  - orca-status
-session_reset:
-  mode: none
-mcp_servers:
-  mempalace:
-    command: /var/home/rainbow/.hermes/scripts/mempalace-mcp.sh
-    enabled: false
-  qmd:
-    command: /var/home/rainbow/.hermes/scripts/qmd-local.sh
-    args:
-    - mcp
-    enabled: true
-  graphiti:
-    url: http://127.0.0.1:8765/mcp/
-    enabled: true
-fallback_model:
-- provider: cerebras
-  model: gpt-oss-120b
-  base_url: https://api.cerebras.ai/v1
-- provider: sambanova
-  model: DeepSeek-V3.2
-  base_url: https://api.sambanova.ai/v1
-- provider: mistral
-  model: mistral-large-latest
-  base_url: https://api.mistral.ai/v1
+  tier_thresholds:
+    min_score_stage: 2
+    min_retention_promote: 0.45
+    promote_thresholds:
+      ephemeral: 0.55
+      volatile: 0.3
+      stable: 0.45
+    ttl_days_volatile: 30
+    ttl_days_stable: 365
+    max_ephemeral_facts: 500
+    max_volatile_sessions: 20
+    graphiti_warn_nodes: 40000
+    graphiti_halt_nodes: 50000
+  rdm:
+    ephemeral: 0.4
+    volatile: 0.75
+    stable: 1.0
+    rdm_lambda: 0.05
+  size_caps:
+    max_fact_bytes: 16384
+    max_tool_excerpt_bytes: 2048
+  retry_budgets:
+    transient:
+      max_attempts: 5
+      base_delay: 2.0
+      backoff: 2.0
+    resource:
+      max_attempts: 2
+      base_delay: 30.0
+      backoff: 1.0
+    semantic:
+      max_attempts: 2
+      base_delay: 1.0
+      backoff: 1.0
+    auth:
+      max_attempts: 1
+      base_delay: 5.0
+      backoff: 1.0
+    fatal:
+      max_attempts: 0
+      base_delay: 0.0
+      backoff: 1.0
 delegation:
-  model: claude-sonnet-5
-  provider: anthropic
+  model: mistral-small-latest
+  provider: mistral
+  base_url: https://api.mistral.ai/v1
+  max_concurrent_children: 10
   max_spawn_depth: 1
-  max_concurrent_children: 3
+  default_toolset_policy: minimal
+  toolset_escalation: true
+  toolset_profiles:
+    research:
+      enabled_toolsets:
+      - web
+      - file
+      escalation_toolsets:
+      - web
+      - file
+      - memory
+      - session_search
+    code:
+      enabled_toolsets:
+      - terminal
+      - file
+      escalation_toolsets:
+      - terminal
+      - file
+      - delegation
+    write:
+      enabled_toolsets:
+      - file
+      escalation_toolsets:
+      - file
+      - web
+    cross_domain:
+      enabled_toolsets:
+      - web
+      - terminal
+      - file
+      escalation_toolsets:
+      - web
+      - terminal
+      - file
+      - memory
+      - session_search
+      - delegation
+  hierarchy_aware: true
+moa:
+  default_preset: default
+  presets:
+    default:
+      reference_models:
+      - model: claude-haiku-4-5
+        provider: anthropic
+      aggregator:
+        provider: anthropic
+        model: claude-sonnet-4-6
+      enabled: false
+      reference_max_tokens: ''
 skills:
   disabled:
   - apple-notes
@@ -143,8 +279,167 @@ skills:
   - xurl
   - youtube-content
   - yuanbao
-auxiliary:
-  compression:
-    provider: cerebras
-    model: zai-glm-4.7
-    base_url: https://api.cerebras.ai/v1
+  hierarchy:
+    global: adversarial-review,verification-before-completion,hermes-memory-surface-selection,agent-memory-consolidation,hermes-agent-skill-authoring,hermes-self-evolution,autonomous-agent-loop-design,trajectory-risk-guardrail,mnemosyne-atp-safety,hermes-swarm-consensus,async-agent-nightshift-patterns,agent-task-signoff,agent-browser-troubleshooting,agent-runtime-stack-debugging,hermes-session-hygiene,hermes-context-hygiene,hermes-observability-and-task-ledger
+    domain:
+      research: arxiv,firecrawl-research,grounded-citations,defuddle,blocked-page-recovery,academic-literature-review,domain-research-synthesis,lecture-transcript-summarization,visual-document-review,arxiv-sweep-findings
+      devops: atomic-desktop-app-installation,fedora-atomic-dotfiles-adaptation,hermes-agent-independent-update-protocol,hermes-gateway-lifecycle-guard,kanban-swarm-nightly-ops,linux-thermal-workload-throttling,linux-wifi-stability,managed-repo-update-workflow,protonvpn-nm-automation,rootless-podman-compose-adaptation,router-admin-automation,silverblue-system-update-trigger,silverblue-toolbox-wrapper-bootstrap,tplink-ax55-router-automation,wayland-session-management
+      productivity: box,document-to-action-items,docx,exec-memo-writing,law-firm-briefing-memo,meeting-action-items,pdf,pii-redaction,product-price-monitor,session-librarian,weekly-review-planning,xlsx
+      software-development: adversarial-review,anthropic-api-cost-optimization,claude-routing-hierarchy,complexity-gated-planning,context-safe-pdf-edits,document-layout-design,evaluation-driven-development,external-signal-pipeline-recovery,gepa-omni-optimization,grill-me,handoff,hermes-agent-skill-authoring,hermes-coding-review-loop,hermes-context-budgeting,hermes-cron-and-agents,hermes-internals-source-recon,hermes-memory-capture-and-bridge,hermes-observability-and-task-ledger,hermes-operating-pattern,hermes-semantic-skill-routing,isa,isolated-workspace-preflight,knowledge-corpus-architecture,knowledge-graph-corpus-pipeline,local-personal-dashboard,media-catalog-seed-data,node-inspect-debugger,officecli,plan,policy-dashboard-workflow,ponytail-yagni,python-debugpy,repo1-gateway-workflow,requesting-code-review,review-driven-followup-fixes,risk-based-review,security-hardening-balance-review,skillopt-continuous-improvement,spike,subagent-driven-development,subagent-output-contract,symbolic-context-offload,systematic-debugging,test-driven-development,verification-before-completion,workflow-map
+    task: github-issue-agent,github-issue-to-pr,github-issues,scoped-pr-fix-and-verification,split-ci-workflow-change-and-draft-pr,email-compose-and-send,email-inbox-triage,obsidian,obsidian-research-ingestion,gold-class,suggest-music,stay-in
+approvals:
+  mode: 'off'
+  destructive_slash_confirm: false
+command_allowlist:
+- stop/restart system service
+- hermes update
+- systemctl
+- HERMES_BIN=/nonexistent
+onboarding:
+  seen:
+    busy_input_prompt: true
+    openclaw_residue_cleanup: true
+    tool_progress_prompt: true
+computer_use:
+  wayland: true
+_config_version: 39
+custom_providers:
+- api_mode: chat_completions
+  base_url: https://api.openai.com/v1
+  context_length: 128000
+  key_env: OPENAI_API_KEY
+  max_output_tokens: 16384
+  models:
+    gpt-5.4:
+      context_length: 1050000
+    gpt-5.5:
+      context_length: 1050000
+    gpt-5.6-sol:
+      context_length: 1050000
+  name: openai
+- api_mode: chat_completions
+  base_url: https://api.cerebras.ai/v1
+  key_env: CEREBRAS_API_KEY
+  name: cerebras
+  models:
+    gemma-4-31b: {}
+    gpt-oss-120b: {}
+  models_discovered: true
+- api_mode: chat_completions
+  base_url: https://api.sambanova.ai/v1
+  key_env: SAMBANOVA_API_KEY
+  name: sambanova
+  models:
+    DeepSeek-V3.1: {}
+    DeepSeek-V3.2: {}
+    Meta-Llama-3.3-70B-Instruct: {}
+    MiniMax-M2.7: {}
+    MiniMax-M3: {}
+    gemma-4-31B-it: {}
+    gpt-oss-120b: {}
+  models_discovered: true
+- api_mode: chat_completions
+  base_url: https://api.mistral.ai/v1
+  key_env: MISTRAL_API_KEY
+  name: mistral
+  models:
+    mistral-medium-2505: {}
+    mistral-medium-2508: {}
+    codestral-2508: {}
+    codestral-latest: {}
+    mistral-code-latest: {}
+    mistral-code-fim-latest: {}
+    devstral-2512: {}
+    devstral-medium-latest: {}
+    devstral-latest: {}
+    mistral-code-agent-latest: {}
+    mistral-small-2603: {}
+    mistral-small-latest: {}
+    mistral-vibe-cli-fast: {}
+    magistral-small-latest: {}
+    voxtral-small-2507: {}
+    voxtral-small-latest: {}
+    labs-leanstral-1-5-1: {}
+    labs-leanstral-1-5: {}
+    mistral-large-2512: {}
+    mistral-large-latest: {}
+    ministral-3b-2512: {}
+    ministral-3b-latest: {}
+    ministral-8b-2512: {}
+    ministral-8b-latest: {}
+    ministral-14b-2512: {}
+    ministral-14b-latest: {}
+    mistral-medium-latest: {}
+    mistral-medium: {}
+    mistral-medium-3-5: {}
+    mistral-medium-3.5: {}
+    mistral-medium-3: {}
+    mistral-medium-2604: {}
+    mistral-vibe-cli-latest: {}
+    mistral-vibe-cli-with-tools: {}
+    magistral-medium-latest: {}
+    glm-5-2: {}
+    zai-glm-5-2: {}
+    mistral-embed-2312: {}
+    mistral-embed: {}
+    codestral-embed: {}
+    codestral-embed-2505: {}
+    mistral-moderation-2603: {}
+    mistral-ocr-2512: {}
+    mistral-ocr-3-0: {}
+    mistral-ocr-3: {}
+    mistral-ocr-4-0: {}
+    mistral-ocr-latest: {}
+    mistral-ocr-4: {}
+    mistral-ocr-4-1: {}
+    voxtral-mini-2602: {}
+    voxtral-mini-latest: {}
+    voxtral-mini-transcribe-realtime-2602: {}
+    voxtral-mini-realtime-2602: {}
+    voxtral-mini-realtime-latest: {}
+    voxtral-mini-tts-2603: {}
+    voxtral-mini-tts-latest: {}
+  models_discovered: true
+mcp_servers:
+  graphiti:
+    enabled: true
+    url: http://127.0.0.1:8765/mcp/
+  mempalace:
+    command: /var/home/rainbow/.hermes/scripts/mempalace-mcp.sh
+    enabled: false
+  qmd:
+    args:
+    - mcp
+    command: /var/home/rainbow/.hermes/scripts/qmd-local.sh
+    enabled: false
+  stealth-browser-mcp:
+    command: /var/home/rainbow/.hermes/mcp/stealth-browser-mcp/.venv/bin/python
+    args:
+    - /var/home/rainbow/.hermes/mcp/stealth-browser-mcp/src/server.py
+    workdir: /var/home/rainbow/.hermes/mcp/stealth-browser-mcp/src
+    enabled: true
+    defer_loading: true
+  scrapfly:
+    url: https://mcp.scrapfly.io/mcp
+    enabled: false
+plugins:
+  enabled:
+  - orca-status
+session_reset:
+  mode: none
+platform_toolsets:
+  cli:
+  - browser
+  - clarify
+  - code_execution
+  - computer_use
+  - cronjob
+  - delegation
+  - file
+  - memory
+  - session_search
+  - skills
+  - terminal
+  - todo
+  - vision
+  - web

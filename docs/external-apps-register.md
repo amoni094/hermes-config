@@ -1,7 +1,6 @@
 # External Apps and Services Register
 
-Last updated: 2026-08-18 (Ollama removed; FalkorDB replaces Neo4j; model names corrected to sonnet-4-6;
-Hindsight API-based; new integrations documented; repo1 LLM gateway project added)
+Last updated: 2026-08-26 (main model xAI grok-4.5; Brave primary search; QMD disabled; Hindsight systemd; dashboard :9119)
 
 All external apps, local services, and third-party integrations this Hermes instance depends on.
 
@@ -13,12 +12,13 @@ All external apps, local services, and third-party integrations this Hermes inst
 |---------|------------|---------|--------|
 | Firecrawl | `http://127.0.0.1:3002` | Web crawl / stealth scrape for research | Active (watchdog every 10m) |
 | Graphiti MCP | `http://127.0.0.1:8765/mcp/` | Knowledge graph MCP server | Active |
-| FalkorDB | `localhost:6379` | Graph DB backend for Graphiti (replaces Neo4j) | Active |
-| Hindsight | `http://localhost:9177` | Vector memory store (API-based, self-contained internal DB) | Active |
-| SearXNG | `http://localhost:8888` | Privacy-first web search backend | Active |
+| FalkorDB | graph backend for Graphiti | Graph DB | Active |
+| Hindsight | `http://127.0.0.1:9177` | Vector memory store (API-based; systemd user unit) | Active |
+| SearXNG | `http://127.0.0.1:8888` | Local search index (spare; not primary backend) | Active |
+| Hermes dashboard | `http://127.0.0.1:9119` | Local WebUI | Active with gateway |
 
 **Note: Ollama is UNINSTALLED (2026-07-12).** Neither Hindsight nor Graphiti use local LLMs.
-All inference uses cloud APIs (Anthropic, OpenAI embeddings).
+All inference uses cloud APIs (xAI primary chat; Anthropic vision/Hindsight LLM; OpenAI embeddings; Cerebras/SambaNova/Mistral fallbacks).
 
 ---
 
@@ -27,22 +27,26 @@ All inference uses cloud APIs (Anthropic, OpenAI embeddings).
 | Plugin/Integration | Type | Status | Notes |
 |-------------------|------|--------|-------|
 | orca-status | Hermes plugin | Active | Only enabled plugin in config.yaml |
-| flowstate-qmd | Integration | Active | Powers QMD MCP server; personal Obsidian wiki corpus |
-| stealth-browser-mcp | MCP integration | Installed | `~/.hermes/mcp/stealth-browser-mcp/`; browser automation via CDP |
+| flowstate-qmd | Integration | Present / dormant | QMD MCP **disabled** in config.yaml |
+| stealth-browser-mcp | MCP integration | Active (defer_loading) | `~/.hermes/mcp/stealth-browser-mcp/` |
 
 ---
 
 ## Cloud / external providers
 
-| Provider | Key env var | Quota / tier | Status | Notes |
-|----------|------------|--------------|--------|-------|
-| Anthropic | `ANTHROPIC_API_KEY` | Paid | Active (primary) | `claude-sonnet-4-6` for main session and delegation; `claude-haiku-4-5` for auxiliary vision. No separate escalation/utility Anthropic tier configured |
-| Cerebras | `CEREBRAS_API_KEY` | Free (14,400 RPD) | Active | Fallback #1; also auxiliary.compression and web_extract (zai-glm-4.7); free tier 8K ctx cap |
-| SambaNova | `SAMBANOVA_API_KEY` | Free (20 RPD/model) | Active | Fallback #2 (DeepSeek-V3.2); no data training |
-| Mistral | `MISTRAL_API_KEY` | Free (~1B tok/month) | Active | Fallback #3 (mistral-large-latest); data training opt-in |
-| OpenAI | `OPENAI_API_KEY` | Paid | Key present | Used for: Hindsight embeddings (text-embedding-3-small 1536d) + Graphiti embeddings. NOT in routing config for chat completions |
-| Telegram | `TELEGRAM_BOT_TOKEN` | — | Active | Primary mobile notification gateway |
-| WhatsApp | `WHATSAPP_*` | — | **Dormant** | Bridge present; intentionally disconnected (npm vulns) |
+| Provider | Key env var | Status | Notes |
+|----------|------------|--------|-------|
+| xAI | `XAI_API_KEY` | Active (primary chat) | `grok-4.5` main session model; context_length 200000 |
+| Anthropic | `ANTHROPIC_API_KEY` | Active (aux/vision/Hindsight LLM) | `claude-haiku-4-5` vision; Hindsight inference; optional long-context escalation |
+| Cerebras | `CEREBRAS_API_KEY` | Active | Fallback #1 `gpt-oss-120b`; free tier 8K ctx cap |
+| SambaNova | `SAMBANOVA_API_KEY` | Active | Fallback #2 `DeepSeek-V3.2`; compression fallback hop |
+| Mistral | `MISTRAL_API_KEY` | Active | Fallback #3 `mistral-large-latest`; delegation + most auxiliary routes use `mistral-small-latest` |
+| OpenAI | `OPENAI_API_KEY` | Key present | Embeddings (Hindsight + Graphiti); custom_provider models gpt-5.4/5.5/5.6-sol for adversarial/override use — not default chat routing |
+| Brave Search | `BRAVE_SEARCH_API_KEY` / config `web.brave_api_key` | Active | Primary `web.search_backend=brave` |
+| Telegram | `TELEGRAM_BOT_TOKEN` (+ allowed users / home channel) | Active | Primary mobile notification gateway |
+| WhatsApp | `WHATSAPP_*` | **Dormant** | Bridge present; intentionally disconnected |
+
+Env keys present (names only; values never exported): ANTHROPIC_API_KEY, BRAVE_SEARCH_API_KEY, BROWSERBASE_*, BROWSER_*, CAMOFOX_URL, CEREBRAS_API_KEY, FIRECRAWL_API_URL, HINDSIGHT_LLM_API_KEY, IMAGE_TOOLS_DEBUG, MISTRAL_API_KEY, MOA_TOOLS_DEBUG, OPENAI_API_KEY, SAMBANOVA_API_KEY, SEARXNG_URL, SERPAPI_API_KEY, TELEGRAM_*, TERMINAL_*, VISION_TOOLS_DEBUG, WEB_TOOLS_DEBUG, WHATSAPP_*, XAI_API_KEY.
 
 ---
 
@@ -67,10 +71,10 @@ All inference uses cloud APIs (Anthropic, OpenAI embeddings).
 ## OS / host
 
 - Fedora 44 Silverblue (immutable rpm-ostree)
-- Kernel: 7.1.8-200.fc44.x86_64
+- Kernel: 7.1.10-200.fc44.x86_64
 - Home: /var/home/rainbow
 - Toolbox: available for mutable container work
-- Python: 3.11.15 (Hermes venv); system also has 3.14.6
+- Python: Hermes venv + system Python
 
 ---
 
@@ -78,4 +82,6 @@ All inference uses cloud APIs (Anthropic, OpenAI embeddings).
 
 | Project | Path | Purpose |
 |---------|------|---------|
-| repo1 (LLM Efficiency Gateway) | `/var/home/rainbow/repo1` | FastAPI gateway applying policy redaction, prompt optimization, and cost-tier model routing. Monorepo with packages: evals, policy, optimizer, router, telemetry. See `docs/repo1-eval-harness.md`. |
+| repo1 (LLM Efficiency Gateway) | `/var/home/rainbow/repo1` | FastAPI gateway applying policy redaction, prompt optimization, and cost-tier model routing. See `docs/repo1-eval-harness.md`. |
+| hermes-config (this repo) | `/var/home/rainbow/hermes-config` | Sanitized config + ops docs mirror |
+| hermes-agent (upstream checkout) | `/var/home/rainbow/.hermes/hermes-agent` | Local agent source tree (not mirrored here) |

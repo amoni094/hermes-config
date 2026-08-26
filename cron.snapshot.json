@@ -1,12 +1,14 @@
 {
-  "snapshot_date": "2026-08-18",
-  "total_jobs": 15,
+  "snapshot_date": "2026-08-26",
+  "total_jobs": 18,
   "jobs": [
     {
       "name": "hermes-chat-sync-4h",
       "schedule": "every 240m",
       "mode": "agent",
-      "skills": ["hermes-obsidian-sync"],
+      "skills": [
+        "hermes-obsidian-sync"
+      ],
       "deliver": "local",
       "workdir": "/var/home/rainbow",
       "status": "active"
@@ -63,7 +65,10 @@
       "name": "obsidian-weekly-review",
       "schedule": "0 17 * * 5",
       "mode": "agent",
-      "skills": ["hermes-obsidian-sync", "obsidian"],
+      "skills": [
+        "hermes-obsidian-sync",
+        "obsidian"
+      ],
       "script": "obsidian_weekly_review.sh",
       "deliver": "local",
       "status": "active"
@@ -88,15 +93,9 @@
       "name": "l1-hindsight-promote",
       "schedule": "every 240m",
       "mode": "agent",
-      "skills": ["hindsight-stack-operations"],
-      "deliver": "local",
-      "status": "active"
-    },
-    {
-      "name": "l1-promote-periodic",
-      "schedule": "every 220m",
-      "mode": "no_agent",
-      "script": "l1-promote.py",
+      "skills": [
+        "hindsight-stack-operations"
+      ],
       "deliver": "local",
       "status": "active"
     },
@@ -117,10 +116,41 @@
       "status": "active"
     },
     {
+      "name": "l1-promote-periodic",
+      "schedule": "every 220m",
+      "mode": "no_agent",
+      "script": "l1-promote.py",
+      "deliver": "local",
+      "status": "active"
+    },
+    {
       "name": "g-memory-tier3-nightly",
       "schedule": "0 3 * * *",
       "mode": "no_agent",
       "script": "l1-gmemory-consolidation.py",
+      "deliver": "local",
+      "status": "active"
+    },
+    {
+      "name": "l1-graphiti-periodic",
+      "schedule": "every 240m",
+      "mode": "no_agent",
+      "script": "l1-graphiti-reconcile.py",
+      "deliver": "local",
+      "status": "active"
+    },
+    {
+      "name": "memory-ttl-purge",
+      "schedule": "0 3 * * *",
+      "mode": "no_agent",
+      "script": "memory-ttl-purge.py",
+      "deliver": "local",
+      "status": "active"
+    },
+    {
+      "name": "pending-improvements-review",
+      "schedule": "0 10 * * 0",
+      "mode": "agent",
       "deliver": "local",
       "status": "active"
     }
