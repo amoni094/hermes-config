@@ -1,14 +1,12 @@
 {
-  "snapshot_date": "2026-08-26",
-  "total_jobs": 18,
+  "snapshot_date": "2026-08-30",
+  "total_jobs": 22,
   "jobs": [
     {
       "name": "hermes-chat-sync-4h",
       "schedule": "every 240m",
       "mode": "agent",
-      "skills": [
-        "hermes-obsidian-sync"
-      ],
+      "skills": ["hermes-obsidian-sync"],
       "deliver": "local",
       "workdir": "/var/home/rainbow",
       "status": "active"
@@ -64,11 +62,8 @@
     {
       "name": "obsidian-weekly-review",
       "schedule": "0 17 * * 5",
-      "mode": "agent",
-      "skills": [
-        "hermes-obsidian-sync",
-        "obsidian"
-      ],
+      "mode": "agent+script",
+      "skills": ["hermes-obsidian-sync", "obsidian"],
       "script": "obsidian_weekly_review.sh",
       "deliver": "local",
       "status": "active"
@@ -93,9 +88,23 @@
       "name": "l1-hindsight-promote",
       "schedule": "every 240m",
       "mode": "agent",
-      "skills": [
-        "hindsight-stack-operations"
-      ],
+      "skills": ["hindsight-stack-operations"],
+      "deliver": "local",
+      "status": "active"
+    },
+    {
+      "name": "l1-promote-periodic",
+      "schedule": "every 220m",
+      "mode": "no_agent",
+      "script": "l1-promote.py",
+      "deliver": "local",
+      "status": "active"
+    },
+    {
+      "name": "l1-graphiti-periodic",
+      "schedule": "every 240m",
+      "mode": "no_agent",
+      "script": "l1-graphiti-reconcile.py",
       "deliver": "local",
       "status": "active"
     },
@@ -116,26 +125,10 @@
       "status": "active"
     },
     {
-      "name": "l1-promote-periodic",
-      "schedule": "every 220m",
-      "mode": "no_agent",
-      "script": "l1-promote.py",
-      "deliver": "local",
-      "status": "active"
-    },
-    {
       "name": "g-memory-tier3-nightly",
       "schedule": "0 3 * * *",
       "mode": "no_agent",
       "script": "l1-gmemory-consolidation.py",
-      "deliver": "local",
-      "status": "active"
-    },
-    {
-      "name": "l1-graphiti-periodic",
-      "schedule": "every 240m",
-      "mode": "no_agent",
-      "script": "l1-graphiti-reconcile.py",
       "deliver": "local",
       "status": "active"
     },
@@ -151,8 +144,47 @@
       "name": "pending-improvements-review",
       "schedule": "0 10 * * 0",
       "mode": "agent",
+      "context_from": ["001715fd293f"],
       "deliver": "local",
-      "status": "active"
+      "status": "active",
+      "notes": "Sunday 10:00 AEST. Receives hermes-research-apply output as context."
+    },
+    {
+      "name": "skill-wiki-weekly",
+      "schedule": "0 6 * * 0",
+      "mode": "no_agent",
+      "script": "skill-wiki.py",
+      "deliver": "local",
+      "status": "active",
+      "notes": "Sunday 06:00 AEST. Generates skill wiki index. Last run errored (lock contention with workdir job)."
+    },
+    {
+      "name": "news-diff-watchdog",
+      "schedule": "every 90m",
+      "mode": "no_agent",
+      "script": "news_diff_watchdog.py",
+      "deliver": "local",
+      "status": "active",
+      "notes": "Diff-based news signal watcher: HF Papers, Papers With Code, AI blogs. arXiv intake is separate (hermes-research-sweep)."
+    },
+    {
+      "name": "hermes-research-weekly",
+      "schedule": "0 6 * * 2",
+      "mode": "no_agent",
+      "script": "hermes-research-sweep.py",
+      "deliver": "local",
+      "status": "active",
+      "notes": "Tuesday 06:00 AEST. Sweeps arXiv + multilingual sources across 7 AI agent research categories. Output: ~/.hermes/cache/research/hermes-research-latest.json"
+    },
+    {
+      "name": "hermes-research-apply",
+      "job_id": "001715fd293f",
+      "schedule": "0 7 * * 2",
+      "mode": "agent",
+      "skills": ["hermes-research", "trajectory-research-synthesis-to-skills", "arxiv-sweep-findings", "adversarial-review", "verification-before-completion"],
+      "deliver": "local",
+      "status": "active",
+      "notes": "Tuesday 07:00 AEST (+1h stagger after sweep). Reads sweep JSON, applies findings as skill patches. Output consumed by pending-improvements-review via context_from."
     }
   ]
 }

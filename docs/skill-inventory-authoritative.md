@@ -4,80 +4,120 @@ Generated from live local skill files, `hermes skills list --source builtin/loca
 
 ## Summary
 
-- total_records: 164
-- active_records: 142
+- total_records: 193
+- active_records: 171
 - archived_records: 22
-- builtin_records: 24
-- local_records: 118
-- enabled_records: 101
-- disabled_records: 41
-- stale_usage_count: 29
-- builtin_cli_summary: 0 hub-installed, 24 builtin, 0 local — 14 enabled, 10 disabled
-- local_cli_summary: 0 hub-installed, 0 builtin, 118 local — 87 enabled, 31 disabled
+- builtin_records: 30
+- local_records: 141
+- enabled_records: 165
+- disabled_records: 6
+- stale_usage_count: 34
+- builtin_cli_summary: 0 hub-installed, 30 builtin, 0 local — 28 enabled, 2 disabled
+- local_cli_summary: 0 hub-installed, 0 builtin, 141 local — 137 enabled, 4 disabled
 
 ## Active categories
 
-- (root): 3
-- autonomous-ai-agents: 54
+- (root): 1
+- autonomous-ai-agents: 48
+- computer-use: 1
 - creative: 1
-- devops: 10
-- github: 5
-- media: 1
-- mlops: 1
+- devops: 16
+- email: 3
+- github: 6
 - note-taking: 2
-- productivity: 9
-- research: 9
-- security: 3
-- software-development: 36
+- productivity: 16
+- research: 22
+- software-development: 47
 - superpowers: 8
 
 ## Highest-use active skills (top 20 by use_count)
 
-- autonomous-ai-agents/hermes-obsidian-sync | source=local | status=enabled | use_count=363 | size_bytes=25492
-- software-development/verification-before-completion | source=local | status=enabled | use_count=260 | size_bytes=24213
-- autonomous-ai-agents/hermes-agent | source=builtin | status=enabled | use_count=221 | size_bytes=51955
-- devops/fedora-atomic-dotfiles-adaptation | source=local | status=enabled | use_count=115 | size_bytes=9253
-- github/github-operations | source=local | status=enabled | use_count=68 | size_bytes=13322
-- devops/wayland-session-management | source=local | status=enabled | use_count=59 | size_bytes=5158
-- autonomous-ai-agents/hermes-memory-surface-selection | source=local | status=enabled | use_count=54 | size_bytes=23836
-- software-development/workflow-map | source=local | status=enabled | use_count=52 | size_bytes=5437
-- software-development/claude-routing-hierarchy | source=local | status=enabled | use_count=48 | size_bytes=13844
-- software-development/complexity-gated-planning | source=local | status=enabled | use_count=47 | size_bytes=7766
-- software-development/adversarial-review | source=local | status=enabled | use_count=47 | size_bytes=17284
-- software-development/systematic-debugging | source=builtin | status=enabled | use_count=46 | size_bytes=17098
-- software-development/local-personal-dashboard | source=local | status=enabled | use_count=45 | size_bytes=35300
-- devops/atomic-desktop-app-installation | source=local | status=enabled | use_count=44 | size_bytes=10646
-- software-development/subagent-driven-development | source=local | status=enabled | use_count=40 | size_bytes=12022
-- software-development/security-hardening-balance-review | source=local | status=enabled | use_count=40 | size_bytes=5445
-- autonomous-ai-agents/hermes-context-hygiene | source=local | status=enabled | use_count=33 | size_bytes=15771
-- software-development/requesting-code-review | source=builtin | status=enabled | use_count=31 | size_bytes=14756
-- autonomous-ai-agents/agent-memory-consolidation | source=local | status=enabled | use_count=29 | size_bytes=35103
-- autonomous-ai-agents/hermes-session-hygiene | source=local | status=enabled | use_count=27 | size_bytes=13847
+- autonomous-ai-agents/hermes-obsidian-sync | source=local | status=enabled | use_count=558 | size_bytes=36153
+- software-development/verification-before-completion | source=local | status=enabled | use_count=293 | size_bytes=48019
+- autonomous-ai-agents/hermes-agent | source=builtin | status=enabled | use_count=278 | size_bytes=33611
+- research/academic-literature-review | source=local | status=enabled | use_count=227 | size_bytes=50430
+- software-development/adversarial-review | source=local | status=enabled | use_count=222 | size_bytes=62856
+- software-development/claude-routing-hierarchy | source=local | status=enabled | use_count=141 | size_bytes=65742
+- research/arxiv-sweep-findings | source=local | status=enabled | use_count=128 | size_bytes=99298
+- research/domain-research-synthesis | source=local | status=enabled | use_count=124 | size_bytes=26165
+- devops/fedora-atomic-dotfiles-adaptation | source=local | status=enabled | use_count=115 | size_bytes=11221
+- autonomous-ai-agents/hindsight-stack-operations | source=local | status=enabled | use_count=113 | size_bytes=71318
+- autonomous-ai-agents/hermes-memory-surface-selection | source=local | status=enabled | use_count=100 | size_bytes=82569
+- software-development/knowledge-graph-corpus-pipeline | source=local | status=enabled | use_count=98 | size_bytes=27396
+- github/github-operations | source=local | status=enabled | use_count=93 | size_bytes=21862
+- research/comparative-religion-corpus | source=local | status=enabled | use_count=91 | size_bytes=41750
+- autonomous-ai-agents/agent-memory-consolidation | source=local | status=enabled | use_count=87 | size_bytes=16601
+- devops/silverblue-system-update-trigger | source=local | status=enabled | use_count=84 | size_bytes=7345
+- research/arxiv | source=builtin | status=enabled | use_count=83 | size_bytes=31882
+- autonomous-ai-agents/hermes-skill-library-consolidation-audit | source=local | status=enabled | use_count=78 | size_bytes=76192
+- software-development/hermes-agent-skill-authoring | source=builtin | status=enabled | use_count=72 | size_bytes=68625
+- devops/wayland-session-management | source=local | status=enabled | use_count=71 | size_bytes=12008
 
 ## Oversized active skills (>= 20000 bytes)
 
-- autonomous-ai-agents/hermes-agent | source=builtin | status=enabled | size_bytes=51955 | use_count=221
-- software-development/local-personal-dashboard | source=local | status=enabled | size_bytes=35300 | use_count=45
-- autonomous-ai-agents/agent-memory-consolidation | source=local | status=enabled | size_bytes=35103 | use_count=29
-- autonomous-ai-agents/claude-code | source=builtin | status=enabled | size_bytes=34636 | use_count=7
-- software-development/document-layout-design | source=local | status=enabled | size_bytes=31885 | use_count=20
-- creative/humanizer | source=builtin | status=disabled | size_bytes=30025 | use_count=1
-- autonomous-ai-agents/ouroboros/seed | source=local | status=disabled | size_bytes=29897 | use_count=1
-- autonomous-ai-agents/hermes-obsidian-sync | source=local | status=enabled | size_bytes=25492 | use_count=363
-- software-development/verification-before-completion | source=local | status=enabled | size_bytes=24213 | use_count=260
-- productivity/rich-pdf-generation | source=local | status=disabled | size_bytes=24211 | use_count=2
-- autonomous-ai-agents/hermes-memory-surface-selection | source=local | status=enabled | size_bytes=23836 | use_count=54
-- autonomous-ai-agents/harness-first-agent-design | source=local | status=enabled | size_bytes=22841 | use_count=6
-- autonomous-ai-agents/ouroboros-plugin-development | source=local | status=enabled | size_bytes=21140 | use_count=25
+- research/arxiv-sweep-findings | source=local | status=enabled | size_bytes=99298 | use_count=128
+- autonomous-ai-agents/hermes-memory-surface-selection | source=local | status=enabled | size_bytes=82569 | use_count=100
+- autonomous-ai-agents/hermes-skill-library-consolidation-audit | source=local | status=enabled | size_bytes=76192 | use_count=78
+- autonomous-ai-agents/hindsight-stack-operations | source=local | status=enabled | size_bytes=71318 | use_count=113
+- software-development/hermes-agent-skill-authoring | source=builtin | status=enabled | size_bytes=68625 | use_count=72
+- software-development/claude-routing-hierarchy | source=local | status=enabled | size_bytes=65742 | use_count=141
+- autonomous-ai-agents/hermes-context-hygiene | source=local | status=enabled | size_bytes=65415 | use_count=70
+- software-development/adversarial-review | source=local | status=enabled | size_bytes=62856 | use_count=222
+- autonomous-ai-agents/autonomous-agent-loop-design | source=local | status=enabled | size_bytes=60600 | use_count=38
+- software-development/hermes-context-budgeting | source=local | status=enabled | size_bytes=55331 | use_count=33
+- autonomous-ai-agents/agent-runtime-loop-patterns | source=local | status=enabled | size_bytes=51621 | use_count=26
+- research/academic-literature-review | source=local | status=enabled | size_bytes=50430 | use_count=227
+- autonomous-ai-agents/mnemosyne-atp-safety | source=local | status=enabled | size_bytes=49786 | use_count=11
+- research/legal-regulatory-research-writing | source=local | status=enabled | size_bytes=49593 | use_count=50
+- autonomous-ai-agents/harness-first-agent-design | source=local | status=enabled | size_bytes=48131 | use_count=24
+- software-development/verification-before-completion | source=local | status=enabled | size_bytes=48019 | use_count=293
+- autonomous-ai-agents/trajectory-risk-guardrail | source=local | status=enabled | size_bytes=42842 | use_count=17
+- autonomous-ai-agents/self-improve-agent | source=local | status=enabled | size_bytes=42599 | use_count=56
+- research/comparative-religion-corpus | source=local | status=enabled | size_bytes=41750 | use_count=91
+- autonomous-ai-agents/graphiti-mcp-setup | source=local | status=enabled | size_bytes=41456 | use_count=31
+- productivity/law-firm-briefing-memo | source=local | status=enabled | size_bytes=38416 | use_count=0
+- software-development/local-personal-dashboard | source=local | status=enabled | size_bytes=38358 | use_count=50
+- autonomous-ai-agents/hermes-role-pipelines | source=local | status=enabled | size_bytes=36942 | use_count=47
+- research/llm-agent-memory-pipeline-research | source=local | status=enabled | size_bytes=36924 | use_count=66
+- book-to-skill | source=local | status=enabled | size_bytes=36675 | use_count=0
+- autonomous-ai-agents/hermes-obsidian-sync | source=local | status=enabled | size_bytes=36153 | use_count=558
+- autonomous-ai-agents/claude-code | source=builtin | status=enabled | size_bytes=34733 | use_count=21
+- autonomous-ai-agents/hermes-agent | source=builtin | status=enabled | size_bytes=33611 | use_count=278
+- software-development/hermes-semantic-skill-routing | source=local | status=enabled | size_bytes=32454 | use_count=18
+- autonomous-ai-agents/hermes-skillspector-guard-maintenance | source=local | status=enabled | size_bytes=31917 | use_count=25
+- research/arxiv | source=builtin | status=enabled | size_bytes=31882 | use_count=83
+- software-development/knowledge-corpus-architecture | source=local | status=enabled | size_bytes=30439 | use_count=8
+- software-development/systematic-debugging | source=builtin | status=enabled | size_bytes=30289 | use_count=56
+- creative/humanizer | source=builtin | status=disabled | size_bytes=30235 | use_count=1
+- software-development/document-layout-design | source=local | status=enabled | size_bytes=28362 | use_count=58
+- research/firecrawl-research | source=local | status=enabled | size_bytes=27707 | use_count=46
+- software-development/knowledge-graph-corpus-pipeline | source=local | status=enabled | size_bytes=27396 | use_count=98
+- software-development/hermes-operating-pattern | source=local | status=enabled | size_bytes=26608 | use_count=16
+- software-development/requesting-code-review | source=builtin | status=enabled | size_bytes=26454 | use_count=40
+- research/domain-research-synthesis | source=local | status=enabled | size_bytes=26165 | use_count=124
+- productivity/rich-pdf-generation | source=local | status=disabled | size_bytes=24559 | use_count=2
+- devops/linux-wifi-stability | source=local | status=enabled | size_bytes=24066 | use_count=36
+- autonomous-ai-agents/hermes-config-repo-audit | source=local | status=enabled | size_bytes=23837 | use_count=27
+- autonomous-ai-agents/hermes-session-hygiene | source=local | status=enabled | size_bytes=23463 | use_count=56
+- superpowers/dispatching-parallel-agents | source=local | status=enabled | size_bytes=23394 | use_count=48
+- software-development/skillopt-continuous-improvement | source=local | status=enabled | size_bytes=22946 | use_count=16
+- autonomous-ai-agents/hermes-swarm-consensus | source=local | status=enabled | size_bytes=22898 | use_count=12
+- autonomous-ai-agents/ouroboros-plugin-development | source=local | status=enabled | size_bytes=22417 | use_count=25
+- github/github-operations | source=local | status=enabled | size_bytes=21862 | use_count=93
+- autonomous-ai-agents/async-agent-nightshift-patterns | source=local | status=enabled | size_bytes=21028 | use_count=10
+- productivity/pii-redaction | source=local | status=enabled | size_bytes=20764 | use_count=1
+- software-development/evaluation-driven-development | source=local | status=enabled | size_bytes=20662 | use_count=9
 
 ## Stale usage keys
 
 - apple-notes | status=unknown_or_historical | replacement=None | use_count=0
 - apple-reminders | status=unknown_or_historical | replacement=None | use_count=0
+- auto | status=unknown_or_historical | replacement=None | use_count=1
 - codebase-inspection | status=unknown_or_historical | replacement=None | use_count=9
 - config-audit-and-hardening | status=unknown_or_historical | replacement=None | use_count=2
 - findmy | status=unknown_or_historical | replacement=None | use_count=0
 - free-llm-provider-integration | status=unknown_or_historical | replacement=None | use_count=12
+- help | status=unknown_or_historical | replacement=None | use_count=3
 - hermes-budget-governance | status=unknown_or_historical | replacement=None | use_count=2
 - hermes-mcp-integration | status=unknown_or_historical | replacement=None | use_count=26
 - hermes-memory-drift-audit | status=unknown_or_historical | replacement=None | use_count=18
@@ -92,9 +132,12 @@ Generated from live local skill files, `hermes skills list --source builtin/loca
 - medical-research-analysis | status=unknown_or_historical | replacement=None | use_count=2
 - portable-scripts-and-exports | status=unknown_or_historical | replacement=None | use_count=1
 - porting-superpowers-to-hermes | status=unknown_or_historical | replacement=None | use_count=2
+- ralph | status=unknown_or_historical | replacement=None | use_count=1
 - recent-news-briefing | status=unknown_or_historical | replacement=None | use_count=54
 - research-briefing | status=unknown_or_historical | replacement=None | use_count=37
+- run | status=unknown_or_historical | replacement=None | use_count=3
 - security-hardening-code-review | status=unknown_or_historical | replacement=None | use_count=6
+- seed | status=unknown_or_historical | replacement=None | use_count=1
 - silverblue-system-update | status=unknown_or_historical | replacement=None | use_count=4
 - skills-library-hygiene | status=unknown_or_historical | replacement=None | use_count=2
 - superpowers-bootstrap | status=unknown_or_historical | replacement=None | use_count=1

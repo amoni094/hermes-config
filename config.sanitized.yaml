@@ -1,27 +1,26 @@
 model:
   context_length: 200000
-  default: grok-4.5
-  provider: xai
+  default: claude-sonnet-4-6
+  provider: anthropic
 providers:
   anthropic:
     stale_timeout_seconds: 900
 fallback_providers:
-- base_url: https://api.cerebras.ai/v1
-  model: gpt-oss-120b
-  provider: cerebras
-- base_url: https://api.sambanova.ai/v1
-  model: DeepSeek-V3.2
-  provider: sambanova
-- base_url: https://api.mistral.ai/v1
+- provider: xai
+  model: grok-4.6
+- provider: mistral
   model: mistral-large-latest
-  provider: mistral
+  base_url: https://api.mistral.ai/v1
+- provider: sambanova
+  model: gemma-4-31B-it
+  base_url: https://api.sambanova.ai/v1
 toolsets:
 - hermes-cli
 agent:
   max_turns: 500
   gateway_timeout: 1800
   api_max_retries: 5
-  tool_use_enforcement: permissive
+  tool_use_enforcement: strict
   task_completion_guidance: false
   environment_probe: false
   verify_on_stop: auto
@@ -30,14 +29,13 @@ terminal:
   backend: local
   timeout: 180
 web:
-  search_backend: brave
+  search_backend: brave-free
   extract_backend: firecrawl
-  brave_api_key: ''
 browser:
   args: --no-sandbox,--disable-setuid-sandbox,--disable-dev-shm-usage
   executable_path: /var/home/rainbow/.cache/ms-playwright/chromium-1223/chrome-linux64/chrome
 file_read_max_chars: 200000
-mcp_discovery_timeout: 3
+mcp_discovery_timeout: 30
 tool_loop_guardrails:
   warnings_enabled: true
   hard_stop_enabled: true
@@ -45,6 +43,8 @@ tool_loop_guardrails:
     exact_failure: 2
     same_tool_failure: 3
     idempotent_no_progress: 2
+    no_effective_progress: 5
+    delegation_event_budget: 50
   tool_result_cache:
     enabled: true
     scope: session
@@ -68,8 +68,9 @@ compression:
   min_tail_user_messages: 3
   proactive_prune_tokens: ''
   micro_compact: true
-  micro_compact_every_n_turns: 3
+  micro_compact_every_n_turns: 4
   idle_compact_after_seconds: 1800
+  intent_conditioned_offload: true
 prompt_caching:
   cache_ttl: 1h
 auxiliary:
@@ -77,17 +78,14 @@ auxiliary:
     provider: anthropic
     model: claude-haiku-4-5
   compression:
-    provider: mistral
-    model: mistral-small-latest
-    base_url: https://api.mistral.ai/v1
-    reasoning_effort: medium
+    provider: anthropic
+    model: claude-haiku-4-5
     fallback_chain:
-    - base_url: https://api.sambanova.ai/v1
-      model: DeepSeek-V3.2
-      provider: sambanova
-    - base_url: https://api.mistral.ai/v1
-      model: mistral-large-latest
-      provider: mistral
+    - provider: anthropic
+      model: claude-haiku-4-5
+    - provider: sambanova
+      model: gemma-4-31B-it
+      base_url: https://api.sambanova.ai/v1
     max_concurrency: 2
     max_tokens: 4096
   title_generation:
@@ -157,10 +155,15 @@ memory:
       max_attempts: 0
       base_delay: 0.0
       backoff: 1.0
+  working_memory:
+    enabled: true
+    dir: cache/working-memory
+    skill_selection_from_wm: true
+    constraint_binding_required: true
 delegation:
-  model: mistral-small-latest
-  provider: mistral
-  base_url: https://api.mistral.ai/v1
+  model: grok-4.6
+  provider: xai
+  child_timeout_seconds: 0
   max_concurrent_children: 10
   max_spawn_depth: 1
   default_toolset_policy: minimal
@@ -280,7 +283,7 @@ skills:
   - youtube-content
   - yuanbao
   hierarchy:
-    global: adversarial-review,verification-before-completion,hermes-memory-surface-selection,agent-memory-consolidation,hermes-agent-skill-authoring,hermes-self-evolution,autonomous-agent-loop-design,trajectory-risk-guardrail,mnemosyne-atp-safety,hermes-swarm-consensus,async-agent-nightshift-patterns,agent-task-signoff,agent-browser-troubleshooting,agent-runtime-stack-debugging,hermes-session-hygiene,hermes-context-hygiene,hermes-observability-and-task-ledger
+    global: hermes-context-hygiene,hermes-session-hygiene,hermes-memory-surface-selection,verification-before-completion,trajectory-risk-guardrail
     domain:
       research: arxiv,firecrawl-research,grounded-citations,defuddle,blocked-page-recovery,academic-literature-review,domain-research-synthesis,lecture-transcript-summarization,visual-document-review,arxiv-sweep-findings
       devops: atomic-desktop-app-installation,fedora-atomic-dotfiles-adaptation,hermes-agent-independent-update-protocol,hermes-gateway-lifecycle-guard,kanban-swarm-nightly-ops,linux-thermal-workload-throttling,linux-wifi-stability,managed-repo-update-workflow,protonvpn-nm-automation,rootless-podman-compose-adaptation,router-admin-automation,silverblue-system-update-trigger,silverblue-toolbox-wrapper-bootstrap,tplink-ax55-router-automation,wayland-session-management
@@ -288,13 +291,18 @@ skills:
       software-development: adversarial-review,anthropic-api-cost-optimization,claude-routing-hierarchy,complexity-gated-planning,context-safe-pdf-edits,document-layout-design,evaluation-driven-development,external-signal-pipeline-recovery,gepa-omni-optimization,grill-me,handoff,hermes-agent-skill-authoring,hermes-coding-review-loop,hermes-context-budgeting,hermes-cron-and-agents,hermes-internals-source-recon,hermes-memory-capture-and-bridge,hermes-observability-and-task-ledger,hermes-operating-pattern,hermes-semantic-skill-routing,isa,isolated-workspace-preflight,knowledge-corpus-architecture,knowledge-graph-corpus-pipeline,local-personal-dashboard,media-catalog-seed-data,node-inspect-debugger,officecli,plan,policy-dashboard-workflow,ponytail-yagni,python-debugpy,repo1-gateway-workflow,requesting-code-review,review-driven-followup-fixes,risk-based-review,security-hardening-balance-review,skillopt-continuous-improvement,spike,subagent-driven-development,subagent-output-contract,symbolic-context-offload,systematic-debugging,test-driven-development,verification-before-completion,workflow-map
     task: github-issue-agent,github-issue-to-pr,github-issues,scoped-pr-fix-and-verification,split-ci-workflow-change-and-draft-pr,email-compose-and-send,email-inbox-triage,obsidian,obsidian-research-ingestion,gold-class,suggest-music,stay-in
 approvals:
-  mode: 'off'
+  mode: smart
   destructive_slash_confirm: false
 command_allowlist:
-- stop/restart system service
-- hermes update
 - systemctl
-- HERMES_BIN=/nonexistent
+- hermes update
+- stop/restart system service
+- hermes update (restarts gateway, kills running agents)
+plugins:
+  enabled:
+  - orca-status
+cron:
+  allow_agent_scheduling: false
 onboarding:
   seen:
     busy_input_prompt: true
@@ -378,8 +386,6 @@ custom_providers:
     mistral-vibe-cli-latest: {}
     mistral-vibe-cli-with-tools: {}
     magistral-medium-latest: {}
-    glm-5-2: {}
-    zai-glm-5-2: {}
     mistral-embed-2312: {}
     mistral-embed: {}
     codestral-embed: {}
@@ -422,9 +428,6 @@ mcp_servers:
   scrapfly:
     url: https://mcp.scrapfly.io/mcp
     enabled: false
-plugins:
-  enabled:
-  - orca-status
 session_reset:
   mode: none
 platform_toolsets:
@@ -443,3 +446,105 @@ platform_toolsets:
   - todo
   - vision
   - web
+harness_fingerprint:
+  enabled: true
+  hash_inputs:
+  - tools
+  - skills
+  - compaction_policy
+  - approval_mode
+  - timeout
+persona_execution_split:
+  enabled: true
+information_flow_control:
+  enabled: false
+  labels:
+  - public
+  - session
+  - private
+  default_tool_result_label: session
+critique_bank:
+  enabled: true
+  path: cache/critique-bank.jsonl
+  max_critiques_per_injection: 3
+  source_model: cheap-family
+nl_permission_policies:
+  enabled: false
+  policy_dir: ~/.hermes/policies
+ledger_orchestration:
+  enabled: false
+  ledger_file: cache/session-ledger.jsonl
+tool_slo:
+  enabled: true
+  schema_valid_min: 0.95
+  retries_without_progress_max: 3
+  same_args_retry_max: 2
+  emit_metrics: true
+durable_file_write_gate:
+  enabled: true
+  guarded_paths:
+  - ~/.hermes/memory.md
+  - ~/.hermes/skills/
+  - AGENTS.md
+  - .hermes/
+skill_wiki:
+  enabled: true
+  dir: cache/skill-wiki
+  upsert_on_skill_update: true
+  export_on_weekly_review: true
+skill_state:
+  enabled: true
+  dir: cache/skill-state
+  obs_ring_buffer: 3
+  gc_after_hours: 24
+  activate_threshold_steps: 10
+tool_auth:
+  enabled: true
+  log_dir: cache/tool-auth-log
+  action_induction_patterns: true
+  external_tier_high_risk_warn: true
+  governance_primitives:
+    discovery: true
+    identity: true
+    attestation: log
+    supply_chain: log
+calibration_gate:
+  enabled: true
+  warn_on_authoritative_display: true
+  commitment_threshold: 0.3
+loop_harness:
+  enabled: true
+  risk_floor_path: cache/loop-harness/risk-floor.json
+  irreversible_action_cap: 5
+  decay_disabled: true
+observer_skip_list:
+  enabled: true
+  skip_tool_bodies:
+  - read_file
+  - search_files
+  - web_extract
+  - browser_snapshot
+  max_tail_messages: 5
+  log_body_char_count: true
+persona_isolation:
+  enabled: true
+  persona_in_system_prompt_only: true
+  strip_persona_from_tool_context: false
+first_chunk_rank:
+  enabled: true
+  apply_to_tools:
+  - web_extract
+  - read_file
+  - terminal
+  threshold_chars: 8000
+  top_chunks: 3
+  chunk_size_chars: 2000
+constraint_freshness:
+  enabled: true
+  max_constraint_age_days: 90
+  warn_on_stale_constraint: true
+  require_freshness_on_promote: true
+handoff:
+  prefer_structured_wm: true
+  lint_constraints: true
+  full_trajectory_on_model_switch: false

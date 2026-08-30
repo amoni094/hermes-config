@@ -1,6 +1,6 @@
 # External Apps and Services Register
 
-Last updated: 2026-08-26 (main model xAI grok-4.5; Brave primary search; QMD disabled; Hindsight systemd; dashboard :9119)
+Last updated: 2026-08-30 (main model anthropic/claude-sonnet-4-6; delegation xai/grok-4.6; compression anthropic/claude-haiku-4-5; fallback chain updated; news-diff-watchdog + research pipeline added)
 
 All external apps, local services, and third-party integrations this Hermes instance depends on.
 
@@ -36,17 +36,16 @@ All inference uses cloud APIs (xAI primary chat; Anthropic vision/Hindsight LLM;
 
 | Provider | Key env var | Status | Notes |
 |----------|------------|--------|-------|
-| xAI | `XAI_API_KEY` | Active (primary chat) | `grok-4.5` main session model; context_length 200000 |
-| Anthropic | `ANTHROPIC_API_KEY` | Active (aux/vision/Hindsight LLM) | `claude-haiku-4-5` vision; Hindsight inference; optional long-context escalation |
-| Cerebras | `CEREBRAS_API_KEY` | Active | Fallback #1 `gpt-oss-120b`; free tier 8K ctx cap |
-| SambaNova | `SAMBANOVA_API_KEY` | Active | Fallback #2 `DeepSeek-V3.2`; compression fallback hop |
-| Mistral | `MISTRAL_API_KEY` | Active | Fallback #3 `mistral-large-latest`; delegation + most auxiliary routes use `mistral-small-latest` |
-| OpenAI | `OPENAI_API_KEY` | Key present | Embeddings (Hindsight + Graphiti); custom_provider models gpt-5.4/5.5/5.6-sol for adversarial/override use — not default chat routing |
-| Brave Search | `BRAVE_SEARCH_API_KEY` / config `web.brave_api_key` | Active | Primary `web.search_backend=brave` |
+| Anthropic | `ANTHROPIC_API_KEY` | Active (primary chat + aux) | `claude-sonnet-4-6` main session model; `claude-haiku-4-5` vision + compression; Hindsight inference |
+| xAI | `XAI_API_KEY` | Active (fallback #1 + delegation) | `grok-4.6` fallback and delegation model; context_length 200000 |
+| Mistral | `MISTRAL_API_KEY` | Active | Fallback #2 `mistral-large-latest`; title/triage/curator/web_extract aux routes use `mistral-small-latest` |
+| SambaNova | `SAMBANOVA_API_KEY` | Active | Fallback #3 `gemma-4-31B-it`; compression fallback hop |
+| OpenAI | `OPENAI_API_KEY` | Key present | Embeddings (Hindsight + Graphiti via `text-embedding-3-small`); custom_provider models gpt-5.4/5.5/5.6-sol for adversarial/override use — not default chat routing |
+| Brave Search | `BRAVE_SEARCH_API_KEY` | Active | Primary `web.search_backend=brave-free` |
 | Telegram | `TELEGRAM_BOT_TOKEN` (+ allowed users / home channel) | Active | Primary mobile notification gateway |
 | WhatsApp | `WHATSAPP_*` | **Dormant** | Bridge present; intentionally disconnected |
 
-Env keys present (names only; values never exported): ANTHROPIC_API_KEY, BRAVE_SEARCH_API_KEY, BROWSERBASE_*, BROWSER_*, CAMOFOX_URL, CEREBRAS_API_KEY, FIRECRAWL_API_URL, HINDSIGHT_LLM_API_KEY, IMAGE_TOOLS_DEBUG, MISTRAL_API_KEY, MOA_TOOLS_DEBUG, OPENAI_API_KEY, SAMBANOVA_API_KEY, SEARXNG_URL, SERPAPI_API_KEY, TELEGRAM_*, TERMINAL_*, VISION_TOOLS_DEBUG, WEB_TOOLS_DEBUG, WHATSAPP_*, XAI_API_KEY.
+Env keys present (names only; values never exported): ANTHROPIC_API_KEY, BRAVE_SEARCH_API_KEY, BROWSERBASE_*, BROWSER_*, CAMOFOX_URL, FIRECRAWL_API_URL, HINDSIGHT_LLM_API_KEY, IMAGE_TOOLS_DEBUG, MISTRAL_API_KEY, MOA_TOOLS_DEBUG, OPENAI_API_KEY, SAMBANOVA_API_KEY, SEARXNG_URL, SERPAPI_API_KEY, TELEGRAM_*, TERMINAL_*, VISION_TOOLS_DEBUG, WEB_TOOLS_DEBUG, WHATSAPP_*, XAI_API_KEY.
 
 ---
 

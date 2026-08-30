@@ -1,6 +1,6 @@
 # Scripts Inventory
 
-Last updated: 2026-08-26 (added TraceGrant/TTL/router/unified-recall/graphiti-reconcile; QMD disabled)
+Last updated: 2026-08-30 (added research sweep, news watchdog, skill-wiki, browser-act-guard, working-memory, constraint-binding-lint, diff-impact, tool-auth-gate, critique-bank)
 
 All scripts live under `~/.hermes/scripts/` on the local host. Scripts are NOT copied
 into this git repo. This doc exists so the purpose of each script is disclosed and
@@ -28,7 +28,10 @@ auditable without opening the file.
 | `omni_skill_scan.py` | omni-skill-quality-scan | 0 3 * * 0 | Weekly skill quality scan |
 | `skill_prune_audit.py` | skill-prune-audit | 0 9 1 * * | Monthly skill prune audit |
 
-Agent-mode cron jobs without a dedicated script: `hermes-chat-sync-4h`, `l1-hindsight-promote`, `pending-improvements-review`.
+Agent-mode cron jobs without a dedicated script: `hermes-chat-sync-4h`, `l1-hindsight-promote`, `pending-improvements-review`, `hermes-research-apply`.
+| `news_diff_watchdog.py` | news-diff-watchdog | every 90m | Diff-based news signal watcher (HF Papers, Papers With Code, AI blogs) |
+| `hermes-research-sweep.py` | hermes-research-weekly | 0 6 * * 2 | Sweep arXiv + multilingual sources across 7 AI agent research categories |
+| `skill-wiki.py` | skill-wiki-weekly | 0 6 * * 0 | Generate weekly skill wiki index |
 
 ## Utility scripts (run manually or by agent)
 
@@ -81,6 +84,14 @@ Agent-mode cron jobs without a dedicated script: `hermes-chat-sync-4h`, `l1-hind
 | `daily-silverblue-update-login-trigger.sh` | Login-triggered Silverblue update |
 | `reboot-required-notify.sh` | Notify when a post-update reboot is required after Silverblue update |
 | `groq-split-tunnel.sh` | Route Groq API traffic via split tunnel (reference only; Groq not configured) |
+| `browser_act_guard.py` | Browser action guard — validates browser actions against veto rules before execution |
+| `test_browser_act_guard.py` | Unit tests for browser_act_guard.py |
+| `working-memory.py` | Working memory manager: skill_selection_from_wm + constraint_binding |
+| `constraint-binding-lint.py` | Lint skill/config files for missing constraint binding declarations |
+| `diff-impact.py` | Compute blast-radius impact diff for proposed code/skill changes |
+| `tool-auth-gate.py` | Gate tool invocations against auth/approval requirements |
+| `critique-bank.py` | Manage critique bank for adversarial review findings |
+| `skill-state.py` | Inspect/set skill state (enabled/disabled/quarantined) |
 
 ## Sudoers helpers (not executable scripts — sudoers drop-in files)
 
