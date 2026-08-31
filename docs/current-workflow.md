@@ -1,11 +1,9 @@
 # Current Hermes Workflow Snapshot
 
-Generated from local runtime state. Last refreshed: 2026-08-30 (v0.20.6 upgrade; primary
-model flipped to anthropic/claude-sonnet-4-6; delegation to xai/grok-4.6; compression to
-anthropic/claude-haiku-4-5; enforcement strict; 22 cron jobs including new research pipeline).
+Generated from local runtime state. Last refreshed: 2026-08-31 (upstream hash updated to 4f225435; skills count updated 148 local/27 builtin/169 enabled; fallback chain confirmed: xai/grok-4.6 → mistral/mistral-large → sambanova/gemma-4-31B-it; Cerebras removed from chain).
 
 ## Runtime
-- Hermes version: Hermes Agent v0.20.6 (2026.8.27) · upstream 52e5e7c0
+- Hermes version: Hermes Agent v0.20.6 (2026.8.27) · upstream 4f225435
 - Config path: `/var/home/rainbow/.hermes/config.yaml`
 - Persona file: `/var/home/rainbow/.hermes/SOUL.md`
 - Task ledger: `/var/home/rainbow/.hermes/logs/hermes-task-ledger.jsonl`
@@ -45,7 +43,7 @@ See `docs/memory-topology.md` for full routing guide.
 ## Workflow conventions
 - Concise global persona focused on direct, resourceful, verifiable work.
 - Local-first terminal workflow; cloud-only inference (Ollama uninstalled 2026-07-12).
-- 141 local + 30 builtin = 165 enabled / 6 disabled skills; heavy skill-driven routing.
+- 148 local + 27 builtin = 169 enabled / 6 disabled skills; heavy skill-driven routing.
 - Pre-tool governance via veto rules under `~/.hermes/veto/rules/` (mirrored under `veto/` in this repo).
 - Background and delegation runs leave inspectable traces in the Hermes task ledger.
 - Improvement proposals staged to `~/.hermes/cache/pending-improvements/` (weekly review cron; not auto-applied).

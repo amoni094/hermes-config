@@ -330,8 +330,8 @@ custom_providers:
   key_env: CEREBRAS_API_KEY
   name: cerebras
   models:
-    gemma-4-31b: {}
     gpt-oss-120b: {}
+    gemma-4-31b: {}
   models_discovered: true
 - api_mode: chat_completions
   base_url: https://api.sambanova.ai/v1

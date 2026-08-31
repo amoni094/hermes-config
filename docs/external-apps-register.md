@@ -1,6 +1,6 @@
 # External Apps and Services Register
 
-Last updated: 2026-08-30 (main model anthropic/claude-sonnet-4-6; delegation xai/grok-4.6; compression anthropic/claude-haiku-4-5; fallback chain updated; news-diff-watchdog + research pipeline added)
+Last updated: 2026-08-31 (primary provider note corrected to Anthropic; Cerebras removed from fallback; SambaNova model confirmed gemma-4-31B-it)
 
 All external apps, local services, and third-party integrations this Hermes instance depends on.
 
@@ -18,7 +18,7 @@ All external apps, local services, and third-party integrations this Hermes inst
 | Hermes dashboard | `http://127.0.0.1:9119` | Local WebUI | Active with gateway |
 
 **Note: Ollama is UNINSTALLED (2026-07-12).** Neither Hindsight nor Graphiti use local LLMs.
-All inference uses cloud APIs (xAI primary chat; Anthropic vision/Hindsight LLM; OpenAI embeddings; Cerebras/SambaNova/Mistral fallbacks).
+All inference uses cloud APIs (Anthropic primary chat; xAI grok-4.6 delegation + fallback; Mistral/SambaNova fallbacks; OpenAI embeddings).
 
 ---
 
