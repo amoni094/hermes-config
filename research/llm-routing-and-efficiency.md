@@ -283,3 +283,33 @@ compressed = result["compressed_prompt"]
   POST (caught after; requires rollback or compensation). PRE is always cheapest.
   Evaluation should measure distribution across all three, not just final accuracy.
 - **Application:** `verification-before-completion` skill.
+
+---
+
+## August 2026 Additions — Hermes Research Sweep (Cluster D: Tool-Integrated Reasoning + Context)
+
+Sources: hermes-research-sweep Cluster D (Aug 30 2026), papers synthesized by subagent (deleg_20260830_185323).
+
+### Toolformer — Conditional Tool Call Gate (2302.04761)
+- **arXiv:** 2302.04761 | Schick et al. | NeurIPS 2023
+- Keep a tool call only if executing it would reduce next-step uncertainty; skip if context
+  already answers the query. Tool calls are not free — each one is a reasoning interrupt.
+- **Gap found:** No explicit gate evaluating whether a tool call adds information.
+- **Applied to:** `hermes-context-budgeting` v1.2.0 (Toolformer call gate rule).
+
+### Registry Width Tax — Tool Attention (2608.02113 et al.)
+- **Source:** Hermes Research Cluster D | arXiv ~2608.02113 | Aug 2026
+- Tool registry width dominates context cost: Tool Attention paper ~95% of overhead;
+  ratel implementation ~80% reduction. Load per-step toolsets, not the full catalog.
+  Collapse ≥5-call stable tool chains into one `execute_code` program, not N LLM round-trips.
+- **Gap found:** Main session still full-width; only map-guided `enabled_toolsets` on leaves.
+- **Applied to:** `hermes-context-budgeting` v1.2.0 (width-before-memory, collapse rule).
+
+### 35% Cliff — Never Uniformly Squeeze Below Threshold (2608.01056)
+- **arXiv:** ~2608.01056 | Aug 2026
+- Uniform context compression below ~35% of a coherent section causes catastrophic recall loss.
+  Compress when relevance expires (adaptive), not at a fixed fill ratio.
+  Drop full sections rather than uniformly squeezing all sections.
+- **Sources:** ACC-RAG, ACON, TokenPilot, 2608.01056
+- **Applied to:** `hermes-context-budgeting` v1.2.0 (section-drop not uniform squeeze;
+  relevance-before-fill rule; do not retune compression.* mid-session).

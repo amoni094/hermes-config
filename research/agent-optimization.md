@@ -290,3 +290,62 @@ Skills with Q < 0.3 → surface for curator review.
 - Separating planner and executor into distinct agents via slot-filling DAG reduces planning hallucination.
   Planner fills DAG slots; executor instantiates each slot independently.
 - **Application:** `config.yaml: planner_executor_split`.
+
+---
+
+## August 2026 Additions — Hermes Research Sweep (Clusters B, C, E: Skill Evolution, Planning, Self-Improvement)
+
+Sources: hermes-research-sweep Clusters B, C, E (Aug 30 2026), papers synthesized by subagent (deleg_20260830_185323).
+
+### ARISE — Crystallize Procedures from Successful Traces
+- **Source:** Hermes Research Cluster B | Aug 2026
+- OOD (out-of-distribution) gains come from post-execution skill growth, not informal "offer to save."
+  Must crystallize procedures from successful traces automatically, with a quality gate.
+- **Gap found:** `trace2skill.py` existed but had no admission gate, no ≥2-trace requirement,
+  no overlap classification before create.
+- **Applied to:** `runtime-skill-synthesis` (new skill, experimental), `self-improve-agent`.
+
+### EvoAgent / RethinkSkill — Failure Traces as Load-Bearing Signal
+- **Source:** Hermes Research Cluster B | Aug 2026
+- Failure traces are required for skill repair. Success-only updates cannot fix broken skills.
+  EvoAgent = failure trace → human-gated SKILL.md patch (not Reflexion, which is episodic buffer).
+- **Gap found:** EvoAgent logging pointed at `~/.hermes/skill-failures/` which did not exist;
+  "immediately patch" conflicted with human/staging gates; no required success/fail pair.
+- **Applied to:** `self-improve-agent`; created `~/.hermes/skill-failures/` and `~/.hermes/skill-quality/`.
+
+### SkillAlchemy — Evidence-Gated Skill Admission
+- **Source:** Hermes Research Cluster B | Aug 2026
+- Admit skill procedures only on contrastive, evidence-supported scope. Single-case steps
+  stay conditional. Skill creation from a score gap alone (without execution evidence) is banned.
+- **Gap found:** SkillAlchemy was expressed as authoring questions, not a reject/admit checklist.
+- **Applied to:** `skillopt-continuous-improvement` v1.2.0; `runtime-skill-synthesis`.
+
+### TRACE — Pass^k as Production Quality Metric (not Pass@1)
+- **Source:** Hermes Research Cluster B | Aug 2026
+- Pass^k (k consecutive independent successes) is the correct metric for skill promotion.
+  Pass@1 is cherry-picking. A skill should pass k times before being considered stable.
+- **Gap found:** Pass^k was described as prose; no JSONL streak log, no promotion gate on streak.
+- **Applied to:** `skillopt-continuous-improvement` v1.2.0; `runtime-skill-synthesis`.
+
+### MERGE Safety — No Auto-Delete on Cosine Similarity Alone
+- **Source:** Hermes Research Cluster B synthesis | Aug 2026
+- Cosine similarity > 0.92 is a merge *hint*, not merge identity. Dominant-skill rule and
+  `supersedes` metadata required. Pitfall union (combined pitfalls, not intersection) required.
+  Auto-delete on cosine alone is unsafe.
+- **Gap found:** Merge was "cosine > 0.92 → delete" with no dominant-skill rule, no supersedes.
+- **Applied to:** `skillopt-continuous-improvement` v1.2.0.
+
+### ToT-Lite / Critique-Before-Commit — Plan Beam + Critic Gate
+- **arXiv:** 2404.11584 (hierarchical); Tree of Thoughts (Yao et al., 2023)
+- N=2–3 read-only candidate plans generated, separate critic picks winner before execution.
+  Commit is blocked until a fresh critic approves. Cost-capped; skip on Level 0–1 complexity tasks.
+  Canvas-of-Thought (named state) is NOT the same as ToT (N candidate generation + critic pruning).
+- **Gap found:** producer-reviewer is after-the-fact; no N-candidate pre-plan critic gate.
+- **Applied to:** `hermes-role-pipelines` v2.2.0; `autonomous-agent-loop-design` v1.4.0.
+
+### ReAct — Thought/Action/Observation Loop (2210.03629)
+- **arXiv:** 2210.03629 | Yao et al. | ICLR 2023
+- Hermes implements Action–Observation natively via tool-call loop. Implicit Thought exists
+  as pre-tool reasoning. No first-class logged Thought: step or ReAct few-shot template in skills.
+  Adjacent: OODA (runtime-loop), Fast/Slow ReAct.
+- **Gap found (noted, not patched):** Explicit Thought logging not implemented this round.

@@ -314,3 +314,42 @@ A "fixes" edge between "bug X" and "workaround Y" survives semantic drift in emb
 - Bi-temporal Datalog engine with provenance and confidence tracking, MCP server interface.
   Potential future upgrade path for Hindsight write-path (bi-temporal + provenance).
 - **Status:** Noted for future evaluation; not yet integrated.
+
+---
+
+## August 2026 Additions — Hermes Research Sweep (Cluster A: Memory Architecture)
+
+Sources: hermes-research-sweep Cluster A (Aug 30 2026), papers synthesized by subagent (deleg_20260830_185323).
+
+### ReasoningBank — Durable Success/Failure Trace Memory
+- **Source:** Hermes Research Cluster A synthesis | Aug 2026
+- Failure traces are first-class memory objects, not discards. Tag every trajectory:
+  `trajectory-success` or `trajectory-failure` + reason. Success-only memory update
+  is provably insufficient — failure traces are load-bearing supervision signal.
+- **Gap found in Hermes:** No first-class failure-trace schema or JSONL bank before this sweep.
+- **Applied to:** `agent-memory-consolidation` v1.10.1 (ReasoningBank heuristic tagging).
+
+### Episodic → Semantic Promotion Gate
+- **Source:** Hermes Research Cluster A | Aug 2026
+- Biomimetic scoring for semantic promotion: recency × importance × relevance ≥ 0.25,
+  OR CoreFact / recurrence ≥ 2 / access ≥ 3.
+  Retrieve → score → promote is a 3-step pipeline, not a single vector-similarity lookup.
+- **Gap found:** `hermes-memory-capture-and-bridge` captured sessions but did not score,
+  reflect, or gate promotion. Compression could drop traces before retain.
+- **Applied to:** `agent-memory-consolidation` v1.10.1 (When-to-run list, Steps 1/3–5/7).
+
+### When-to-Run Memory Consolidation
+- **Source:** Hermes Research Cluster A | Aug 2026
+- Consolidation should trigger on: task end, pre-compact, semantic shift detected,
+  recurrence (same topic 2nd+ time), idle debt (≥3 sessions with no promotion).
+  Running consolidation at every turn is wasteful; never running it loses knowledge.
+- **Applied to:** `agent-memory-consolidation` v1.10.1 references.
+
+### Reflexion — Verbal Episodic Buffer for Next-Attempt Memory
+- **arXiv:** 2303.11366 | Shinn et al. | NeurIPS 2023
+- On task/attempt failure: `hindsight_retain(content, context="reflexion-failure",
+  tags=["reflexion","failure","task_type:<slug>"])` with what_failed / why / try_next.
+  Recall before retry. ≥3 same-why failures → escalate to EvoAgent/skill-patch path.
+  Distinct from EvoAgent (which = failure trace → human-gated SKILL.md patch).
+- **Gap found:** No skill fired a durable, structured self-reflection on task failure.
+- **Applied to:** `self-improve-agent` v1.2.0; `agent-runtime-loop-patterns` v1.7.0.
