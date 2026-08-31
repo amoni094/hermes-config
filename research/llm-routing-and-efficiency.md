@@ -223,4 +223,63 @@ compressed = result["compressed_prompt"]
 | AdaCoM | 2605.30785 | — | 2026 |
 | ReadAgent | 2402.09727 | NeurIPS 2024 | 2024 |
 | RLMs | 2512.24601 | — | 2025 |
-| EfficientLLM | 2505.13840 | — | 2025 |
+|| EfficientLLM | 2505.13840 | — | 2025 |
+
+---
+
+## August 2026 Additions (Sweeps 26–29, arXiv ≤2608.27454)
+
+### OODA-Tool — State/Action Separation (2608.24368)
+- **arXiv:** 2608.24368 | Aug 2026
+- Applies OODA loop (Observe/Orient/Decide/Act) to tool-using agents. State (observation) and
+  action are formally separated; the agent must orient (update world model) before deciding.
+  Prevents action-without-observation failure mode common in reactive loops.
+- **Application:** `agent-runtime-loop-patterns` skill.
+
+### Paritok — Intent-Conditioned Extractive Compression (2608.24188)
+- **arXiv:** 2608.24188 | Aug 2026
+- Context compression quality improves significantly when the user's intent is used to condition
+  what to keep. Extractive compression with intent conditioning beats generic extractive.
+- **Application:** `focus_compress.py` intent-conditioned mode; `l1-context-offload.py --intent`.
+  Config: `compression.intent_conditioned_offload`.
+
+### Belief Miscalibration at Action Time (2608.24691)
+- **arXiv:** 2608.24691 | Aug 2026
+- Agents act on miscalibrated beliefs: confidence at the time of the action is not rechecked
+  against the actual world state. A stale high-confidence belief causes incorrect irreversible actions.
+- **Application:** `trajectory-risk-guardrail` skill — confidence gate check before irreversible actions.
+
+### StepGuard — Step-Level Pre-Execution Guard (2608.24777)
+- **arXiv:** 2608.24777 | Aug 2026
+- Per-step pre-execution safety check: assess each action before execution, not just before the plan.
+  Complements trajectory-level guards.
+- **Application:** `trajectory-risk-guardrail` skill manual checklist.
+
+### PeakBench — Resource-Aware Parallel Tool Scheduling (2608.24509)
+- **arXiv:** 2608.24509 | Aug 2026
+- Parallel tool calls should be scheduled with resource awareness: tools competing for the same
+  resource (network, DB) should not run simultaneously at peak load.
+- **Application:** `agent-runtime-loop-patterns` Quick Decision Guide.
+
+### Five Primitives for Governing AI Agents (2608.26696)
+- **arXiv:** 2608.26696 | Aug 2026
+- Five governance primitives synthesized from real deployments:
+  1. Scope (what the agent can touch)
+  2. Identity (whose authority the agent operates under)
+  3. Reversibility (can the action be undone)
+  4. Observability (can the action be audited)
+  5. Escalation (when does the agent stop and ask)
+- **Application:** `harness-first-agent-design` skill — governance checklist.
+
+### HarnessLens / Verify Smarter (2608.27311)
+- **arXiv:** 2608.27311 | Aug 2026
+- Verification quality matters more than verification quantity. A single well-targeted verification
+  step outperforms multiple shallow checks. Lens: focus verification on the highest-failure-risk step.
+- **Application:** `harness-first-agent-design` skill.
+
+### CatchBench — PRE/LIVE/POST Catch States (2608.22808, Sweep 27)
+- **arXiv:** 2608.22808 | Aug 2026
+- Three catch states for agent failures: PRE (caught before execution), LIVE (caught mid-execution),
+  POST (caught after; requires rollback or compensation). PRE is always cheapest.
+  Evaluation should measure distribution across all three, not just final accuracy.
+- **Application:** `verification-before-completion` skill.

@@ -268,3 +268,49 @@ A "fixes" edge between "bug X" and "workaround Y" survives semantic drift in emb
 | Hierarchical index routing (H-MEM, HNSW + abstract summary nodes) | High | Medium |
 | RAPTOR tree over corpus (offline periodic job) | High | Medium |
 | Sleep-phase batch consolidation (idle-time dedup pass) | Medium | High |
+
+---
+
+## August 2026 Additions (Sweeps 26–29, arXiv ≤2608.27454)
+
+### Recuris — Working Memory vs Experiential Memory (2608.24876)
+- **arXiv:** 2608.24876 | Aug 2026
+- Separates per-session working memory (goal/progress/constraints) from long-term experiential memory.
+  Working memory is session-local; must NOT be treated as a substitute for durable Hindsight facts.
+- **Application:** `working-memory.py` (session WM script) stores goal/progress/constraints as cache;
+  episodic memory (Graphiti/Hindsight) remains the durable tier.
+
+### BCIT — Bind Context before Reuse (2608.26730)
+- **arXiv:** 2608.26730 | Aug 2026
+- Context retrieved from memory must be explicitly bound to the current task state before reuse.
+  Unbound context = stale assumption that silently degrades outputs.
+- **Application:** `working-memory.py` schema v2: every recalled fact tagged with binding context key.
+
+### GraphMemix — Query-type Routing for Memory (2608.26983)
+- **arXiv:** 2608.26983 | Aug 2026
+- Different query types (structural fact-lookup vs episodic narrative recall) need different retrieval paths.
+  Routing mismatch = correct memory bank, wrong retrieval strategy, poor recall.
+- **Application:** `unified-recall.py` structural/episodic routing by query type classification.
+
+### Calibrated Enough to Know (2608.27167)
+- **arXiv:** 2608.27167 | Aug 2026
+- Agents systematically overestimate confidence in retrieved memory; calibration flag needed before acting.
+- **Application:** `l1-promote.py` `calibration_flag` + `[cal_warn]` marker in promoted facts.
+
+### Synapse — Plan-from-Memory Pre-step (ACL 2026)
+- **Source:** ACL 2026 Findings
+- 3-stage retrieval-augmented planning: retrieve → plan → execute. The planning step uses retrieved
+  memory to constrain the execution plan before any tool is called.
+- **Application:** `working-memory.py`: plan-from-memory subcommand.
+
+### Memory Quality Gate — Tag-not-Drop for Failed Trajectories (ACL 2026)
+- **Source:** ACL 2026 Findings (How Memory Management Impacts)
+- Failed trajectories should be tagged with failure type and preserved, not discarded.
+  Negative examples are supervision signal for future route-avoidance.
+- **Application:** `l1-promote.py`: `quality_gate_flag` tags failed routes with failure class.
+
+### lemmalog — Datalog Engine for LLM Memory (GitHub, Aug 2026)
+- **Source:** GitHub: JordyZomer/lemmalog
+- Bi-temporal Datalog engine with provenance and confidence tracking, MCP server interface.
+  Potential future upgrade path for Hindsight write-path (bi-temporal + provenance).
+- **Status:** Noted for future evaluation; not yet integrated.

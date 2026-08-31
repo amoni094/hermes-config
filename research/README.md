@@ -48,12 +48,26 @@ Two key safety architectures emerged in 2026:
 2. Prompt injection isolation (CaMeL): tag untrusted data from tool results so it can
    never influence control flow; 77% task success on injection-heavy benchmarks.
 
+August 2026 additions:
+- Interaction Tax: parallel agents must not see each other's outputs before submitting
+  independently — cross-agent visibility before completion erases diversity.
+- Constraint Weakening: must-constraints silently soften to maybe during handoffs;
+  `constraint-binding-lint.py` catches this.
+- Handoff Tax: full-context dumps during model-switch have measurable accuracy cost;
+  targeted handoff packets are better.
+- NL Permission Policies: compile prose policies to 4-tuples before enforcement; split
+  persona prompt from execution prompt.
+- Tool Output Authorization: tool outputs can encode implicit commands; `tool-auth-gate.py`
+  requires explicit authorization before acting on tool-output-derived actions.
+
 ### LLM Routing
 Routing by task type and known model failure modes beats routing by size/cost tier.
 The R2-Router (ICML 2026) insight is actionable immediately: before escalating model tier,
 retry with a tighter length budget on the current model.
 
 ## Research Coverage Dates
-- English academic: 2024–July 2026
-- Non-English venues: 2023–July 2026 (multilingual sweep)
-- Last updated: July 2026
+- English academic: 2024–August 2026 (arXiv cutoff 2608.27454)
+- Non-English venues: 2023–August 2026 (multilingual sweep through Sweeps 26–29)
+- arXiv sweeps: 8–29 (cutoff 2608.27454+); sources: arXiv cs.AI/CL/MA/LG/CR/SE, GitHub trending,
+  Hacker News, Zenn.dev, Habr, Juejin, ACL 2026, ICLR 2026
+- Last updated: August 2026

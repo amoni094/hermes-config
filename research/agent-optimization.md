@@ -230,4 +230,63 @@ Skills with Q < 0.3 → surface for curator review.
 | SkillsBench | 2602.12670 | — | 2026 |
 | MetaSkill-Evolve | 2607.05297 | — | 2026 |
 | AgentOps | 2411.05285 | — | 2024 |
-| AgentTrace | 2602.10133 | — | 2026 |
+|| AgentTrace | 2602.10133 | — | 2026 |
+
+---
+
+## August 2026 Additions (Sweeps 26–29, arXiv ≤2608.27454)
+
+### WikiSkill — Evolving Skills from Experience (2608.27454)
+- **arXiv:** 2608.27454 | Aug 2026
+- Skills evolve continuously from execution traces without human curation.
+  Wiki-style upsert/show/prune lifecycle; skills overwritten by better versions when evidence warrants.
+- **Application:** `skill-wiki.py` (upsert/show/prune, 255 lines).
+
+### PILOT in the Loop — Live Self-Improvement (2608.26530)
+- **arXiv:** 2608.26530 | Aug 2026
+- Agents improve skills concurrently with deployment, not just in offline passes.
+  Requires guardrails to prevent degradation from premature skill writes.
+- **Application:** `async-agent-nightshift-patterns` skill; offline validation gate before any skill upsert.
+
+### JIT-Agent — Just-in-Time Harness Evolution (2608.25593)
+- **arXiv:** 2608.25593 | Aug 2026
+- Harness adapts per-task at runtime rather than being fixed at design time.
+  Task classification determines which harness variant is loaded on the fly.
+- **Application:** `harness-first-agent-design` skill.
+
+### SKILL.state — Long-Horizon Agent Skills (2608.26263)
+- **arXiv:** 2608.26263 | Aug 2026
+- Skills for multi-session long-horizon tasks need persistent state across invocations.
+  Stateless skills lose context on session boundary; state files fix this.
+- **Application:** `skill-state.py` (init/step/show/complete/gc, 301 lines).
+
+### CaSKG — Counterfactual-Causal Skill Graph (2608.25500)
+- **arXiv:** 2608.25500 | Aug 2026
+- Skill graph edges encode causal relationships: skill A's outputs causally enable skill B.
+  Counterfactual probing identifies which edges are real vs spurious.
+- **Application:** `harness-first-agent-design` skill — causal-edge metadata in skill graph.
+
+### AutoSaddler — Automatic Harness Optimization from Failure Traces (2608.23041)
+- **arXiv:** 2608.23041 | Aug 2026
+- Offline loop: collect failure traces → extract harness defect type → generate repair candidates →
+  validate on held-out tasks → apply passing repairs.
+  Self-improvement without human curation; requires offline eval farm.
+- **Application:** `self-improve-agent` skill — offline harness optimization loop.
+
+### CritICL — Inference-Time Critique Bank (2608.27455)
+- **arXiv:** 2608.27455 | Aug 2026
+- Pre-compiled failure critiques injected at inference time condition the agent against known failure modes.
+  Zero training; pure ICL; the bank grows as new failures are catalogued.
+- **Application:** `critique-bank.py` (199 lines).
+
+### Observer Model Token Overrun (Habr, Aug 2026)
+- **Source:** Habr ~Aug 28 practitioner report
+- Observer model consumed 243k tokens/action because tail-20 included full Read/Grep dumps.
+  Fix: `observer_skip_list` config key excludes high-volume tool types from observer context.
+- **Application:** `config.yaml: observer_skip_list`.
+
+### SGA-MCTS — Slot-Filling DAG for Planner/Executor Split (ACL 2026)
+- **Source:** ACL 2026 Findings
+- Separating planner and executor into distinct agents via slot-filling DAG reduces planning hallucination.
+  Planner fills DAG slots; executor instantiates each slot independently.
+- **Application:** `config.yaml: planner_executor_split`.

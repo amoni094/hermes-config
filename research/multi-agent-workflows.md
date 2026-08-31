@@ -183,4 +183,62 @@ Source: mcp-memory-service v11.3.3 patterns.
 | MACE | 2607.11250 | — | 2026 |
 | FARMA/SENTINEL | 2607.05029 | — | 2026 |
 | GhostWriter/AM-Sentry | 2607.06595 | — | 2026 |
-| Drop the Hierarchy | 2603.28990 | — | 2026 |
+|| Drop the Hierarchy | 2603.28990 | — | 2026 |
+
+---
+
+## August 2026 Additions (Sweeps 26–29, arXiv ≤2608.27454)
+
+### Interaction Tax — Multi-Agent Diversity Erasure (2608.23541)
+- **arXiv:** 2608.23541 | Aug 2026
+- When parallel agents see each other's outputs before proposing independently, diversity collapses.
+  The coordination benefit disappears; all agents converge to the same answer.
+- **Key rule:** In dispatching-parallel-agents patterns, agents must submit independent proposals
+  before any cross-agent visibility. No inter-agent reads before individual completion.
+- **Application:** `dispatching-parallel-agents` + `autonomous-ai-agents` skills.
+
+### Agent Mesh Reliability (2608.26225)
+- **arXiv:** 2608.26225 | Aug 2026
+- Multi-agent meshes need circuit-breaker patterns: `no_effective_progress` halt after N turns without
+  measurable state change; `delegation_event_budget` hard cap on total delegation events per task.
+- **Application:** `config.yaml: no_effective_progress`, `delegation_event_budget`.
+
+### Tool Outputs as Commands — Authorization Gap (2608.27146)
+- **arXiv:** 2608.27146 | Aug 2026
+- Tool outputs can encode implicit commands that the agent executes without explicit user authorization.
+  Action induction (agent derives action from tool output) vs runtime authorization (user or policy grants it).
+- **Application:** `tool-auth-gate.py` (237 lines) — validates that tool-output-derived actions have
+  explicit authorization before execution.
+
+### INTENT-AS-A-TOOL — Intent Drift Detection (2608.27348)
+- **arXiv:** 2608.27348 | Aug 2026
+- Agent intent can drift from original user intent during multi-step tasks without any explicit
+  re-authorization. Monitoring intent at the tool-call level catches drift before damage occurs.
+- **Application:** `am-sentry.py: scan_intent_drift`.
+
+### Constraint Weakening in Handoffs (2608.24569)
+- **arXiv:** 2608.24569 | Aug 2026
+- Must-constraints silently soften to maybe-constraints during cross-agent or cross-model handoffs.
+  Downgraded constraints are not re-enforced by the receiving agent.
+- **Application:** `handoff` skill; `constraint-binding-lint.py` detects must-softening in handoffs.
+
+### Handoff Tax — Cross-Model Trajectory Cost (2608.24358)
+- **arXiv:** 2608.24358 | Aug 2026
+- Switching models during a multi-step task (handoff) has a measurable accuracy cost: the receiving model
+  doesn't fully recover the trajectory context even with full handoff notes.
+- **Key finding:** `full_trajectory_on_model_switch: false` reduces cost without meaningful accuracy loss.
+  Targeted handoff packet beats full context dump.
+- **Application:** `handoff` skill; `config.yaml: full_trajectory_on_model_switch: false`.
+
+### NL Permission Policies → 4-Tuples (2608.27443, 2608.27427)
+- **arXiv:** 2608.27443, 2608.27427 | Aug 2026
+- Natural-language permission policies should be compiled to 4-tuple (subject, action, object, condition)
+  before enforcement. Prose policies are ambiguous; 4-tuples are mechanically checkable.
+  Persona prompt (who the agent is) vs Execution prompt (what it can do) must be split.
+- **Application:** `config.yaml: nl_permission_policies`, `persona_execution_split`.
+
+### Debug Logs as Unguarded Memory Copies (ASI06, ACL 2026)
+- **Source:** ASI06 workshop (ACL 2026)
+- Debug logs and auto-backups silently copy sensitive memory content to less-protected storage paths.
+  Any memory write audit must include log and backup destinations, not just the primary write target.
+- **Application:** `am-sentry.py: scan_asi06_backup_exposure`.
