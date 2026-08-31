@@ -437,7 +437,9 @@ def search_openalex(query: str, max_results: int = 5) -> list[dict]:
 # ── Crossref (DOI-based, high quality) ───────────────────────────────────
 
 def search_crossref(query: str, max_results: int = 5) -> list[dict]:
-    q = urllib.parse.quote(query)
+    # Add "computer science" constraint to suppress medical/physics noise
+    cs_query = f"{query} agent language model"
+    q = urllib.parse.quote(cs_query)
     url = (f"https://api.crossref.org/works?query={q}&rows={max_results}"
            f"&filter=from-pub-date:2025&sort=is-referenced-by-count&order=desc"
            f"&mailto=research@hermes.local")

@@ -97,3 +97,20 @@ Do not store the same must-constraint as both binding-typed YAML and free-text c
 ### Working memory is not Hindsight
 WM (`cache/working-memory/`) is session task state. Do not promote WM progress lines into durable
 memory without the normal Dual-Track / promote gates.
+
+## Sweep 30
+
+### Crossref without domain filter = medical/physics noise flood
+Adding Crossref as a source without a computer-science field filter inflated raw paper count
+from ~80 to 420 per sweep, with majority being biomedical and physics papers.
+Filter required: add `field_of_study=computer-science` parameter to every Crossref query.
+Alternatively: tighten query to include `AND (agent OR LLM OR "language model")`.
+Smoke test after adding a new source: raw count without cs filter should be <150 per sweep.
+
+### Multi-source sweeps can surface below-cutoff papers
+When new sources (HF Papers, PWC, Crossref, OpenAlex multilingual) are added, they may surface
+papers with arXiv IDs below the current cutoff. This is not a regression — the cutoff only
+applies to arXiv listing walks, not cross-source retrieval. Record the cutoff as unchanged,
+not as the lowest new ID found. The sweep-30 entry in the sweep index correctly shows the
+new cutoff as equal to the old one.
+
