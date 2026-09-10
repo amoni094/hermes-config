@@ -16,6 +16,9 @@ fallback_providers:
   base_url: https://api.sambanova.ai/v1
 toolsets:
 - hermes-cli
+database:
+  wal_autocheckpoint: 500
+  journal_size_limit: 16777216
 agent:
   max_turns: 500
   gateway_timeout: 1800
@@ -24,7 +27,7 @@ agent:
   task_completion_guidance: false
   environment_probe: false
   verify_on_stop: auto
-  session_stall_timeout: 1800
+  session_stall_timeout: 900
 terminal:
   backend: local
   timeout: 180
@@ -43,34 +46,45 @@ tool_loop_guardrails:
     exact_failure: 2
     same_tool_failure: 3
     idempotent_no_progress: 2
-    no_effective_progress: 5
-    delegation_event_budget: 50
+    no_effective_progress: 3
+    delegation_event_budget: 24
   tool_result_cache:
     enabled: true
     scope: session
     max_entries: 200
+    ttl_seconds: 86400
     excluded_tools:
     - terminal
     - browser_navigate
     - browser_click
     - browser_type
+    - browser_press
+    - browser_scroll
     - computer_use
     - cronjob
     - delegate_task
     - process
+    - process_manage
+    - execute_code
+    - skill_manage
     - write_file
     - patch
 compression:
   enabled: true
-  threshold: 0.35
+  threshold: 0.5
   threshold_tokens: ''
   protect_last_n: 32
   min_tail_user_messages: 3
   proactive_prune_tokens: ''
+  proactive_prune_min_result_chars: 8000
+  proactive_prune_min_reclaim_tokens: ''
   micro_compact: true
-  micro_compact_every_n_turns: 4
+  micro_compact_every_n_turns: 3
+  micro_compact_defrag_threshold_tokens: ''
   idle_compact_after_seconds: 1800
   intent_conditioned_offload: true
+  use_rr_scorer: true
+  rr_scorer_lambda: 0.2
 prompt_caching:
   cache_ttl: 1h
 auxiliary:
@@ -163,7 +177,7 @@ memory:
 delegation:
   model: grok-4.6
   provider: xai
-  child_timeout_seconds: 0
+  child_timeout_seconds: 900
   max_concurrent_children: 10
   max_spawn_depth: 1
   default_toolset_policy: minimal
@@ -219,88 +233,35 @@ moa:
       reference_max_tokens: ''
 skills:
   disabled:
-  - apple-notes
-  - apple-reminders
-  - architecture-diagram
-  - ascii-art
-  - ascii-video
-  - auto
-  - baoyu-infographic
-  - brownfield
-  - cancel
-  - claude-design
-  - codeql
-  - codex
-  - config
-  - design-md
-  - dogfood
-  - evaluate
-  - evolve
-  - excalidraw
-  - findmy
-  - fp-check
-  - gif-search
-  - heartmula
-  - help
-  - huggingface-hub
   - humanizer
-  - imessage
-  - kanban-orchestrator
-  - kanban-worker
-  - macos-computer-use
-  - maps
   - nab-formatting
-  - nano-pdf
-  - ocr-and-documents
-  - p5js
-  - pm
-  - political-source-monitoring
-  - popular-web-designs
   - powerpoint
-  - pretext
-  - publish
-  - qa
-  - ralph
   - research-document-output
-  - resume-session
   - rich-pdf-generation
-  - run
-  - sarif-parsing
-  - seed
-  - simplify-code
-  - sketch
-  - songsee
-  - songwriting-and-ai-music
-  - source-backed-wiki-curation
-  - status
   - thunderbird-cli-anything
-  - tutorial
-  - ucb-pharma-formatting
-  - unstuck
-  - update
-  - welcome
-  - xurl
-  - youtube-content
-  - yuanbao
   hierarchy:
-    global: hermes-context-hygiene,hermes-session-hygiene,hermes-memory-surface-selection,verification-before-completion,trajectory-risk-guardrail
+    global: hermes-context-hygiene,hermes-session-hygiene,hermes-memory-surface-selection,verification-before-completion,trajectory-risk-guardrail,adaptive-agent-reasoning
     domain:
-      research: arxiv,firecrawl-research,grounded-citations,defuddle,blocked-page-recovery,academic-literature-review,domain-research-synthesis,lecture-transcript-summarization,visual-document-review,arxiv-sweep-findings
+      research: arxiv,firecrawl-research,grounded-citations,defuddle,blocked-page-recovery,academic-literature-review,domain-research-synthesis,lecture-transcript-summarization,visual-document-review,arxiv-sweep-findings,hermes-math-research,hermes-cs-research,hermes-math-sweep-findings,hermes-cs-sweep-findings,math-cs-applicability-reasoning,transfer-applicability-chain,hermes-research
       devops: atomic-desktop-app-installation,fedora-atomic-dotfiles-adaptation,hermes-agent-independent-update-protocol,hermes-gateway-lifecycle-guard,kanban-swarm-nightly-ops,linux-thermal-workload-throttling,linux-wifi-stability,managed-repo-update-workflow,protonvpn-nm-automation,rootless-podman-compose-adaptation,router-admin-automation,silverblue-system-update-trigger,silverblue-toolbox-wrapper-bootstrap,tplink-ax55-router-automation,wayland-session-management
       productivity: box,document-to-action-items,docx,exec-memo-writing,law-firm-briefing-memo,meeting-action-items,pdf,pii-redaction,product-price-monitor,session-librarian,weekly-review-planning,xlsx
-      software-development: adversarial-review,anthropic-api-cost-optimization,claude-routing-hierarchy,complexity-gated-planning,context-safe-pdf-edits,document-layout-design,evaluation-driven-development,external-signal-pipeline-recovery,gepa-omni-optimization,grill-me,handoff,hermes-agent-skill-authoring,hermes-coding-review-loop,hermes-context-budgeting,hermes-cron-and-agents,hermes-internals-source-recon,hermes-memory-capture-and-bridge,hermes-observability-and-task-ledger,hermes-operating-pattern,hermes-semantic-skill-routing,isa,isolated-workspace-preflight,knowledge-corpus-architecture,knowledge-graph-corpus-pipeline,local-personal-dashboard,media-catalog-seed-data,node-inspect-debugger,officecli,plan,policy-dashboard-workflow,ponytail-yagni,python-debugpy,repo1-gateway-workflow,requesting-code-review,review-driven-followup-fixes,risk-based-review,security-hardening-balance-review,skillopt-continuous-improvement,spike,subagent-driven-development,subagent-output-contract,symbolic-context-offload,systematic-debugging,test-driven-development,verification-before-completion,workflow-map
+      software-development: adversarial-review,anthropic-api-cost-optimization,claude-routing-hierarchy,complexity-gated-planning,context-safe-pdf-edits,document-layout-design,evaluation-driven-development,external-signal-pipeline-recovery,gepa-omni-optimization,grill-me,handoff,hermes-agent-skill-authoring,hermes-coding-review-loop,hermes-context-budgeting,hermes-cron-and-agents,hermes-internals-source-recon,hermes-memory-capture-and-bridge,hermes-observability-and-task-ledger,hermes-operating-pattern,hermes-semantic-skill-routing,isa,isolated-workspace-preflight,knowledge-corpus-architecture,knowledge-graph-corpus-pipeline,local-personal-dashboard,media-catalog-seed-data,node-inspect-debugger,officecli,plan,policy-dashboard-workflow,ponytail-yagni,python-debugpy,repo1-gateway-workflow,requesting-code-review,review-driven-followup-fixes,risk-based-review,security-hardening-balance-review,skillopt-continuous-improvement,rr-compaction-scorer,spike,subagent-driven-development,subagent-output-contract,symbolic-context-offload,systematic-debugging,test-driven-development,workflow-map,problem-solving-router
     task: github-issue-agent,github-issue-to-pr,github-issues,scoped-pr-fix-and-verification,split-ci-workflow-change-and-draft-pr,email-compose-and-send,email-inbox-triage,obsidian,obsidian-research-ingestion,gold-class,suggest-music,stay-in
 approvals:
   mode: smart
   destructive_slash_confirm: false
 command_allowlist:
-- systemctl
-- hermes update
-- stop/restart system service
-- hermes update (restarts gateway, kills running agents)
+- systemctl *
+- hermes update*
 plugins:
   enabled:
+  - cobra-guard
   - orca-status
+  - tool-auth-gate
+  disabled: []
+  entries:
+    cobra-guard:
+      allow_tool_override: false
 cron:
   allow_agent_scheduling: false
 onboarding:
@@ -308,9 +269,16 @@ onboarding:
     busy_input_prompt: true
     openclaw_residue_cleanup: true
     tool_progress_prompt: true
+lsp:
+  idle_timeout: 300
+  servers:
+    bash-language-server:
+      command:
+      - /var/home/rainbow/.hermes/lsp/bin/bash-language-server-wrapped
+      - start
 computer_use:
   wayland: true
-_config_version: 39
+_config_version: 42
 custom_providers:
 - api_mode: chat_completions
   base_url: https://api.openai.com/v1
@@ -331,6 +299,7 @@ custom_providers:
   name: cerebras
   models:
     gpt-oss-120b: {}
+    qwen-3.8-27b: {}
     gemma-4-31b: {}
   models_discovered: true
 - api_mode: chat_completions
@@ -351,16 +320,10 @@ custom_providers:
   key_env: MISTRAL_API_KEY
   name: mistral
   models:
-    mistral-medium-2505: {}
-    mistral-medium-2508: {}
     codestral-2508: {}
     codestral-latest: {}
     mistral-code-latest: {}
     mistral-code-fim-latest: {}
-    devstral-2512: {}
-    devstral-medium-latest: {}
-    devstral-latest: {}
-    mistral-code-agent-latest: {}
     mistral-small-2603: {}
     mistral-small-latest: {}
     mistral-vibe-cli-fast: {}
@@ -369,8 +332,6 @@ custom_providers:
     voxtral-small-latest: {}
     labs-leanstral-1-5-1: {}
     labs-leanstral-1-5: {}
-    mistral-large-2512: {}
-    mistral-large-latest: {}
     ministral-3b-2512: {}
     ministral-3b-latest: {}
     ministral-8b-2512: {}
@@ -447,7 +408,7 @@ platform_toolsets:
   - vision
   - web
 harness_fingerprint:
-  enabled: true
+  enabled: false
   hash_inputs:
   - tools
   - skills
@@ -455,7 +416,7 @@ harness_fingerprint:
   - approval_mode
   - timeout
 persona_execution_split:
-  enabled: true
+  enabled: false
 information_flow_control:
   enabled: false
   labels:
@@ -483,10 +444,15 @@ tool_slo:
 durable_file_write_gate:
   enabled: true
   guarded_paths:
-  - ~/.hermes/memory.md
+  - ~/.hermes/memories/MEMORY.md
   - ~/.hermes/skills/
   - AGENTS.md
   - .hermes/
+  skill_spec_gate:
+    enabled: true
+    validator_script: ~/.hermes/scripts/validate-skill-ssl.py
+    block_on_fail: false
+    smoke_test_scripts: false
 skill_wiki:
   enabled: true
   dir: cache/skill-wiki
@@ -517,6 +483,39 @@ loop_harness:
   risk_floor_path: cache/loop-harness/risk-floor.json
   irreversible_action_cap: 5
   decay_disabled: true
+  dag_task_tracker:
+    enabled: true
+    feature_list_path: cache/loop-harness/feature_list.json
+    regression_check: true
+    _note: "feature_list.json documents available reasoning subcommands. Not runtime-enforced\
+      \ \u2014 used as a capability inventory for skill routing."
+  loop_contract:
+    enabled: true
+    contract_dir: cache/loop-harness/contracts
+    hash_lock: true
+    verify_on_stop: auto
+  post_compact_verify:
+    enabled: true
+    reacquisition_spike_threshold: 3
+  memory_health_gate:
+    enabled: true
+    check_graphiti_nodes: true
+    check_wal_status: true
+    rejected_routes_dir: cache/rejected-routes
+  reasoning_hooks:
+    pre_action_lookahead: true
+    pre_completion_boundary_check: true
+    on_attribution_causal_check: true
+    on_failure_hypothesize: true
+    pre_task_select_frameworks: true
+    mid_task_switch_framework: true
+    on_framework_conflict_resolve: true
+    pre_subtask_subplan_verify: true
+    pre_tool_call_kapro_check: true
+    _note: "Skill-invocation hints consumed by LLM at skill-load time. These are NOT\
+      \ automated runtime gates \u2014 no script reads these keys. They document WHEN\
+      \ to invoke the corresponding script subcommands during task execution. See\
+      \ reasoning_selection.selector for the entry-point command."
 observer_skip_list:
   enabled: true
   skip_tool_bodies:
@@ -548,3 +547,214 @@ handoff:
   prefer_structured_wm: true
   lint_constraints: true
   full_trajectory_on_model_switch: false
+adaptive_reasoning:
+  mode_router: heuristic
+  budgets:
+    none: 0
+    short: 300
+    medium: 1200
+    long: 3000
+  tts:
+    default_operator: none
+    complex_operator: branch
+    hard_operator: branch
+    branch_k: 3
+    dcr_enabled: true
+    dcr_gate_on_disagreement: true
+  self_correction:
+    enabled: true
+    strategy: role_relabeling
+    max_self_refine: 2
+    require_new_evidence: true
+  context_dashboard:
+    enabled: true
+    show_at_level: L2
+    update_every_n_checkpoints: 1
+    update_every_n_turns_l2: 4
+    update_every_n_turns_l3: 2
+    show_progress: true
+  retrieval_order: lexical_first
+  memory_augmented_cod:
+    enabled: true
+    max_cards: 3
+    tag_filter: reasoning-pattern
+  adaptive_sc:
+    enabled: true
+    default_k: 1
+    max_k: 4
+    threshold: 0.75
+    cost_model: cached
+  temporal_constraints:
+    enabled: true
+    require_verify_before_mutate: true
+    require_dryrun_before_irreversible: true
+    require_confirm_before_external: true
+reasoning_research:
+  metacognitive_harness:
+    fok_jol_enabled: true
+    jol_stop_threshold: 0.8
+    fok_jol_gap_threshold: 0.3
+    max_attempts_before_list_wise: 2
+    confidence_gate:
+      scope: L2_L3_factual_and_irreversible
+      confidence_threshold: 0.8
+    skill_profile:
+      min_samples_before_delegating: 5
+      blended_weight: 0.5
+      delegate_threshold: 0.6
+    typed_uncertainty:
+      enabled: true
+    abstain_gate:
+      enabled: true
+      confidence_threshold: 0.8
+      irreversible_keywords:
+      - delete
+      - remove
+      - send
+      - publish
+      - deploy
+      - overwrite
+      - email
+      - pay
+    steer_conf:
+      enabled: true
+      level_gate: L2
+    reflection_loop:
+      max_revision_cycles: 2
+      sentinel: CONFIRMED
+    compositional_uncertainty:
+      enabled: true
+      gate_threshold: 0.4
+      irreversible_weight: 1.0
+      optional_weight: 0.3
+    freshness:
+      enabled: true
+      stale_threshold: 0.5
+      half_lives_hours:
+        prices_status: 1
+        config_api: 24
+        code_docs: 168
+        identities: 720
+        constants: 999999
+    research_final_step:
+      enabled: true
+      abort_on_mid_trajectory_low_confidence: false
+      restart_threshold_jol: 0.7
+    progress_gated_routing:
+      enabled: true
+      escalate_on_stall: true
+      stall_detection_steps: 2
+  recovery:
+    classify_before_retry: true
+    recovery_ladder_max_attempts: 2
+    max_same_args_retries: 3
+    loop_detection_window: 5
+    bounded_retry_brief: true
+    root_cause_isolation: true
+    structured_error_format: json
+  consensus:
+    mode: progressive
+    initial_agents: 2
+    round0_independence: true
+    halt_on_agreement: true
+    homogeneous_peer_debate_ban: true
+    default_aggregator_closed: independent_majority
+    default_aggregator_open: list_wise_dcr
+    down_weight_outliers: true
+    outlier_precedes_sentinel: false
+    ungrounded_claim_weight: 0.0
+  compression_research:
+    avoid_retention_below: 0.4
+    pin_types:
+    - rule
+    - preference
+    - constraint
+    - safety
+    - policy
+    d_state_fields:
+    - goal
+    - active_subgoal
+    - open_files
+    - last_error
+    - pending_steps
+    arc_offload_status: NOT_IMPLEMENTED
+    arc_offload_future: true
+  tool_use:
+    six_verb_enabled: true
+    width_first_enabled: true
+    width_first_target_calls: 4
+    agentspec_status: NOT_IMPLEMENTED
+    agentspec_future: true
+    bidirectional_verify_patches: true
+    max_same_args_identical_calls: 3
+  planning:
+    plan_over_skills: true
+    planning_stack_order:
+    - milestone_orient
+    - coarse_expand_current
+    - horizon_expand_max_steps_3
+    - bind_constraints
+    - load_skill_current_step
+    - adaptive_redecompose
+    - commit_then_verify
+    - code_control_flow
+    progress_belief_update: true
+    milestone_tag: milestone
+    horizon_expand_max_steps: 3
+  reasoning_frameworks:
+    causal_reasoning:
+      enabled: true
+      counterfactual_test: true
+      confound_check: true
+      auto_trigger_on:
+      - debugging
+      - root_cause_analysis
+      - financial_analysis
+      - scientific_research
+    action_boundary:
+      enabled: true
+      ebp_prompting: true
+      check_on_completion: true
+      check_on_verify_gate: true
+    future_aware_planning:
+      enabled: true
+      lookahead_steps: 3
+      trigger_on_irreversible: true
+      trigger_on_horizon_gt: 5
+    abductive_reasoning:
+      enabled: true
+      max_hypotheses: 3
+      trigger_on_failure_mode:
+      - constraint_skip
+      - retry_loop
+      - stale_assumption
+      - false_attribution
+    social_reasoning:
+      enabled: false
+      note: theory-of-mind primitive pending research
+    ethical_reasoning:
+      enabled: false
+      note: deontic/permissibility check pending research
+    reasoning_selection:
+      enabled: true
+      selector_script: ~/.hermes/scripts/reasoning-complexity-classifier.py
+      selector_subcommand: select-frameworks
+      conflict_resolution:
+        enabled: true
+        resolver_script: ~/.hermes/scripts/metacognitive-harness.py
+        resolver_subcommand: conflict-resolve
+        auto_resolve_threshold: 0.2
+        both_unknown_action: escalate
+        cascade_order:
+        - abstain-check
+        - causal-check
+        - lookahead
+        - subplan-verify
+        - hypothesize
+        - boundary-check
+        - kapro-check
+      dynamic_switching:
+        enabled: true
+        switcher_script: ~/.hermes/scripts/working-memory.py
+        switcher_subcommand: switch-framework
+        max_switches_per_session: 3
