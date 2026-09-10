@@ -1,0 +1,1203 @@
+# CS Research Corpus -- Paper Index
+
+Generated: 2026-09-10
+Sweep date: 2026-09-09
+Total papers: 1083
+Categories: 30
+
+Source: Hermes CS sweep (ACM CCS 2012-aligned, 30 categories, cs.SE / cs.PL / cs.DC / cs.CR etc.)
+
+## Paper Listing by Category
+
+### cloud_serverless (36 papers)
+
+- arXiv:2609.04478 -- Performance Study of Serverless Workloads in Confidential Virtual Machines
+- arXiv:2608.29103 -- CLASP: Chained-Request-Aware Scaling and Operator Placement for Serverless Stream Processing
+- arXiv:2608.07945 -- ScaleSense: Cost-Intelligent Scaling Framework via Learned Resource Estimation in Alibaba AnalyticDB
+- arXiv:2608.14427 -- Large-scale workflow placement in serverless computing using integer nonlinear programming
+- arXiv:2604.15916 -- New Kids: An Architecture and Performance Investigation of Second-Generation Serverless Platforms
+- arXiv:2608.07358 -- Fast end-to-end cloud application cold-start with initscripts
+- arXiv:2608.12633 -- Offering Microsecond-Scale Cross-VM Core Elasticity on Colocated Lightweight Virtual Machines
+- arXiv:2605.27540 -- EFaaS: A Quantum-Classical Serverless Entangled Scheduler for Hybrid Variational Algorithms
+- arXiv:2609.06697 -- A GNN-Enhanced Reinforcement Learning Framework for Emergency Communications in ORAN-based Non-Terrestrial Networks
+- arXiv:2606.20989 -- OxyMake: A Content-Addressed Workflow Engine [SPIKE]
+- arXiv:2609.05068 -- On the Delay-Constrained Maximum Concurrent Flow Problem
+- arXiv:2609.04109 -- Strengthened Silicate Glasses by Residual Stress: Depth of Compression and Surface Flaws Stability Conditions
+- arXiv:2609.04199 -- Compile by Training: Turning Natural-Language Specifications into Local Neural Functions
+- arXiv:2609.03055 -- Seeing Less Is Not Seeing Safely: Privacy Leakage from Task-Scoped Robot Perception Exports
+- arXiv:2609.02625 -- Integrating Wi-Fi into 3GPP 5G Network Slicing: An Experimental Prototype Study
+- arXiv:2609.02238 -- Federated Learning on the American Science Cloud using APPFL
+- arXiv:2609.06819 -- Drones as Annotators: Amodal 3D Auto-Labeling for Ground LiDAR with Aerial Priors
+- arXiv:2609.05155 -- Euclid. A two-point correlation approach to diagnosing star-related systematics in the Euclid spectroscopic survey
+- arXiv:2609.04662 -- Is Forecasting Accuracy Enough? A Comparative Study of Traffic Forecasters for Beam-Hopping LEO Satellite Networks
+- arXiv:2609.04523 -- MaxKernel: Agentic Kernel Generation for TPUs
+- arXiv:2509.18249 -- A Novel kinetic Sunyaev-Zel'dovich Estimator for Electron-Electron Correlations
+- arXiv:2609.03955 -- Two-Stage Reinforcement Learning for Sound and Adversarial Test Generation in Code LLMs
+- arXiv:2609.03866 -- nufftcf: Fast Auto- and Cross-Correlation Function Estimation for Irregularly-Sampled Time Series via the Non-Uniform FFT
+- arXiv:2609.03457 -- A Two-Stage Forecasting System for CPU Workload Prediction in Private Clouds
+- arXiv:2609.09075 -- ThinkPrior: Zero-Rollout Difficulty Priors for Cold-Start Prompt Selection in RLVR
+- arXiv:2609.04870 -- CHAMP: Cross-domain Hybrid Architecture for Matchmaking and Prediction in Online Multi-Player Games
+- arXiv:2609.04108 -- Sequential Beats Joint: On the Interplay between On-Policy Distillation and RLVR
+- arXiv:2609.04345 -- A Constraint-Aware Generative Framework for Synthetic Origin-Destination Demand in Logistics Networks
+- arXiv:2503.04997 -- ISP-AD: A Large-Scale Real-World Dataset for Advancing Industrial Anomaly Detection with Synthetic and Real Defects
+- arXiv:2609.00986 -- TGR: Advancing Industrial Recommendation from Generative-Paradigm Ranking toward Unified Generation and Reasoning
+- arXiv:2609.00967 -- CoBRA: Learning Tool-Use Boundaries via Counterfactual Margins
+- arXiv:2607.15511 -- An Auto-Scaling Approach for Serverless Environments Based on a Multi-Expert Consensus Mechanism
+- arXiv:2606.30563 -- Data Replication Meets Function Scheduling in the Edge-Cloud Continuum
+- arXiv:2605.09787 -- Cloud Performance Decomposition for Long-Term Performance Engineering: A Case Study
+- arXiv:2603.09894 -- A Survey on Cloud-Based 6G Deployments: Current Solutions, Future Directions and Open Challenges
+- arXiv:2601.11156 -- Konflux: Optimized Function Fusion for Serverless Applications
+
+### collaborative_systems (29 papers)
+
+- arXiv:2608.20943 -- SR-TL1: A Square-Root TL1-Norm Framework for Robust SMV DoA Estimation under Highly-Coherent Dictionaries
+- arXiv:2409.04156 -- Krylov Complexity of Time-Dependent Optical Hamiltonians
+- arXiv:2510.07388 -- Spinning Mellin amplitudes
+- arXiv:2609.08806 -- ArmPoser: Real-Time, Calibration-Free Arm Pose Estimation from Smartwatch IMU
+- arXiv:2609.08791 -- MIT bag model and infinite mass limit in non-smooth domains
+- arXiv:2609.08744 -- Covariance property for a quaternionic fractional Cauchy-Riemann operator under affine transformation
+- arXiv:2510.25323 -- CDFlow: Building Invertible Layers with Circulant and Diagonal Matrices
+- arXiv:2608.23740 -- AgentRoom: Concurrent Multi-Agent Coding in a CRDT-Backed Shared Workspace
+- arXiv:2607.28101 -- ESBT: A Scalable and Deterministic Sequence CRDT for Distributed Collaborative Editing
+- arXiv:2605.31569 -- A Datalog Framework for Conflict-Free Replicated Data Types
+- arXiv:2604.23560 -- Towards System-Oriented Formal Verification of Local-First Access Control
+- arXiv:2602.19231 -- Semantic Conflict Model for Collaborative Data Structures
+- arXiv:2305.00583 -- The Art of the Fugue: Minimizing Interleaving in Collaborative Text Editing
+- arXiv:2510.00183 -- Lattica: A Decentralized Cross-NAT Communication Framework for Scalable AI Inference and Training
+- arXiv:2507.14263 -- Beyond DNS: Unlocking the Internet of AI Agents via the NANDA Index and Verified AgentFacts
+- arXiv:2609.09047 -- Bottomonium suppression with a machine-learning-informed Debye mass
+- arXiv:2609.08508 -- WiDiff: Extracting Changes from Wikidata's Edit History [SPIKE]
+- arXiv:2412.06494 -- A cautionary tale on the cost-effectiveness of collaborative AI in real-world medical applications
+- arXiv:2609.07893 -- Explainable Temporal Attention-based Defect Detection For Fillet Joints in Real-Time Gas Metal Arc Welding Based on Multi-modal Data
+- arXiv:2609.06815 -- Typed Federated Artifacts for the Agentic Web:Sharing Tool-Routing Knowledge Across Frozen,Heterogeneous LLM Agents [SPIKE]
+- arXiv:2607.28662 -- An Ontology-Guided, Deduplication-Aware Extraction Layer for Knowledge Graph Construction from Heterogeneous Documents
+- arXiv:2605.05253 -- EnterpriseRAG-Bench: A RAG Benchmark for Company Internal Knowledge
+- arXiv:2511.17919 -- Exploring Multiview UI Layouts and Placement Strategies for Collaborative Sensemaking in Virtual Reality
+- arXiv:2502.05108 -- Towards Emotionally Intelligent Software Engineers: Understanding Students' Self-Perceptions After a Cooperative Learning Experience
+- arXiv:2409.09934 -- Coordination-free Collaborative Replication based on Operational Transformation
+- arXiv:2407.03027 -- Differentially Processed Optimized Collaborative Rich Text Editor
+- arXiv:1710.02690 -- Unique Entity Estimation with Application to the Syrian Conflict
+- arXiv:https://doi.org/10.21428/93b40405.d6f00e38 -- Opening Up Education: The Collective Advancement of Education through Open Technology, Open Content, and Open Knowledge
+- arXiv:https://doi.org/10.3389/fpls.2025.1587869 -- Integration of smart sensors and IOT in precision agriculture: trends, challenges and future prospectives
+
+### compilers_runtime (40 papers)
+
+- arXiv:2609.08989 -- TARTARUS: A High-Performance Python Code for Ray Tracing in Curved Spacetimes
+- arXiv:2509.16248 -- GraphMend: Code Transformations for Fixing Graph Breaks in PyTorch 2
+- arXiv:2601.14466 -- JAXMg: A multi-GPU linear solver in JAX
+- arXiv:2608.00029 -- Nova: An End-to-End MLIR Compiler for Deep Learning
+- arXiv:2609.01502 -- Support Local Variables
+- arXiv:2608.29745 -- JITterFlip: Uncovering Fault Attack Surfaces in JIT-Compiled LLM Serving
+- arXiv:2608.27612 -- Tensor-Accelerated Eager Multi-Resolution Grids for Evolving Large-Scale Substrates
+- arXiv:2608.11693 -- Spec Sheets Are Not Kernels: An ISA- and Source-Level Audit of INT8 Availability on NVIDIA Blackwell Ultra
+- arXiv:2511.09846 -- Privacy-Preserving Gaze Interaction: Reducing Re-Identification Without Degrading Utility
+- arXiv:2608.27382 -- Token-Level Advertising
+- arXiv:2604.27486 -- CuLifter: Lifting GPU Binaries to Typed IR
+- arXiv:2609.02669 -- Decoupling Disaggregated Memory Optimizations from Indexing: A Compiler-Runtime Approach
+- arXiv:2602.09455 -- Enhancing Affine Maximizer Auctions with Correlation-Aware Payment
+- arXiv:2609.02233 -- InfraPatch: Cross-Task Targeted Grayscale Patch Attacks on Infrared-Adapted Vision-Language Models
+- arXiv:2609.02048 -- Type-Directed, Secure-by-Construction Enclave Partitioning for LLVM
+- arXiv:2607.15876 -- Yarrow: Reconciling Effect Handlers and Region-Based Memory Management
+- arXiv:2608.19520 -- Garbage Collection and Energy Consumption in Java: A Controlled Study Across Workloads and JDKs
+- arXiv:2606.31767 -- JETO-Bench: A Reproducible Benchmark for Execution Time Improvement Patches in Java
+- arXiv:2607.20929 -- The Consensus Number of Untraceable Cryptocurrencies
+- arXiv:2607.06034 -- Efficient and Robust Lock-Free Multi-Word Compare-and-Swap via Contention-Aware Helping
+- arXiv:2607.05474 -- ShadowProbe: Language-Extensible Detection of Hidden Algorithmic Complexity Vulnerabilities
+- arXiv:2608.20400 -- When Retrieval Fails Before It Begins: Structurally Indirect Prerequisite Eviction as a Retention Failure in Agentic Memory
+- arXiv:2607.00692 -- Self-GC: Self-Governing Context for Long-Horizon LLM Agents
+- arXiv:2608.28950 -- The Web-CLI: Verifiable Privacy for Tools, Models, and Inference Engines in the Browser
+- arXiv:2609.01818 -- Zeta-Lite: A Concurrent, Branchable In-Browser SQL Database for Agentic Memory
+- arXiv:2608.24153 -- pigzpp: Fast, Parallel, Portable Compression for the Whole Stack
+- arXiv:2604.02442 -- ReFlux: Reversible Compute Placement for CXL-Enabled Storage
+- arXiv:2608.23609 -- Decomposing Browser Pipeline Architectures for DOM-Sourced Particle Effects: Worker Offload, WebGL, and WebAssembly
+- arXiv:2608.18327 -- Compiling WebAssembly Concolic Execution with Staging, Continuations, and Snapshots (Extended Version)
+- arXiv:2602.13148 -- TrustMee: Self-Verifying Remote Attestation Evidence
+- arXiv:2608.13511 -- A Browser-Native Digital Test Range for Benchmarking 4D Ocean-Glider Planning Algorithms
+- arXiv:2604.23467 -- Hybrid JIT-CUDA Graph Optimization for Low-Latency Large Language Model Inference
+- arXiv:2604.03088 -- SkVM: Revisiting Language VM for Skills across Heterogenous LLMs and Harnesses
+- arXiv:2603.06551 -- Understanding and Finding JIT Compiler Performance Bugs
+- arXiv:2601.09951 -- Parallelizing the Variational Quantum Eigensolver: From JIT Compilation to Multi-GPU Scaling
+- arXiv:https://doi.org/10.18653/v1/2025.acl-long.127 -- Smarter, Better, Faster, Longer: A Modern Bidirectional Encoder for Fast, Memory Efficient, and Long Context Finetuning and Inference
+- arXiv:https://doi.org/10.1038/s41588-024-02044-7 -- A scalable variational inference approach for increased mixed-model association power
+- arXiv:https://doi.org/10.1145/3695053.3731008 -- H 2 -LLM: Hardware-Dataflow Co-Exploration for Heterogeneous Hybrid-Bonding-based Low-Batch LLM Inference
+- arXiv:https://doi.org/10.3390/automation6020021 -- The Role of 3D Printing in Advancing Automated Manufacturing Systems: Opportunities and Challenges
+- arXiv:https://doi.org/10.18653/v1/2025.acl-long.1563 -- Energy Considerations of Large Language Model Inference and Efficiency Optimizations
+
+### computer_architecture (35 papers)
+
+- arXiv:2609.06449 -- PACO: A Fully Cache-Oblivious Parallel FFT with One Global Redistribution [SPIKE]
+- arXiv:2609.01527 -- Performance Characterization of SPEC CPU 2026 on AMD EPYC 9755 Processor
+- arXiv:2609.00548 -- Time-Decayed Vector Search in the Rhythm of TANGO: Jointly Modeling Semantic Similarity and Temporal Freshness
+- arXiv:2609.00205 -- BlockMGARD: Accelerating Adaptive Scientific Data Reduction with Region-of-Interest Error Control on GPUs
+- arXiv:2609.05511 -- SCAFFOLD: Self-Improving Web Agents via Recursive Parametric Skill Abstraction
+- arXiv:2608.25290 -- Paging with Per-Replacement Maximum Delay
+- arXiv:2608.23834 -- Minima-KV: Retention-Preserving KV Cache Compression with Mixed-Format Paged Attention
+- arXiv:2608.11533 -- Testing the EPYC Conjecture on Real Hardware: MoA-Guided Dense Matrix Multiplication on NCSA Delta (AMD EPYC 7763 Milan)
+- arXiv:2309.09359 -- Concurrent Deterministic Skiplist and Other Data Structures
+- arXiv:2607.22275 -- NUMA balancing hampering performance of spiking network simulations
+- arXiv:2607.28824 -- Characterizing LLM Kernel Access and Memory Interaction in Multi-Partition NUMA GPUs
+- arXiv:2607.19922 -- DGNA: Dissecting GPU NUMA Architecture through Microbenchmarking and Data Analysis
+- arXiv:2607.11014 -- Domain Extension of Lock-Freedom and Wait-Freedom for Group Computations
+- arXiv:2606.24031 -- A 35B Hybrid-Attention Mixture-of-Experts Model on a 6GB 2011 GPU: Hand-Written 4-bit CUDA Inference for Fermi
+- arXiv:2606.14093 -- On the Limits of Causal Observation in Shared-Memory Systems
+- arXiv:2609.07862 -- Parallelizing the Factorial Space: 3x SIMD Acceleration of the Steinhaus-Johnson-Trotter Algorithm via Dual-Lane AVX2 Execution
+- arXiv:2608.30384 -- RSLM: Training-Free Vector Quantization for Approximate Nearest Neighbor Search
+- arXiv:2509.08395 -- SINDI: An Efficient Index for Sparse Vector Approximate Maximum Inner Product Search
+- arXiv:2608.26368 -- Direct-Operable SIMD Bit-Slicing: A Framework for Memory-Efficient Predicate Evaluation
+- arXiv:2606.07870 -- ASH: Asymmetric Scalar Hashing With Learned Dimensionality Reduction for High-Fidelity Vector Quantization
+- arXiv:2512.08571 -- Matrix-free algorithms for fast ab initio calculations on distributed CPU architectures using finite-element discretization
+- arXiv:2608.13948 -- Exposing SIMD Parallelism in SQIsign: An AVX-512 Implementation
+- arXiv:2510.10119 -- IntrinTrans: LLM-based Intrinsic Code Translator for RISC-V Vector
+- arXiv:2609.07329 -- Unveiling the Scaling Potential of Drain Merge through Active (DMtA) in CFETs: Breaking the Super-Via Bottlenecks and Unlocking New PPA Boosters
+- arXiv:2609.03849 -- NACRE: Rethinking Confidential Containers through Native Architectural Support
+- arXiv:2608.30435 -- Scalable AXI4 Transaction Monitoring for Mixed-Criticality SoCs: From Phase-Level Precision to ID-Level Efficiency
+- arXiv:2608.28202 -- URIUM: A Programming Language for a Practical Open Course on Compiler Design
+- arXiv:2608.28097 -- Great Expectations: Benchmarking the Real-World Performance of RVV 1.0 in HPC
+- arXiv:2608.28076 -- Performance Evaluation of Fast Fourier Transforms on Emerging RISC-V Hardware with Vector Extension Support
+- arXiv:2607.27913 -- S-CEReBrO: Breaking the Memory Barrier in Continuous EEG Monitoring
+- arXiv:2608.30439 -- Event-Driven Language Models with Sparse Neural Activity for Neuromorphic Hardware
+- arXiv:2608.27819 -- ANCHOR: A Vision for Secure Persistent Key-Value Stores in Disaggregated Data Centers
+- arXiv:2608.23165 -- Effects of Hybrid CPU and Cache Architectures on Parallel HPC and Cloud Applications
+- arXiv:2606.02780 -- Do Value Vectors in Deep Layers Need Context from the Residual Stream?
+- arXiv:2608.20725 -- Enabling Memory-efficient Im2win Convolution with Multi-precision Support on GPU CUDA and Tensor Cores
+
+### content_delivery (31 papers)
+
+- arXiv:2607.26589 -- CDN Tsunami: Exploiting HTTP/3-HTTP/1.1 Conversion for DoS Attacks
+- arXiv:2607.22648 -- PTStore (Prefix Tensor Store): Distributed Prefix Caching and Replication for High Throughput Inference Serving
+- arXiv:2605.30491 -- Exact Mixed-Integer Conic Liftings for Queueing-Based CDN Design
+- arXiv:2605.16376 -- Kelvin v1.0: A Neural Pre-Encoder for H.264: A standards-compliant learned preprocessor with -27.62% BD-VMAF on UVG
+- arXiv:2605.05188 -- SILC: Lookahead Caching for Short-form Video Delivery Systems
+- arXiv:2603.11145 -- A systematic review of secure coded caching
+- arXiv:2512.24547 -- Hierarchical Vector-Quantized Latents for Perceptual Low-Resolution Video Compression
+- arXiv:2609.08131 -- Jacap: Robust KV Cache Eviction via Jacobian-Based Nonlinear Information Capacity Preservation
+- arXiv:2609.07566 -- No-Regret Mixing of LRU and LFU with Optimal Switching Cost [SPIKE]
+- arXiv:2609.05767 -- Will My Assistant Remember My Allergy? What Personal LLM Assistants Forget When Conversation Memory Is Compressed [SPIKE]
+- arXiv:2609.02027 -- Multi-Turn LLM Conversations under the Least-Recently-Used Policy: Mean-Field Asymptotics and Hit Ratio Approximation
+- arXiv:2609.01338 -- mzCache: On-Device LLM Memory Management under Multitasking
+- arXiv:2608.27128 -- TwinKV: A Composable Repair Pass for KV Cache Eviction via Pairwise Key Redundancy
+- arXiv:2608.29934 -- Compression-Aware Abstention: Teaching LLMs to Refuse When KV-Compression Masks Remove Answer Evidence
+- arXiv:2608.12103 -- Who Should Own the Expert Cache? Kernel-Managed Tiering for Trillion-Parameter MoE Inference
+- arXiv:2609.06940 -- Unified AI Gateway: A Framework for Joint Model Routing and KV Cache Management
+- arXiv:2609.02514 -- AceSpec: An Asymmetric Edge-Cloud Collaborative Framework for Communication-Efficient LLM Inference
+- arXiv:2609.01457 -- Just Talk Once: Communication-Efficient Split Federated LLM Fine-Tuning on Edge Devices
+- arXiv:2609.01084 -- Hardware Acceleration of Block-Diffusion LLM for Edge Devices
+- arXiv:2609.01082 -- Update for Decisions, Not Freshness: Goal-Oriented Status Updating and Selective Offloading at the Network Edge
+- arXiv:2609.00577 -- GeoPAR: Large-Scale Multi-Agent Combinatorial Optimization with Geometry-Guided Parallel Autoregressive Learning
+- arXiv:2609.00181 -- Intelligent Edge Computing
+- arXiv:2602.07837 -- RLinf-USER: A Unified and Extensible System for Real-World Online Policy Learning in Embodied AI
+- arXiv:2512.12990 -- SliceMoE: Bit-Sliced Expert Caching under Miss-Rate Constraints for Efficient MoE Inference
+- arXiv:2608.21240 -- SPICE: Speculative Prefetching with Low-Rank Expert Surrogates and Heterogeneous Orchestration for MoE Inference Acceleration
+- arXiv:2609.06172 -- AutoUVM: Automated Prefetching Framework for LLMs under UVM Oversubscription [SPIKE]
+- arXiv:2609.04895 -- Cache-Aware Joint Router Adaptation for Memory-Efficient MoE Inference
+- arXiv:2609.04040 -- Confidence-Gated Admission for Hardware Prefetching: When the Gate Matters More Than the Predictor
+- arXiv:2608.07123 -- Thermodynamic Human-Computer Interaction
+- arXiv:2608.26402 -- SILK: Closing the Time-of-Check-to-Time-of-Use Gap in RoT-Protected AI Systems
+- arXiv:2608.30320 -- On the Design of Qwen3.8-Next Architecture: Evaluation, Efficiency, and Training Stability
+
+### conversational_ai (33 papers)
+
+- arXiv:2609.00802 -- TEIDAN: A Multilingual Multiparty Dialogue Corpus
+- arXiv:2603.16783 -- SpokenUS: A Spoken User Simulator for Task-Oriented Dialogue
+- arXiv:2609.00434 -- SAGE: State-Grounded, Abstention-Aware Evaluation of Task-Oriented Dialogue Agents
+- arXiv:2608.30426 -- Learning to Reason and Use Tools through Unsupervised Fine-Tuning in Task-Oriented Dialog Systems
+- arXiv:2607.23648 -- EmoTrace: An Emotion Trajectory-Centered Framework for Psychological Support Dialogue Generation
+- arXiv:2608.25775 -- ToST: A Tree-of-Thought Socratic Teaching Framework for Multi-Path Guidance and Parallel Thinking
+- arXiv:2606.14571 -- StreamMemBench: Streaming Evaluation of Agent Memory for Future-Oriented Assistance
+- arXiv:2607.23982 -- Moral Hazard in Multi-Agent Language Models
+- arXiv:2608.22411 -- Don' t Box Me In: Dynamic Cultural Adaptation and Cognitive Tracking for Social Understanding
+- arXiv:2609.04030 -- IRWOZ 2.0: A Large Language Model-driven Dialogue Dataset for Industrial Robot Conversations
+- arXiv:2609.03507 -- LongCounsel-8: A Benchmark Suite for Longitudinal Depression Tracking from Multi-Session Counseling Dialogues
+- arXiv:2609.01828 -- AVERT: Audio-Verified Adjudication for Spoken Dialogue State Tracking
+- arXiv:2604.08788 -- MedConceal: A Benchmark for Clinical Hidden-Concern Reasoning Under Partial Observability
+- arXiv:2608.16686 -- Closing the Affective Loop: Multimodal Speaker-Listener Emotion-Dynamics-Aware Empathetic Social Robots
+- arXiv:2608.15755 -- Intent-Driven Situation Tracking for User-Centric Multi-Turn Agents
+- arXiv:2207.13211 -- A Survey of Intent Classification and Slot-Filling Datasets for Task-Oriented Dialog [SPIKE]
+- arXiv:2609.07078 -- One for All: Generalist Foundation Model for Cross-Sensor Skeleton Representation Learning
+- arXiv:2609.07056 -- Toward Autonomous GNSS Networking: Low-Complexity Onboard Routing and Topology-Routing Co-Construction
+- arXiv:2608.08322 -- SDF-Aware Weighting: Adaptive Eikonal Regularisation for Three-Dimensional Level-Set Physics-Informed Neural Networks
+- arXiv:2608.27521 -- Dandelion: A Spherical Flower for Neural Simulation of Planetary Dynamics
+- arXiv:2403.12324 -- Towards a Theory of Pragmatic Information
+- arXiv:2608.26432 -- SpeechGym: An Audio-Native Gym for Training Voice Agents via Reinforcement Learning
+- arXiv:2608.23641 -- How much of a measured AI preference is the model, and how much is the instrument?
+- arXiv:2609.08920 -- Remotely Detectable Keyed Communication through Motion
+- arXiv:2609.08747 -- MemSentry: A Framework for Detecting Persistent Memory Poisoning in Agentic AI
+- arXiv:2601.21298 -- Detecting Multiple Semantic Concerns in Tangled Code Commits
+- arXiv:2609.05850 -- SAFEGuard: Detect Optimization-Based Jailbreak Attacks Through Harmful Semantic Analysis and Fluency Measurement
+- arXiv:2412.08414 -- Detecting Conversational Mental Manipulation with Intent-Aware Prompting
+- arXiv:2601.04736 -- Towards Multi-modal Multi-turn Safety: From Agentic Interaction to Strategic Alignment
+- arXiv:2602.14048 -- ProAct: Harnessing Streaming Motion Generation and Agentic Reasoning for Real-Time Embodied Social Interaction
+- arXiv:2502.09814 -- INJONGO: A Multicultural Intent Detection and Slot-filling Dataset for 16 African Languages
+- arXiv:1902.10909 -- BERT for Joint Intent Classification and Slot Filling
+- arXiv:2510.15851 -- SpeechLLMs for Large-scale Contextualized Zero-shot Slot Filling
+
+### cryptography_eng (35 papers)
+
+- arXiv:2606.30542 -- A Lightweight Post-Quantum Authentication Framework for 5G Base Station Bootstrapping [SPIKE]
+- arXiv:2609.07849 -- Nothing Breaks: No Single Peer Can Soundly Gate Post-Quantum Delivery
+- arXiv:2609.04566 -- Optimizing Credential Blast Radius Through Trust Boundaries and Delegation Under Post-Quantum Authentication Costs
+- arXiv:2609.07769 -- A Note on Binary Quadratic Systems and their relation to complexity theory
+- arXiv:2609.07701 -- SoK: Secure Software-Based Multi-Domain Data Segregation [SPIKE]
+- arXiv:2608.23785 -- A Scenario-Based Evaluation of CRQC+AI Vulnerability Spectrum for TLS 1.3 Cryptographic Dependencies
+- arXiv:2604.03813 -- Partial Number Theoretic Transform Masking in Post-Quantum Cryptography (PQC) Hardware: A Security Margin Analysis
+- arXiv:2607.08865 -- Entropy Bootstrapping for Wireless Embedded Systems
+- arXiv:2609.07709 -- Crossing the Streams: SSH Plaintext Recovery via a Common Compression Context in Multiplexed Channels
+- arXiv:2608.25523 -- TOPAS: Workflow-Aware Prefix-State Scheduling for Multi-Agent LLM Serving
+- arXiv:2608.18445 -- Formal Verification of Romanov's Triplet Logic: A Verified Filter for Sliding-window 3-CNF with Application to Structured Formulas
+- arXiv:2608.16961 -- Quantum-Safe Web Service Architecture Using Time-Based One-Time Passwords
+- arXiv:2608.14126 -- BGA: A noise-immune neural distillation framework for malicious signature extraction in high-entropy encrypted flows
+- arXiv:2608.13685 -- Weird Machines in Transport Layer Security
+- arXiv:2605.31084 -- Enforcing Application-Layer Policies in eBPF
+- arXiv:2609.09060 -- Efficient Quantile-Resolved Hosting Capacity Assessment on Nodal Level for Low-Voltage Grids
+- arXiv:2609.08688 -- Measuring Sustainability in Multi-Scale High-Performance Computing
+- arXiv:2604.19869 -- Practical HPCQC Integration with QDMI: A Real-Hardware Case Study with IQM Systems
+- arXiv:2609.08527 -- CleanCity-BinSense: An IoT-Enabled Smart Waste Management System with Configurable Real-Time Fill Monitoring and Nearest-Neighbor Route Optimization
+- arXiv:2206.04424 -- Instrument-Free Demand Estimation Using Relative Prices Variation, with an Application to Railway Transportation
+- arXiv:2509.08932 -- Constraining Dark Photon Dark Matter with Radio Silence from Soliton Mergers around Supermassive Black Holes
+- arXiv:2609.07910 -- PRIMUS: Identity, Governance, and Verification for Multi-Agent Federations
+- arXiv:2607.02690 -- Nonlinear Self-Action across Temporal Regimes in Resonant Dielectric Metasurfaces
+- arXiv:2609.07763 -- Topographic Disorder, Wind Coupling, and Directional Fire Spread: Critical Behavior in a Terrain-Weighted Forest Fire Model
+- arXiv:2609.07242 -- Hudson's theorem fails for the SU(1,1) discrete series
+- arXiv:2609.07084 -- Ancilla-assisted nondestructive discrimination of distributed GHZ-class states
+- arXiv:2609.06890 -- High-Energy Nuclear Recoils from Boosted Dark Matter for the LZ 248-keV Event: Beyond the Halo-Dependent High-Velocity Tail
+- arXiv:2607.14340 -- The Prover Is the Judge: Verified Security Software from AI Coding Agents in Ada/SPARK
+- arXiv:https://doi.org/10.1038/s41586-024-08404-x -- Distributed quantum computing across an optical network link
+- arXiv:https://doi.org/10.1186/s44147-025-00582-3 -- UAV swarms: research, challenges, and future directions
+- arXiv:https://doi.org/10.1007/s11227-025-07047-7 -- IBM quantum computers: evolution, performance, and future directions
+- arXiv:https://doi.org/10.5281/zenodo.18067974 -- Engineering Non-Linear Decay Dynamics: Pulse-Level Control and Software-Defined Qubit Rescue on Superconducting Processors
+- arXiv:https://doi.org/10.3390/rs17030550 -- Remote Sensing and Geospatial Analysis in the Big Data Era: A Survey
+- arXiv:https://doi.org/10.3390/atmos16010082 -- Machine Learning Methods for Weather Forecasting: A Survey
+- arXiv:https://doi.org/10.1016/j.ccell.2025.12.009 -- Spatial omics at the forefront: emerging technologies, analytical innovations, and clinical applications
+
+### data_streaming (29 papers)
+
+- arXiv:2609.08977 -- Omni Interaction Agent Technical Report
+- arXiv:2510.04237 -- Truncated Kernel Stochastic Gradient Descent with General Losses and Spherical Radial Basis Functions
+- arXiv:2609.08390 -- Noise Adaptive Streaming Audio-Visual Speech Token Enhancement for Robust Full-Duplex Spoken Dialogue Models
+- arXiv:2609.07956 -- Streaming Hierarchical Inference with Tabular Foundation Models
+- arXiv:2609.08993 -- A Vector-Like Lepton Interpretation of the High-Energy Nuclear Recoil Candidate in LUX-ZEPLIN
+- arXiv:2604.25749 -- Hierarchical Reconstruction of Time-arrow from Multi-time Correlations
+- arXiv:2609.08427 -- Readout electronics for SUBMET
+- arXiv:2609.08394 -- Windows Malware Detector as a Compound AI System: Trade-Offs in Accuracy, Efficiency, and Adversarial Robustness
+- arXiv:2604.14151 -- Visplot: A visibility plot and observation scheduling tool for astronomical observatories
+- arXiv:2605.21333 -- SymbolicLight V1: Spike-Gated Dual-Path Language Modeling at High Encoder Spike Sparsity
+- arXiv:2609.07293 -- Ex Ante Estimation of Payable Relief and Compensation Timing for Supplier Selection
+- arXiv:2608.23224 -- Think Only When Needed: Prompt-Authority Control for Selective Slow-Path Intervention in Vision-Language-Action Manipulation
+- arXiv:2608.09761 -- Certified Split Windows for Parallel Lexing: Recovering Boundaries Where No Byte Certifies
+- arXiv:2608.03836 -- Resume Means Resume: A Machine-Checked Conformance Contract for Checkpoint, Interrupt, and Resume Semantics in Workflow Persistence Layers
+- arXiv:2608.04255 -- PriDyG: Privacy-preserving Dynamic Graph Inference with LLM-GNN Collaboration
+- arXiv:2605.09994 -- BatchWeave: A Consistent Object-Store-Native Data Plane for Large Foundation Model Training
+- arXiv:2605.28845 -- HPC-vQPU: A Service-Export Architecture for Virtual QPUs on Batch-Scheduled HPC Systems
+- arXiv:2605.08185 -- From Ontology Conformance to Admissible Reconfiguration: A RoSO/SMGI Adequacy Argument for Robotic Service Governance
+- arXiv:2512.11094 -- SHIFT: Exploring the Boundary of RDMA Network Fault Tolerance
+- arXiv:2602.03189 -- StreamShield: A Production-Proven Resiliency Solution for Apache Flink at ByteDance
+- arXiv:2511.09262 -- CheetahGIS: Architecting a Scalable and Efficient Streaming Spatial Query Processing System
+- arXiv:2504.12074 -- Learning from the Past: Adaptive Parallelism Tuning for Stream Processing Systems
+- arXiv:2505.13153 -- Prink: $k_s$-Anonymization for Streaming Data in Apache Flink
+- arXiv:2502.21046 -- Flora: Efficient Cloud Resource Selection for Big Data Processing via Job Classification
+- arXiv:2501.08591 -- OpenMLDB: A Real-Time Relational Data Feature Computation System for Online ML
+- arXiv:2407.19352 -- Design and Optimization of Big Data and Machine Learning-Based Risk Monitoring System in Financial Markets
+- arXiv:2403.13629 -- CheckMate: Evaluating Checkpointing Protocols for Streaming Dataflows
+- arXiv:https://doi.org/10.1016/j.ijhydene.2025.01.033 -- Hydrogen as an alternative fuel: A comprehensive review of challenges and opportunities in production, storage, and transportation
+- arXiv:https://doi.org/10.5194/essd-17-965-2025 -- Global Carbon Budget 2024
+
+### database_systems (33 papers)
+
+- arXiv:2604.11501 -- Attention-Weighted Value Projection for KV-Cache Compression [SPIKE]
+- arXiv:2609.09035 -- Near-Optimal Quantum Lower Bounds for Convex Optimization via Fourier Rank
+- arXiv:2609.09002 -- Factorized and Vectorized Execution: Optimizing Analytical and Semantic Queries over Relations [SPIKE]
+- arXiv:2609.08850 -- DSE-VTG: Dual-Side Enhancement for Training-Free Video Temporal Grounding
+- arXiv:2603.15917 -- Data-efficient Bayesian-guided design selection from large candidate sets: Application to hyperelastic stochastic metamaterials
+- arXiv:2609.08566 -- BIO-MEMART: Biometric-Aware KV Cache Memory for Multi-User LLM Agents
+- arXiv:2609.02106 -- Git4Data: Database-Native Version Control for AI Agents [SPIKE]
+- arXiv:2606.09133 -- Multiversion Concurrency Control for Multiversion B-Trees [SPIKE]
+- arXiv:2604.27174 -- End-to-End and Phase-Level Performance Optimization for Hyperledger Fabric [SPIKE]
+- arXiv:2604.03927 -- Version Control System for Data with MatrixOne
+- arXiv:2603.08036 -- Samyama: A Unified Graph-Vector Database with In-Database Optimization, Agentic Enrichment, and Hardware Acceleration
+- arXiv:2602.12600 -- RADAR: Exposing Unlogged NoSQL Operations
+- arXiv:2512.02359 -- WSCF-MVCC: Weakly-supervised Calibration-free Multi-view Crowd Counting
+- arXiv:2608.01459 -- Six Dimensions of Benchmarking Time-Series Databases
+- arXiv:2607.07696 -- Breaking Database Lock-in: Agentic Regeneration of High Performance Storage Readers for Database Bypass
+- arXiv:2605.17325 -- Federated Stream-Processing and Latency-Gated Response for Cross-Sector Threat Detection and Collaborative Containment
+- arXiv:2604.20073 -- Scaling Worst-Case Optimal Datalog to GPUs
+- arXiv:2511.17857 -- Structural Relaxation and Anisotropic Elasticity of Ordered Block Copolymer Melts
+- arXiv:2603.24606 -- Zero-Cost NDV Estimation from Columnar File Metadata [SPIKE]
+- arXiv:2602.07584 -- Building an OceanBase-based Distributed Nearly Real-time Analytical Processing Database System [SPIKE]
+- arXiv:2601.19911 -- GPU-Augmented OLAP Execution Engine: GPU Offloading [SPIKE]
+- arXiv:2608.24921 -- post-graph-rag: A PostgreSQL-Native Bi-Temporal Graph RAG Engine with Temporal Grounding at Synthesis [SPIKE]
+- arXiv:2609.05760 -- RAGMark: A Comprehensive Framework for Benchmarking Retrieval-Augmented Generation Systems [SPIKE]
+- arXiv:2609.04767 -- Shadow Queries for Private Retrieval in Vector Databases [SPIKE]
+- arXiv:2609.03274 -- Resolving the Magnetic Ground-State Controversy in RuO2 through A Flat Magnetic Energy Landscape
+- arXiv:2603.04163 -- Degradation-based augmented training for robust individual animal re-identification
+- arXiv:2508.00472 -- A Conditional GAN for Tabular Data Generation with Probabilistic Sampling of Latent Subspaces
+- arXiv:2608.00650 -- TEngineDB-V: An OLAP-Native Vector Search System for Large-$k$ Workloads at Tencent [SPIKE]
+- arXiv:2607.22922 -- iFVS: Towards Instance-Optimized Filtered Vector Search [SPIKE]
+- arXiv:2607.00727 -- Approximate Nearest Neighbor Search with Graph Range Filters [SPIKE]
+- arXiv:2606.28781 -- HyphaeDB: A Living Knowledge Topology for Agent-First Memory [SPIKE]
+- arXiv:2604.06579 -- SonicDB S6: A Storage-Efficient Verkle Trie for High-Throughput Blockchains
+- arXiv:2603.25891 -- Few Shots Text to Image Retrieval: New Benchmarking Dataset and Optimization Methods
+
+### devops_ci (39 papers)
+
+- arXiv:2609.00676 -- Automating Static Code Analysis Through CI/CD Pipeline Integration
+- arXiv:2608.26316 -- When Review Alone No Longer Scales: Layered Supervision in AI-Assisted Software Engineering
+- arXiv:2608.23610 -- From Traceability to Justifiability: Accountability Structures in Agentic Software Engineering
+- arXiv:2608.04724 -- A GitOps-Driven Annotation Catalog for Fully Automatic Railway Operations
+- arXiv:2606.27733 -- BashCoder-R1: Towards Robust and Explainable Bash Code Generation with Robustness-Aware Group Relative Policy Optimization
+- arXiv:2608.08248 -- Catching Transpilation Drift with a CI/CD Workflow in Quantum Software Development
+- arXiv:2607.28750 -- DragonCrawl: A Generative, Intent-Based Framework for Scalable Mobile End-to-End Testing
+- arXiv:2608.02695 -- Stylometric Defenses Against Author Impersonation in Software Repositories
+- arXiv:2609.04952 -- GreenPipe: Power Modeling for Containerized DNN Inference on Kubernetes Edge Nodes
+- arXiv:2511.15755 -- Multi-Agent LLM Orchestration Achieves Deterministic, High-Quality Decision Support for Incident Response
+- arXiv:2608.30114 -- Manacá-1B: An Open, Reproducible Brazilian-Portuguese Language Model and a Tokenizer-Aware, Paired Evaluation
+- arXiv:2608.26699 -- KubeCap: A Framework for Capability Minimization in Kubernetes via Static Analysis and LLM-Assisted Rule Inference
+- arXiv:2608.26066 -- VirTooS: A ROS 2 - Unity Virtualization Toolkit for Fleet Management of Autonomous Mobile Robots
+- arXiv:2608.25939 -- XREPOTEST: Benchmarking Multilingual Repository-Level Unit Test Generation for Large Language Models
+- arXiv:2608.25793 -- Closing the Gap: Automated Discovery of Secure Dockerfile Reference Standards via Semantic Clustering in Enterprise Inner Source
+- arXiv:2603.16694 -- An Empirical Study of Observability Limits in Advanced Software Supply Chain Attacks
+- arXiv:2609.09069 -- Rethinking Learned Occupancy in Autonomous Active Mapping with Observation-Gated Filtering
+- arXiv:2609.08982 -- Embedded Human-Centered Data Science in a Graduate Programming Course: A Framework and Case Study
+- arXiv:2609.08971 -- NERVE Attacks: Breaking AI-Powered Brain-Computer Interfaces
+- arXiv:2609.08956 -- TASTE2: Text-Aligned Speech Modeling and Deployment toward Full-Duplex Voice Interaction
+- arXiv:2609.08950 -- SQLMorph: Query Mutation and Fine-Grained Metrics for Text-to-SQL Evaluation
+- arXiv:2609.08923 -- Now you see me, now you don't: Deep, long-lived obscuration events of white dwarfs by dust and debris from disintegrating planetesimals
+- arXiv:2609.08844 -- Exploring the Genesis Platform Capabilities to Accelerate Scientific Discovery in OPAL
+- arXiv:2609.08804 -- Real-time Puncture Detection and Recovery for Pneumatic Soft Actuators
+- arXiv:2609.08574 -- Do New Attention Mechanisms Actually Fix Attention Sinks at Million-Token Context?
+- arXiv:2609.08569 -- Fabrication And Characterization Of High-Quality Nb/Al-AlO$_x$/Nb Cross-Type Josephson Tunnel Junctions Utilising CMP-based Planarisation Techniques
+- arXiv:2609.08184 -- UnespDataLens-RM: A Reference Model for Analytical Data Engineering with Governance, Quality, Provenance, and Reproducibility
+- arXiv:2609.05018 -- How a Chatbot's Response Style Shapes a Classroom: A Multi-Agent Simulation of Students Consulting AI
+- arXiv:2609.07847 -- Initial momentum anisotropies in the kT-factorization of the CGC I: Gradient Expansion
+- arXiv:2609.07754 -- Do AI Coding Assistants Check Before They Install? A Pre-Registered Demand-Side Audit of Trust Signals in the Research Software Supply Chain
+- arXiv:2504.01907 -- Build Code Needs Maintenance Too: A Study on Refactoring and Technical Debt in Build Systems [SPIKE]
+- arXiv:2402.08920 -- Quantifying and characterizing clones of self-admitted technical debt in build systems
+- arXiv:https://doi.org/10.56726/irjmets66464 -- Microservices Architecture
+- arXiv:https://doi.org/10.1007/s10462-025-11223-9 -- A comprehensive survey of deep learning for time series forecasting: architectural diversity and open challenges
+- arXiv:https://doi.org/10.1017/s0033291724003295 -- Artificial intelligence in mental health care: a systematic review of diagnosis, monitoring, and intervention applications
+- arXiv:https://doi.org/10.1093/jamia/ocaf063 -- The emergence of large language models as tools in literature reviews: a large language model-assisted systematic review
+- arXiv:https://doi.org/10.1007/s11432-024-4337-1 -- Overview of AI and communication for 6G network: fundamentals, challenges, and future research opportunities
+- arXiv:https://doi.org/10.3390/electronics14040696 -- Integrating Artificial Intelligence Agents with the Internet of Things for Enhanced Environmental Monitoring: Applications in Water Quality and Climate Data
+- arXiv:https://doi.org/10.3390/app15126465 -- Artificial Intelligence Adoption in SMEs: Survey Based on TOE–DOI Framework, Primary Methodology and Challenges
+
+### distributed_systems (42 papers)
+
+- arXiv:2609.07986 -- Automated Chest CT Protocol Selection via Large Language Model Derived Text Embeddings from Imaging Request Text
+- arXiv:2603.06356 -- Safe Consensus of Cooperative Manipulation with Hierarchical Event-Triggered Control Barrier Functions
+- arXiv:2608.28529 -- Relaxed Sender Anonymity for CBDC Interbank Settlement: A Zero-Knowledge Approach on Permissioned EVM
+- arXiv:2609.05580 -- Sharpedo: Dual-Mode Uncertified DAG-Based Consensus Protocol [SPIKE]
+- arXiv:2609.04841 -- MABPD: Multi-Agent Bias Probing & Detection via Structured Argument Debate
+- arXiv:2609.04550 -- VISTA: Dense Multi-Label Classroom Coding with Vision-Language Models
+- arXiv:2609.03978 -- Barnacle: Adaptive Multi-Leader Scheduling for DAG-Based Consensus
+- arXiv:2609.03063 -- Fully Fluctuating Sleepy Consensus from Minimal Assumptions
+- arXiv:2609.09102 -- TILING I: Field-level Bayesian reconstruction of cosmological initial conditions during the epoch of reionization
+- arXiv:2609.08631 -- CrossRAFT: Cross-Domain Complex-Valued Feature Extraction for Ultrasound Motion Estimation
+- arXiv:2609.07010 -- Fine-Grained Visual Preprocessing and Dual-Stream Temporal Modeling for Multimodal Sentiment Analysis on Social Media
+- arXiv:2608.30277 -- SimCRAFT: Distilling Remote Sensing Agents via Synthetic Trajectories and Contextual Retrieval-Augmented Fine-Tuning
+- arXiv:2609.02685 -- DKL: Decoupled Knowledge Learning for Instruction-Tuned Language Models
+- arXiv:2609.01876 -- RAFT-DVC: Resolution-Aware Machine Learning-Based Digital Volume Correlation
+- arXiv:2608.28884 -- MineCEraft: Evaluating Language Models as Construction Engineers in the World of Minecraft
+- arXiv:2608.24622 -- Scalable datacenter replication with mostly-synchronous consensus on hardware
+- arXiv:2507.15154 -- Dynamic Tuning of Election Parameters for Timely Leader Failover in State Machine Replication
+- arXiv:2603.28788 -- Legible Consensus: Topology-Aware Quorum Geometry for Asymmetric Networks
+- arXiv:2504.05173 -- PRDTs: Composable Design and Verification of Consensus Protocols using Replicated Data Types
+- arXiv:2605.24619 -- Synthesizing Inductive Invariants for Distributed Protocols via IC3 and Large Language Models
+- arXiv:2001.04235 -- Notes on Theory of Distributed Systems
+- arXiv:2511.02743 -- Making Democracy Work: Fixing and Simplifying Egalitarian Paxos (Extended Version)
+- arXiv:2604.17063 -- Predictive Sectorization and Bayesian Optimized Consensus for Admission Control in Autonomous Airspace Operations
+- arXiv:2609.08580 -- Magnetic phases of Kondo lattice materials Ce$_5$RhGe$_2$ and Ce$_5$IrGe$_2$
+- arXiv:2609.08076 -- Selective coupling of high-order phonons in La2-xSrxCuO4
+- arXiv:2305.14496 -- Optimal Confidence Intervals via Moderate Deviations Theory
+- arXiv:2609.01695 -- Dark-Sector Effects on the Phase Structure of Nonlinear Magnetic AdS Black Holes
+- arXiv:2609.03442 -- Guide, Not Bind: Why Defeasible Priors Fail in Augmented Lagrangian Causal Discovery
+- arXiv:2505.00284 -- LightEMMA: A Longitudinal Evaluation of Vision-Language Models for Autonomous Driving
+- arXiv:2609.02143 -- A Power Law in Logarithm's Clothing: On the Scalability of Graph-Based Vector Search
+- arXiv:2607.16109 -- The Honest Quorum Problem: Epistemic Byzantine Fault Tolerance for Agentic Infrastructure
+- arXiv:2607.13378 -- Fair on the Surface: Transaction-Ordering Bias and MEV in Mysticeti DAG-based BFT Protocol
+- arXiv:2607.03269 -- Agentic-SecPBFT: Agentic AI-Driven Proactive Security Framework for Wireless PBFT Consensus in Mobile Ad-Hoc Networks
+- arXiv:2607.02856 -- Cassandra: Consensus with Partial Progress via Robust Partitionable View Synchronization
+- arXiv:2601.03390 -- Practical One-Round-Trip BFT Replication
+- arXiv:2606.16740 -- Robust and Automated Reconfiguration of Byzantine Wide-Area Replication
+- arXiv:2606.13954 -- Lattice Aggregation in Distributed Verification under Crash and Byzantine Failures
+- arXiv:2003.12039 -- RAFT: Recurrent All-Pairs Field Transforms for Optical Flow
+- arXiv:2403.10131 -- RAFT: Adapting Language Model to Domain Specific RAG
+- arXiv:2405.14793 -- SEA-RAFT: Simple, Efficient, Accurate RAFT for Optical Flow
+- arXiv:2304.06767 -- RAFT: Reward rAnked FineTuning for Generative Foundation Model Alignment
+- arXiv:2109.07547 -- RAFT-Stereo: Multilevel Recurrent Field Transforms for Stereo Matching
+
+### edge_embedded (28 papers)
+
+- arXiv:2609.09118 -- Topological Impurity Bands
+- arXiv:2609.09031 -- Deterministic Edge-Fault-Tolerant Connectivity Labeling Schemes with Nearly Optimal Label Size
+- arXiv:2609.08990 -- A Sublinear Approximation Algorithm for Minimum Dilation Trees in the Plane
+- arXiv:2609.08946 -- ContinuumBench: Benchmarking Joint Autoscaling and Placement Across Evaluation Regimes in the Cloud-Edge Continuum [SPIKE]
+- arXiv:2604.13112 -- A Lightweight Global-Target Framework for Multi-Domain No-Reference Image Quality Assessment in UAV Imagery [SPIKE]
+- arXiv:2603.21954 -- Floquet generation of hybrid-order topology and $\mathbb{Z}_2$-like bipolar localization
+- arXiv:2609.06814 -- Quantum-Enhanced Learning Framework for Intelligent and AI-Native 6G Wireless Networks
+- arXiv:2609.03747 -- Closing the Semantic-Edge Gap: Tiny Language Models for 6G Wireless Intelligence
+- arXiv:2608.29913 -- On the Instance Hardness as a Decision Criterion in TinyML Systems
+- arXiv:2608.26500 -- Systematic Literature Review of Machine Learning Models and Applications for Text Recognition
+- arXiv:2608.23192 -- An Energy-Proportional Multimodal and Context-Aware Vision IoT Node [SPIKE]
+- arXiv:2608.23101 -- PolyChirp: Multi-Species Birdsong Classification Using TinyML on Low-Power Acoustic Sensors [SPIKE]
+- arXiv:2608.21646 -- Power-Performance Characterization of TinyML Systems [SPIKE]
+- arXiv:2608.17108 -- A Multiplication-Free Feature Extractor for Signal Classification: Keyword Spotting Case Study
+- arXiv:2609.08441 -- AI-Native Orchestration in the 6G Continuum: Evolving Operator Platforms with Agentic AI
+- arXiv:2510.03770 -- Complex domain approach for reversible data hiding and homomorphic encryption: General framework and application to dispersed data
+- arXiv:2608.26040 -- Adaptive Peer Clustering with Hierarchical Random Linear Network Coding for Resilient Decentralized Wireless Networks
+- arXiv:2512.12067 -- A Leaner and Faster Web: How CBOR Can Improve Dynamic Content Encoding in JSON and DNS over HTTPS
+- arXiv:2608.25728 -- A Spatially-Aware Publish-Subscribe Middleware for IoT Applications
+- arXiv:2608.23854 -- BotScan: An adaptive active probing approach for identifying live IoT Botnet C2 servers at scale
+- arXiv:2608.25225 -- "Am I Just That Dumb?": Applicability, Action and Verification in Consumer IoT Security Advice
+- arXiv:2609.08524 -- Layer Selection in VLMs for Zero-Shot OOD Detection via Multi-Resolution Entropy Estimation
+- arXiv:2609.08464 -- PAPR-Aware Multimodal Token Transmission in MLLM-Based Multiuser Networks
+- arXiv:2609.08280 -- Seeing is Not Believing: Breaking the Physical-to-Digital Trust Boundary in Robotics
+- arXiv:2509.25180 -- DC-Gen: Post-Training Diffusion Acceleration with Deeply Compressed Latent Space
+- arXiv:2608.20440 -- Decision Tree and K-Means Analysis of Raman Spectra for Edible Oils: A Physics-Informed AI Approach
+- arXiv:2609.07843 -- The OCUDU dApp Platform: An Open Runtime and E3 Interface for Real-Time AI-RAN
+- arXiv:2608.04031 -- Hardware-Enabled Fuzzy Inference: Architectures, Platforms, and Emerging Trends
+
+### formal_specification (33 papers)
+
+- arXiv:2608.13434 -- Fast Tendermint: Speeding Up a Foundational Consensus Protocol
+- arXiv:2607.25333 -- Specula: Scaling formal specifications for autonomous model checking of system code
+- arXiv:2606.06133 -- TLA-Prover: Verifiable TLA+ Specification Synthesis via Preference-Optimized Low-Rank Adaptation
+- arXiv:2607.23425 -- TLA+-Bench: An Execution-Grounded Benchmark and Dataset for Natural-Language to TLA Specification Generation
+- arXiv:2607.13092 -- Executable JavaScript as a Checkable Specification Language: A JS-SAM Case Study on SysMoBench
+- arXiv:2606.28690 -- Formal Security Analysis of Agent Protocol Composition
+- arXiv:2606.24322 -- Securing LLM-Agent Long-Term Memory Against Poisoning: Non-Malleable, Origin-Bound Authority with Machine-Checked Guarantees
+- arXiv:2512.12024 -- Model checking of hyperproperties for high-level relational models
+- arXiv:2604.07584 -- From Papers to Property Tables: A Priority-Based LLM Workflow for Materials Data Extraction
+- arXiv:2601.05057 -- Supporting Secured Integration of Microarchitectural Defenses
+- arXiv:2406.16219 -- Towards a Formal Foundation for Blockchain Rollups
+- arXiv:2506.05172 -- A Framework for Ethical Judgment of Smart City Applications
+- arXiv:2502.13955 -- Bounded Synthesis of Synchronized Distributed Models from Lightweight Specifications
+- arXiv:2501.07958 -- Technical Report: Exploring Automatic Model-Checking of the Ethereum specification
+- arXiv:2607.07723 -- Limits of Uniform Certification in the Standard Turing Model -- Semantic Invariants and Admissible Methods
+- arXiv:2608.13522 -- Vero: Can AI Agents Build Formally Verified Software Repositories?
+- arXiv:2602.02091 -- Mechanized Undecidability of Higher-order beta-Matching (Extended Version)
+- arXiv:2608.05420 -- Can Open-Weight LLMs Produce Kernel-Verified Coq Proofs? A Pilot Study
+- arXiv:2606.05953 -- A Proof in Coq that Core Logic is not Paraconsistent
+- arXiv:2410.13508 -- Formalizing Hyperspaces and Operations on Subsets of Polish Spaces over Abstract Exact Real Numbers
+- arXiv:2607.06341 -- Harnessing Code Agents for Automatic Software Verification
+- arXiv:2606.02367 -- A Computational Toolkit for Engagement and Scalable Assessment in a Large Logic Course
+- arXiv:2609.08231 -- SemBridge: Compiling Consumer Observations into Cross-Stack Communication Plans
+- arXiv:2609.05876 -- FACT: A Forensic Agent with Compiled Tool-Use Trajectories for AI-Generated Image Detection
+- arXiv:2609.04372 -- Corten - Foundational Verification of Rust Programs
+- arXiv:2609.05559 -- LLM-Aided Design for Manufacturing: A Multi-Agent System for Intent-Preserving Redesign of CAD for Improved Manufacturability
+- arXiv:2606.31002 -- Beyond Compilation: Evaluating Faithful Natural-Language-to-Lean Statement Formalization
+- arXiv:2606.17182 -- Verified Detection and Prevention of Concurrency Anomalies in Multi-Agent Large Language Model Systems
+- arXiv:https://doi.org/10.3390/en18030746 -- State of the Art in Electric Batteries’ State-of-Health (SoH) Estimation with Machine Learning: A Review
+- arXiv:2510.07077 -- Vision-Language-Action Models for Robotics: A Review Towards Real-World Applications
+- arXiv:https://doi.org/10.3390/computers14070250 -- The Integration of the Internet of Things (IoT) Applications into 5G Networks: A Review and Analysis
+- arXiv:2505.04873 -- Federated Learning for Cyber Physical Systems: A Comprehensive Survey
+- arXiv:https://doi.org/10.1126/sciadv.aea6817 -- Unlocking the therapeutic potential of cellular mechanobiology
+
+### information_retrieval (35 papers)
+
+- arXiv:2609.09012 -- Spheriverse: 3D Scene Understanding from Spherical Observations in the Wild
+- arXiv:2609.08887 -- Q2D-Web: A Large-Scale Benchmark for Retrieval in Agentic RAG Systems [SPIKE]
+- arXiv:2609.08790 -- Evidence-Grounded Retrieval for Investigation Hunt Lead Generation from CTI Reports
+- arXiv:2609.08762 -- PDMR: Passage-Driven Multi-ID Document Retrieval
+- arXiv:2506.02503 -- KARE-RAG: Knowledge-Aware Refinement and Enhancement for RAG [SPIKE]
+- arXiv:2609.08372 -- Reading a Legal Question Word by Word: Embedding Trajectories of 2,144 Vietnamese Legal Headlines
+- arXiv:2608.13010 -- RAGSieve: Self-Referenced Local Contrast for Knowledge-Poison Detection in Retrieval-Augmented Generation
+- arXiv:2609.08188 -- Bridging the Semantic-Utility Gap in Multimodal RAG via Generator-in-the-Loop Alignment [SPIKE]
+- arXiv:2602.18613 -- Diagnosing LLM Reranker Behavior Under Fixed Evidence Pools [SPIKE]
+- arXiv:2609.04579 -- Does the Selected Object Reach the Reader? Auditing Identity Handoffs in Grounded Language-Model Pipelines
+- arXiv:2609.07134 -- Retrieval-Augmented Multi-Prompt Ensemble for Minor-Grain Breeding Information Extraction
+- arXiv:2609.04999 -- BIT.UA at BioASQ 14B: Modular Retrieval with pg_textsearch and Qdrant, and Agent-Based Answer Generation
+- arXiv:2606.08151 -- Decision-Aware Memory Cards: Counterfactual-Inspired Context Selection and Compression for Tool-Using LLM Agents [SPIKE]
+- arXiv:2603.13320 -- Nepali Passport Question Answering: A Low-Resource Dataset for Public Service Applications
+- arXiv:2609.04915 -- Compact-Memory LLM Agents via Online Max-Member Clustering and Atom-Aware Packing
+- arXiv:2609.08827 -- Hybrid Continuous DoA Estimation with Shared-Radius Co-Prime Circular Arrays
+- arXiv:2609.08086 -- CTree: Branch-wise compatible merger tree builder
+- arXiv:2606.28971 -- Self-Evolving Agentic Image Restoration via Deliberate Planning and Intuitive Execution
+- arXiv:2609.07155 -- Mind the Approximation: Fisher-Weighted SVD Compression for ViTs
+- arXiv:2609.07143 -- EAGER: Enrich-and-Align Generative Query Recommendation from Clicked Items in E-commerce Search
+- arXiv:2609.05161 -- APEX-RBD: Mixed-Precision Exploration Framework for Hardware-Efficient Robot Dynamics Accelerator Design
+- arXiv:2609.01641 -- SocialBuddy: Tailoring Search Agent for Social Scenarios [SPIKE]
+- arXiv:2609.08818 -- Beyond Gait: Person Identification from Millimeter-Wave Point Clouds Across Activities of Daily Living
+- arXiv:2609.08236 -- Style Over Substance: Content-Invariant Wrappers Flip LLM Safety-Judge Verdicts
+- arXiv:2609.07595 -- Same Problem, Different Field: Cross-Domain Solution Import via Domain-Stripped Computational Fingerprints [SPIKE]
+- arXiv:2609.07559 -- Scoring Without the Engine: Validating a Deterministic, Manipulation-Resistant Content Score for Generative Engines, End to End
+- arXiv:2609.07399 -- Open-Set Vessel Re-Identification from Underwater Ship-Radiated Noise with a Raw-Waveform Selective-Kernel Acoustic Neural Network (SKANN) and a Cross-Passage Evaluation Protocol
+- arXiv:2609.03554 -- WIDE: Wildcard Inference with Dynamic Expansion for Cross-Modal Generative Retrieval
+- arXiv:2608.27809 -- LINE Conversation History Retrieval for Personal Memory RAG: Evaluating Search Representations and Hybrid Retrieval
+- arXiv:2604.14572 -- Corpus2Skill: Distilling Enterprise Knowledge into Navigable Agent Skills for QA and RAG
+- arXiv:2608.23992 -- Hybrid Semantic Tool Discovery for Enterprise MCP Gateway: Architecture and Implementation
+- arXiv:2605.05962 -- Tatarstan Toponyms: A Bilingual Dataset and Hybrid RAG System for Geospatial Question Answering
+- arXiv:2608.12987 -- Generative Universal Multimodal Retrieval with Dual-role Identifiers
+- arXiv:2607.24663 -- A corrective agentic hybrid RAG and an operations-grounded evaluation for a scientific facility
+- arXiv:2607.10239 -- Multilingual Semantic Retrieval for Apple Music Search
+
+### knowledge_representation (34 papers)
+
+- arXiv:2609.09153 -- Procedural Graphs: Self-Evolving Execution Structures for LLM Agents [SPIKE]
+- arXiv:2609.09055 -- "World Knowledge" in the Weights: Reading Concept Circuits of Vision Transformers
+- arXiv:2609.09004 -- Evaluation of Contextual Understanding in Large Language Models
+- arXiv:2609.08869 -- OntoKG-EQ: A provenance-grounded, competency-question-governed knowledge graph for auditable analyst querying [SPIKE]
+- arXiv:2609.08702 -- Scaling Limit of Critical Loop Soup Clusters in Three, Four, and Five Dimensions
+- arXiv:2507.12311 -- Ontology Interoperability: A Comprehensive Framework for Industrial-Scale Applications
+- arXiv:2605.19186 -- Discoverable Agent Knowledge -- A Formal Framework for Agentic KG Affordances (Extended Version)
+- arXiv:2609.07694 -- X-DigCheck: Co-Evolving Application Profiles and Knowledge Graphs, Demonstrated on the RTI Documentation of Rupe Magna
+- arXiv:2609.05314 -- Large Language Models for HVAC Operations in Building Energy Systems: A Critical Review of Methods, Applications, and Deployment Readiness
+- arXiv:2609.01293 -- TriSLA: A Preventive and Closed-Loop SLA-Aware Architecture for Multidomain Decision-Making with Explainable Artificial Intelligence in 5G Networks
+- arXiv:2609.00752 -- Ontology-based Target Sound Extraction
+- arXiv:2609.00387 -- Hidden relationships in a document-derived property graph: top-k chunk embeddings and inverse-distance weighting over a dynamically evolving ontology [SPIKE]
+- arXiv:2609.03441 -- Does SRL Pave the Road to Explainable Reasoning? Lessons Learned from an Implementer's Perspective
+- arXiv:2608.15147 -- Constitutive Priors for Machine Intelligence: A Legitimacy Theory of the Artificial Physical World
+- arXiv:2608.28345 -- AGENT-O: A Semantic Agent Card Framework for Interoperable and Governed Healthcare AI Agents
+- arXiv:2608.22025 -- RepuLink: A Linked Data Platform for Accountable Trust [SPIKE]
+- arXiv:2608.14104 -- Rewrite Once, Validate Anywhere: Producing OWL-Aware SHACL Constraints (Extended Version) [SPIKE]
+- arXiv:2608.04689 -- Supporting the understanding of ontologies for scientific knowledge graphs with the new version of LODE
+- arXiv:2607.03982 -- A Semantic Framework for Reproducible Variational Quantum Algorithm Execution Records
+- arXiv:2403.01630 -- Relational to RDF Data Migration by Query Co-Evaluation
+- arXiv:2608.28963 -- RENSA: Rich Environment Metadata to Navigate Shared and Distributed Endpoints for Automated Federated SPARQL Query Generation [SPIKE]
+- arXiv:2608.03840 -- Uplifting the Superpowers of Worst-Case-Optimal Join Algorithms
+- arXiv:2607.28311 -- Fully Inductive Cardinality Estimation
+- arXiv:2605.20066 -- Text-to-SPARQL Generation with Reinforcement Learning: A GRPO-based Approach on DBLP
+- arXiv:2605.00845 -- Graph Query Generation with Constraint-guided Large Language Agents [SPIKE]
+- arXiv:2405.15374 -- Leveraging Large Language Models for Semantic Query Processing in a Scholarly Knowledge Graph [SPIKE]
+- arXiv:2609.00604 -- NeuroGraph: An AI Graph-Driven Neuro-Symbolic Framework for Explainable Threat Reasoning in Advanced Manufacturing [SPIKE]
+- arXiv:2605.29168 -- Better Later Than Sooner: Neuro-Symbolic Knowledge Graph Construction via Ontology-grounded Post-extraction Correction [SPIKE]
+- arXiv:2608.23370 -- Walking on the DARKSIDE
+- arXiv:2609.04377 -- Corporate Language Model (CLM): Transforming Tacit and Fragmented Enterprise Knowledge into a Sovereign, Auditable, and Executable Corporate Intelligence Layer
+- arXiv:2609.03834 -- Semantic Bayesian World Models
+- arXiv:2608.26836 -- SymbolLKG: Towards Verifiable Logical Reasoning via Logical Knowledge Graph and Symbolic Solvers [SPIKE]
+- arXiv:2608.26094 -- MyoMechanix: Biomechanically-Grounded Compositional Skilled Activity Understanding and Coaching
+- arXiv:2608.22974 -- Toward Effective and Reliable LLM Agents via Dynamic Ontology
+
+### network_protocols (31 papers)
+
+- arXiv:2608.15366 -- Exploring the Suitability of QUIC for the Internet of Things
+- arXiv:2608.02264 -- TurboRetry: Mitigating Large-Scale QUIC Handshake Floods with Off-the-Shelf DPU Offloading
+- arXiv:2607.18444 -- Cost-Aware Uplink MPQUIC Scheduling via Multi-Objective Bayesian Optimization
+- arXiv:2606.29124 -- CornerCase: Automated Extremal Testing of Protocol Implementations using LLMs
+- arXiv:2608.04164 -- Securing Load Balancing over QUIC
+- arXiv:2607.26379 -- QUIC-TRIP: A Triple-Redundant Journey Toward Secure Substation Communications
+- arXiv:2607.03149 -- A Binary and System Integrated Analysis Approach for Securing the QUIC Protocol
+- arXiv:2606.16473 -- Measurement Study of Post-Quantum Readiness of Internet: 2026
+- arXiv:2606.28746 -- He3-Seeker: Robotic Information Planning for Lunar Helium-3 Distribution Mapping
+- arXiv:2609.09010 -- A Joint 2D-3D Statistical Shape Model for Orthopedic Reconstruction
+- arXiv:2603.12995 -- Extending Exact Integrality Gap Computations for the Metric TSP
+- arXiv:2609.08743 -- FOCI Policy: Focus on Object-Centric Interactions for Relational Manipulation Policies
+- arXiv:2609.08474 -- Predicting directional flexibility in proteins
+- arXiv:2512.15028 -- End-to-End Data Movement: Paradigm Reexamination and Principles for Efficiency
+- arXiv:2608.15919 -- Noesis: Bidirectional Graph-RAG with Adaptive Parallelism and Cross-Knowledge-Base Semantic Discovery
+- arXiv:2504.19058 -- Presto: A Match-Action TCP Stack for the Terabit Era
+- arXiv:2605.19909 -- Fair-Aurora: Comparing Fairness Strategies for Reinforcement Learning-Based Congestion Control in Multi-Flow Environments
+- arXiv:2606.16924 -- Single-Connection Mixed-Criticality Transport with CATS: Bounded Guarantees, Three Structural Limits, and a QUIC Escape
+- arXiv:2601.05665 -- 2BRobust -- Mitigating TCP BBR Performance Degradation in Virtual Machines under CPU Contention
+- arXiv:2607.07133 -- Unveiling TCP BBR Dominance in Starlink Internet: Experimental Insights and Analysis
+- arXiv:2607.04821 -- Performance evaluation of scheduling tasks in many-core systems utilizing processes and threads
+- arXiv:2608.25165 -- BGPay: An Incentive-Compatible Mechanism for BGP Hijack Filtering
+- arXiv:2608.22812 -- The Surprising Effectiveness of LLMs in BGP Security: Mining An Unprecedented Amount of Incidents and Boosting Anomaly Detection
+- arXiv:2608.11340 -- Self-evolving network verifiers
+- arXiv:2605.00187 -- A Multi-Perspective Study of the Internet Shutdown in Iran
+- arXiv:2606.23071 -- Understanding the Stealthy BGP Hijacking Risk in the ROV Era
+- arXiv:2606.04298 -- Anycast Performance in Context
+- arXiv:2605.07071 -- From Map-and-Encap to BIER: Observations on Network Routing Scalability
+- arXiv:2603.29207 -- TORCH: Characterizing Invalid Route Filtering via Tunnelled Observation
+- arXiv:2604.16634 -- End-to-End Performance of Video Streaming With MPEG-DASH Over Satellite 5G IAB Networks
+- arXiv:2603.10437 -- A Secure Splitting and Acceleration Strategy for TCP/QUIC in Interplanetary Networks
+
+### network_security (32 papers)
+
+- arXiv:2606.25734 -- Shoot the Honey, Cloak the Player: Towards Zero-Runtime-Overhead Proactive Defense and Detection for Visual Game Cheating
+- arXiv:2609.07244 -- Towards a Resilience-Theoretic Foundation for Adversarial Robustness in Industrial Control System Anomaly Detection
+- arXiv:2609.06012 -- Robustness Evaluation and Detection of Transferable Adversarial Attacks in ML-Based NIDS
+- arXiv:2609.04388 -- Candidate Comparability Before Promotion: Conditional Validation in Adaptive Network Intrusion Detection
+- arXiv:2609.02469 -- Evaluating ML-based Intrusion Detection Systems: The Illusion of Model Efficacy
+- arXiv:2609.00954 -- Influence of Logging Frameworks on Bind9
+- arXiv:2511.05458 -- Trade-off between complexity and energy in quantum phase estimation
+- arXiv:2608.22223 -- Spending Scarce Confirmatory PET Measurements: Target-Aligned Validation in A4/LEARN
+- arXiv:2609.08974 -- Limit Sets and Global Bifurcation Structure in Planar Control Models with Large Hysteresis
+- arXiv:2605.00487 -- Zero-Knowledge Model Checking
+- arXiv:2609.08776 -- Hi-M imaging of chromatin architecture in adult Drosophila brain cryosections
+- arXiv:2609.08677 -- Entropic Risk-Sensitive Evolutionary Learning and Equilibrium Selection in Coordination Games
+- arXiv:2609.08763 -- ZK-Trace: Certified Collusion Tracing with Zero-Knowledge Credentials for Federated GNSS Interference Monitoring
+- arXiv:2609.06931 -- CARDEA: Auditable Reasoning Grounded in Spatial Evidence for End-to-End Coronary Angiography Interpretation
+- arXiv:2609.05741 -- Practical Zero-Trust for Mission-Critical Robotic Fleets via Hardware Attestation and Packet Timing Watermarking
+- arXiv:2609.05184 -- Towards Federated, Green, and Resilient 6G Non-Terrestrial Networks
+- arXiv:2609.04382 -- Privacy Failure in Split-LLM Training, The Returned Gradient Nullifies the Decoys
+- arXiv:2609.04058 -- AI-Assisted Design of a Post-Quantum Cryptographic Accelerator: A Deployed-Silicon Case Study
+- arXiv:2405.03414 -- A New Lineserach for Accelerated Composite Minimization
+- arXiv:2609.05119 -- Understanding the Privacy-Preserving Potential of HTTP/2 Against Webpage Fingerprinting
+- arXiv:2312.06140 -- ICS-Sniper: A Targeted Blackhole Attack on Encrypted ICS Traffic
+- arXiv:2609.00815 -- A Modular IoT-Enabled Remote Laboratory Platform for Hybrid Energy System Research and Engineering Education
+- arXiv:2606.05273 -- Online Safety Regulation Increases Attention to VPNs: Privacy Implications of the UK Online Safety Act
+- arXiv:2608.18869 -- Secure Medical Data Transmission Using Quantum Key Distribution and Post-Quantum Cryptography in Real-World Fiber Networks
+- arXiv:2608.07226 -- Dual-Node NVIDIA DGX Spark over Tailscale: A Remote-Access Testbed for Distributed LLM Training and Cyber-Threat-Intelligence Fine-Tuning
+- arXiv:2607.11252 -- Deployment of Entanglement-Based QKD in Financial Infrastructure
+- arXiv:2607.10061 -- Federated Cybersecurity Testbed as a Service (FCTaaS): A framework to federate cybersecurity testbeds
+- arXiv:2608.02627 -- Micro-Segmentation Anomaly Detection in Zero-Trust Software-Defined Network Fabrics [SPIKE]
+- arXiv:2605.00279 -- A Comparative Analysis of Machine Learning Models for Intrusion Detection in Intelligent Transport Systems
+- arXiv:2604.25201 -- Behaviour-aware Hybrid Architecture for Trust-driven Transmissions
+- arXiv:2604.23332 -- Advanced Anomaly Detection and Threat Intelligence in Zero Trust IoT Environments Using Machine Learning
+- arXiv:2604.17179 -- Decentralised Trust and Security Mechanisms for IoT Networks at the Edge: A Comprehensive Review
+
+### neuromorphic (31 papers)
+
+- arXiv:2605.30361 -- Gradient-Free Training of Spiking Neural Networks via Low-Rank Evolution Strategies
+- arXiv:2609.05151 -- Large Language Models with At Most One Spike per Neuron
+- arXiv:2608.30792 -- Conjoint Audio-to-Spikes Encoding and Processing for Efficient Neuromorphic Speech Recognition
+- arXiv:2606.06159 -- ITP-STDP: A Hardware-Efficient Intrinsic-Timing Power-of-Two Synaptic Learning Engine for On-Chip SNNs
+- arXiv:2608.30444 -- Non-uniform Memory Partitioning For Low-Power Spiking Neural Networks
+- arXiv:2507.20998 -- Efficient Memristive Spiking Neural Networks Architecture with Supervised In-Situ STDP Method
+- arXiv:2604.22179 -- Hardware-Software Co-Design for Event-Driven SNN Deployment on Low-Cost Neuromorphic FPGAs
+- arXiv:2609.09108 -- Distributed Linear Programming on GPU Clusters at Extreme Scale
+- arXiv:2609.09064 -- Parity and Pattern Detection in Permutation Streams
+- arXiv:2604.14141 -- LingBot-Map: Geometric Context Transformer for Streaming 3D Reconstruction
+- arXiv:2609.08898 -- OTTER - Two Transistor - One RRAM Architecture for Reliable In-Memory-Computing in 28 nm CMOS Technology
+- arXiv:2609.08886 -- FRAME: Factored Retrieval via Attribute Readouts for Object-Centric Scene Memory
+- arXiv:2609.08871 -- Towards Standardized Evaluation of GPU Memory Safety with GMSBench
+- arXiv:2507.10383 -- Dynamical stability for dense patterns in attractor neural networks
+- arXiv:2609.08800 -- Ostrich: Taking Large Strides Through Stiff Contact in Differentiable Dynamics
+- arXiv:2510.06294 -- Charged galactic wormholes: shadow imaging, accretion disks, and charged-particle deflection
+- arXiv:2604.15256 -- Charmonium radiative transitions to dileptons from lattice QCD: The case of $h_c \to η_c \ell^+\ell^-$ and $χ_{c1} \to J/ψ\,\ell^+\ell^-$
+- arXiv:2609.01710 -- Purification of photonic graph states
+- arXiv:2504.15831 -- Detecting strongly non-Gaussian entanglement
+- arXiv:2609.08552 -- Universal Broadband Linear Optical Transformations by an Interlaced Structured Integrated Photonic Processor
+- arXiv:2608.21891 -- Mie Optical Computing
+- arXiv:2608.18341 -- Low-Power, Neuromorphic, Acoustic Anomaly Detection for Persistent Machine Monitoring
+- arXiv:2608.16807 -- Parallel Spatial Photonic Programming of Optoelectronic IGZO RRAM with a compact $μ$LED Array
+- arXiv:2608.13952 -- Reducing ANN-SNN Conversion Error via Residual Membrane Potential Alignment
+- arXiv:2608.05078 -- SpikingNav: Robust Embodied Navigation with Spiking Neural Policies
+- arXiv:2609.00026 -- Benchmarking spiking neural networks across sensing modalities on edge devices
+- arXiv:2608.19995 -- The Forward-Backward Disconnect: State Dynamics, Credit Assignment, and Biological Grounding in Neural Computation
+- arXiv:2608.19239 -- BASC : Behavior-Aligned Quantization and Pruning for Low-Bit Spiking Neural Networks
+- arXiv:2608.08479 -- SuperNeuroMAT: An Efficient Matrix-based Simulator for Spiking Neural Networks
+- arXiv:2601.16589 -- Emerging Threats and Countermeasures in Neuromorphic Systems: A Survey
+- arXiv:2607.24396 -- The SpiNNaker2 chip: a many-core platform for flexible and scalable brain-inspired computing
+
+### operating_systems (45 papers)
+
+- arXiv:2609.04043 -- Extending concurrent separation logic to the hardware level to verify the xv6 OS kernel on RISC-V with AI agents
+- arXiv:2606.18958 -- Ossim: OS-Driven Live Simulation for Cluster-Scale Full-Stack Evaluation
+- arXiv:2607.18097 -- SuperPass: Fast-Tracking Blocking Threads to Mitigate Priority Inversion on Mobile Devices
+- arXiv:2504.21394 -- Concurrency Testing in the Linux Kernel via eBPF
+- arXiv:2607.12254 -- Self-Aware Recursively Self-Improving Agents for Personal Singularity: A Goal-, Scope-, Tool-, and Benchmark-Driven Multi-Agent Architecture
+- arXiv:2605.15026 -- TuxBot: Semantic-Aware Online OS Tuning with Large Language Models
+- arXiv:2607.12620 -- Cross-Core Inference Offload as an Operating-System Service on Dual-Core Microcontrollers
+- arXiv:2607.12614 -- Inference Pipelines as Operating-System Objects: Priority Scheduling and Constant-Footprint Streaming for Microcontroller Neural Inference
+- arXiv:2601.20352 -- AMA: Adaptive Memory via Multi-Agent Collaboration
+- arXiv:2609.08273 -- MemForest: Efficient Agent Memory Management via EventTree Partitioning and Progressive Merging [SPIKE]
+- arXiv:2609.01623 -- PRISM: An Agentic Multi-Model Architecture for Proactive Safety in Autonomous Transportation Systems
+- arXiv:2609.07782 -- TrajectoryDB: A New Database for Agent Trajectories
+- arXiv:2609.07471 -- MEMO: Multimodal Evidence Memory Organization for Long-Horizon LLM Agents
+- arXiv:2609.07175 -- Enabling High-Bandwidth Flash for Generative Recommendation Serving with Write-Aware KV Cache Policy
+- arXiv:2609.07135 -- NutriBench-Kitchen: Benchmarking Embodied AI for Nutrition Management
+- arXiv:2507.01224 -- FLARE: A Dataflow-Aware and Scalable Hardware Architecture for Neural-Hybrid Scientific Lossy Compression
+- arXiv:2609.06506 -- Sharing a Fabric with Collective Communication: Two Storage Penalties in Deep Learning Training
+- arXiv:2609.06149 -- SCRIPTIOC-BENCH: A Benchmark for Recognizing Actionable Threat Intelligence from Script-Based Malware using LLMs
+- arXiv:2609.03598 -- RASER: Resilient Agent Scheduling and Execution Runtime for HPC Clusters
+- arXiv:2604.13536 -- Don't Let AI Agents YOLO Your Files: Information and Control in Agent-Native Filesystems
+- arXiv:2608.30207 -- SIR: Self-improving Red-teaming for Compute Use Agents
+- arXiv:2608.29973 -- An Open-Source, Event-Driven Pipeline for Cryptocurrency Market Data: Ingestion, Forecasting, and On-Chain Fraud Detection
+- arXiv:2608.26742 -- Claude Code Complete User Handbook
+- arXiv:2608.26480 -- Zero-Shot Self-Orchestration with Ledger-Based Control for Improved LLM Coding Performance
+- arXiv:2609.09095 -- Ozaki 2.5: Engineering the Deconstruction Path of fp64-Emulated Dense Matrix Multiplication on FP8 Tensor Cores
+- arXiv:2405.09989 -- A Gaussian process model for chemoinformatics with application to the hazard classification of organic solvents
+- arXiv:2607.17363 -- ORB5X: a performance-portable global electromagnetic gyrokinetic PIC code in C++/Kokkos built using Agentic AI
+- arXiv:2609.08610 -- Cursive: The Trace from the Curse of Dimensionality
+- arXiv:2609.08443 -- SequenceO1: End-to-End Ultra-Long (100K) Sequence Modeling in Recommendation with Low-Rank Caching
+- arXiv:2603.16014 -- Fast multitask Gaussian processes, with application to surrogate modeling of the quark-gluon plasma
+- arXiv:2609.07814 -- Latent-MoE: Domain-Aware Mixture-of-Experts for PDEs with Multi-Regime Physics
+- arXiv:2609.07306 -- RouteRelay: Event-Triggered Cross-Layer Route Reuse for Efficient Dynamic Sparse Attention
+- arXiv:2609.05249 -- Proton Irradiation Characterization of an Open-Source ML Accelerator on a Zynq UltraScale+ MPSoC
+- arXiv:2607.28891 -- Reducing Data Movement in the Galerkin Product of Block Algebraic Multigrid on GPUs
+- arXiv:2608.08340 -- OpRAG: A Resource-Deterministic Runtime for GPU-Backed Multi-Stage RAG Workflows
+- arXiv:2605.09735 -- KV-RM: Regularizing KV-Cache Movement for Static-Graph LLM Serving
+- arXiv:2606.07777 -- Large-Scale Regularized Matching on GPU Clusters
+- arXiv:2604.19275 -- Scheduling Analysis of UAV Flight Control Workloads on PREEMPT_RT Linux Using a Raspberry Pi 5
+- arXiv:2605.28302 -- How Far Can Disaggregation Go? A Design-Space Exploration of Attention-FFN Disaggregation for Efficient MoE LLM Serving
+- arXiv:2605.25655 -- Bandwidth-Aware LLM Inference on Heterogeneous Many-Core Supercomputers
+- arXiv:https://doi.org/10.1136/bmj-2024-081554 -- FUTURE-AI: international consensus guideline for trustworthy and deployable artificial intelligence in healthcare
+- arXiv:https://doi.org/10.1186/s40001-025-03196-w -- Artificial intelligence in healthcare and medicine: clinical applications, therapeutic advances, and future perspectives
+- arXiv:https://doi.org/10.3390/healthcare13030250 -- Understanding Psychosocial Barriers to Healthcare Technology Adoption: A Review of TAM Technology Acceptance Model and Unified Theory of Acceptance and Use of Technology and UTAUT Frameworks
+- arXiv:https://doi.org/10.5281/zenodo.19160122 -- Maya-OS: An Affective Spiking Neural Network as a Conversational Operating System Arbitration Layer
+- arXiv:https://doi.org/10.1038/s41598-025-85248-z -- An optimized LSTM-based deep learning model for anomaly network intrusion detection
+
+### parallel_concurrent (41 papers)
+
+- arXiv:2609.06207 -- PhysWeep: Does a Video Generator Realize the Physics You Ask For?
+- arXiv:2609.00956 -- PredErase: Training-Free Object-and-Effect Removal with Predictive Latent Guidance
+- arXiv:2607.10439 -- A Physics-Inspired Classical Digital Twin of Cortical Dynamics: A Band-Stratified Metriplectic Port-Hamiltonian Neural Network Learned from Brain-Computer-Interface EEG
+- arXiv:2603.00378 -- OBASE: Object-Based Address-Space Engineering to Improve Memory Tiering
+- arXiv:2608.07586 -- MAGIC-SSCIL: Manifold Anchoring and Geometric Incremental Calibration for Semi-Supervised Class Incremental Learning
+- arXiv:2510.06387 -- Lock-free Asynchronously Distributed Linked Lists [SPIKE]
+- arXiv:2608.01907 -- SNAP-tFDP: Massively Scalable Graph Layouts via Sparse Negative Sampling
+- arXiv:2606.08051 -- How Small Can You Go? LoRA Fine-Tuning 270M-8B Models for Merchant Information Extraction in Financial Transactions
+- arXiv:2603.08003 -- SafarDB: FPGA-Accelerated Distributed Transactions via Replicated Data Types
+- arXiv:2607.02401 -- FlintKV: A Fast Durable Storage Engine for Modern Databases
+- arXiv:2608.08253 -- SuperLocalMemory 4.0: The Governed Memory Operating System for AI Agents
+- arXiv:2604.04750 -- DeepStack: Facilitating Co-Design Exploration of 3D DRAM-Stacked Accelerators for Distributed LLM Inference
+- arXiv:2608.18637 -- PILOT Technical Report
+- arXiv:2608.17082 -- SentryBus: A Multi-Vantage Observability Model and Validated Instrument for I2C Sensor-Interface Manipulation
+- arXiv:2608.20677 -- A Design Space Exploration of Async/Await
+- arXiv:2601.19207 -- Refactoring and Equivalence in Rust: Expanding the REM Toolchain with a Novel Approach to Automated Equivalence Proofs
+- arXiv:2308.08347 -- Continuing WebAssembly with Effect Handlers
+- arXiv:2211.04986 -- Fast and Scalable Channels in Kotlin Coroutines
+- arXiv:2209.10941 -- Embedding generic monadic transformer into Scala
+- arXiv:2209.06648 -- Automated Synthesis of Asynchronizations
+- arXiv:2112.12693 -- Deadlock-free asynchronous message reordering in Rust with multiparty session types
+- arXiv:2104.00250 -- Retrofitting Effect Handlers onto OCaml
+- arXiv:2609.08813 -- Dynamic Latent Space Modeling of Inhomogeneous Poisson Network Processes with Applications to International Relations
+- arXiv:2609.08802 -- Graph-Based Safe Reinforcement Learning for Multi-Agent Systems with Time-Varying Topology
+- arXiv:2304.10041 -- Topology-Guided Modular Actor-Critic Learning for Continuous Systems under Temporal Objectives
+- arXiv:2606.01900 -- Auteur: Language-Driven Cinematographic Framing for Human-Centric Video Generation
+- arXiv:2606.18549 -- Co-evolution of the global research collaboration network and the performance of nations in science and technology
+- arXiv:2608.29387 -- EvoGenUI-Bench: Evaluating LLMs as Multi-Turn Generative UI Assistants
+- arXiv:2609.07094 -- CASCADE: A Spatio-Temporal-Causal Reasoning Representation and Dataset for Driving
+- arXiv:2609.07079 -- Comparing Self-Supervised and Domain-Invariant Features for Cross-Domain Voice Phishing Detection
+- arXiv:2607.11582 -- A Separation Logic for Parallel Time Complexity with Work and Span Credits
+- arXiv:2603.05766 -- A Lock-Free Work-Stealing Algorithm for Bulk Operations
+- arXiv:https://doi.org/10.1038/s41467-025-56122-3 -- A guidance to intelligent metamaterials and metamaterials intelligence
+- arXiv:https://doi.org/10.3390/s25123583 -- The IoT and AI in Agriculture: The Time Is Now—A Systematic Review of Smart Sensing Technologies
+- arXiv:https://doi.org/10.1371/journal.pdig.0000877 -- Retrieval augmented generation for large language models in healthcare: A systematic review
+- arXiv:https://doi.org/10.1007/s10115-025-02429-y -- Artificial intelligence and machine learning in cybersecurity: a deep dive into state-of-the-art techniques and future paradigms
+- arXiv:2503.10198 -- Deep learning for time series forecasting: a survey
+- arXiv:https://doi.org/10.4230/oasics.fmbc.2026.8 -- Detecting Cross-Function Reentrancy from EVM Traces
+- arXiv:10.1007/s11432-024-4222-0 -- The rise and potential of large language model based agents: a survey
+- arXiv:10.1038/s41591-024-03425-5 -- The TRIPOD-LLM reporting guideline for studies using large language models
+- arXiv:10.1186/s12911-025-02954-4 -- A systematic review of large language model (LLM) evaluations in clinical medicine
+
+### pl_design (43 papers)
+
+- arXiv:2605.02852 -- Inferring Active Neural Circuits Using Diffusion Scores
+- arXiv:2609.09077 -- The Discovery of K2-232c: Divergent Formation Histories for Hot and Warm Jupiters Based on Outer Companion Eccentricity
+- arXiv:2609.09074 -- Effects of Interaction Range on Fluid Multicriticality: A Computational Study of an Interconverting Lattice Model
+- arXiv:2609.09050 -- Reduction Based Dynamical Systems Analysis of Nonlinear Wave Equations: A Review
+- arXiv:2609.09043 -- Speed and stability of segregated waves in a pressure-based model of heterogeneous cell populations
+- arXiv:2609.09034 -- Balanced and broadly-normed meta-generalized gradient approximation
+- arXiv:2609.08986 -- Well-posedness and exponential stability for abstract evolution equations with delay in the nonlinear source: frictional and viscoelastic cases
+- arXiv:2609.08969 -- Singular Turing bifurcations and spatial canard solutions in nonlinear reaction-diffusion systems
+- arXiv:2609.09134 -- Co-Evolving Harnesses and Models: On-Policy Correction Helps Weaker Models Catch Up Where Imitation Fails
+- arXiv:2609.09125 -- Few-body bound states in the anyon-Hubbard model
+- arXiv:2609.09116 -- When Does Scale-Invariant Optimization Become Unstable? An Exact Schedule Law with Weight Decay
+- arXiv:2609.09115 -- MeClear: Cooperative Game-Theoretic Attribution and Risk-Aware Memory Clearance for Long-Horizon LLM Agents
+- arXiv:2604.05165 -- Learning to Focus: CSI-Free Hierarchical MARL for Reconfigurable Reflectors
+- arXiv:2603.22656 -- Effect of the Atomic Dipole-Dipole Interaction on the Phase Diagrams of 2-Level Matter-Field Systems
+- arXiv:2609.07106 -- Coupled structural and electronic evolution under pressure in CuIr2Se4, CuRh2S4, and CuRh2Se4
+- arXiv:2609.04470 -- A bipolar fuzzy relation equation framework for clinical decision support systems
+- arXiv:2608.29744 -- Type I Solar Radio Bursts Modulated by Solar Flares
+- arXiv:2503.13415 -- A Comprehensive Survey on Multi-Agent Cooperative Decision-Making: Scenarios, Approaches, Challenges and Perspectives
+- arXiv:2608.27175 -- Temporal Sensitivity Analysis of Tessera Embeddings
+- arXiv:2608.25999 -- Distinct dynamics of conceptual and referential disruptions in human reading and large language model processing
+- arXiv:2607.24625 -- APPA: Recoverable Information-Flow Control for Real-World LLM Agents
+- arXiv:2608.23362 -- Breakout/Interchange Reconnection as a driver of Jets, Fast CME, and Solar Energetic Particles
+- arXiv:2609.09120 -- Complex Scalar Dark Matter with a Vector-Like Quark and Lepton: Precision, Flavor, and HL-LHC
+- arXiv:2509.19950 -- Stäckel and Eisenhart lifts, Haantjes geometry and Gravitation
+- arXiv:2407.13581 -- An extended generalization of RSK correspondence via $A$ type quiver representations
+- arXiv:2609.08779 -- Improving Term Evaluation in Machine Translation: Variation Matters
+- arXiv:2609.08775 -- Separable representations of two-body interactions for Faddeev calculations of light nuclei
+- arXiv:2609.08696 -- MorphoOrgaAgent: A Foundation-Model-Based Multi-Agent System for Autonomous Organoid Analysis
+- arXiv:2609.05764 -- Interface-Aware KV Cache Quantization for Dense On-Chip NVM in Long-Context LLM Decoding
+- arXiv:2609.00621 -- Control-Data Flow Separation: Stable Prompt Optimization in Multi-Agent LLMs
+- arXiv:2608.17172 -- Automating Parent Selection Configuration in Genetic Programming with Agentic AI
+- arXiv:2606.30854 -- When Do Staging Annotations Preserve Semantics? Mechanizing Typed Semantics-Preserving Multi-stage Programming with Let-Insertion (Extended Version)
+- arXiv:2608.23237 -- On Eliminating the Impossible with Dependent Types: Choreographic Libraries with Proof-Carrying Located Values
+- arXiv:2604.26367 -- A Category-Theoretic Framework from Biological Mechanics to Engineered Stimulus-Response Systems
+- arXiv:2608.10178 -- One Recipe, Many Harnesses: What Self-Evolution Encodes Across Languages and Models
+- arXiv:2604.05737 -- Proceedings 17th Workshop on Programming Language Approaches to Concurrency and Communication-cEntric Software
+- arXiv:https://doi.org/10.17169/refubium-47759 -- Negation in English and other languages
+- arXiv:https://doi.org/10.3788/col -- Chinese Optics Letters
+- arXiv:https://doi.org/10.1017/9781009422314.012 -- Behavioral Game Theory
+- arXiv:https://doi.org/10.1038/s41586-025-09422-z -- DeepSeek-R1 incentivizes reasoning in LLMs through reinforcement learning
+- arXiv:https://doi.org/10.3390/soc15010006 -- AI Tools in Society: Impacts on Cognitive Offloading and the Future of Critical Thinking
+- arXiv:https://doi.org/10.17265/2328-2142 -- Journal of Traffic and Transportation Engineering
+- arXiv:10.1002/wcms.70019 -- Software Update: The
+                    <scp>ORCA</scp>
+                    Program System—Version 6.0
+
+### privacy_engineering (38 papers)
+
+- arXiv:2609.03851 -- Pushing the (Decision) Boundaries: Dynamically Calibrating Differentially Private Noise to Explainability in Federated Learning
+- arXiv:2609.03659 -- Security and Privacy in the Musical Metaverse: Threat Analysis and Design Implications
+- arXiv:2609.02495 -- Big data, differential privacy, and national statistical organisations [SPIKE]
+- arXiv:2609.02363 -- On the invariance of risk-sensitive LQR gain under input randomization
+- arXiv:2609.02958 -- PrivateHub: Contrastive Diffusion Model for Private Sensor-Intensive Environment Data Generation
+- arXiv:2504.15246 -- Differential Privacy Meets Invariant Statistics: Some Conundrums in Quantifying Trade-Offs
+- arXiv:2608.28934 -- Revisiting the Provable-Auditable Privacy Gap of DP-SGD
+- arXiv:2507.06508 -- Locally Private Subgraph Counting via Noisy Adjacency Matrix and Differential Privacy on Randomized Data [SPIKE]
+- arXiv:2608.29751 -- Large-Scale Qualitative Research with AI: Infrastructure, Management and Operation of the Socioscope Data Pipeline
+- arXiv:2608.27703 -- Operationalizing Regulations into Code: A Model to Enhance Governance and Compliance in LLM Selection for Software Engineering
+- arXiv:2608.07627 -- From Single Chatbots to Governed Agent Ecosystems: An Agentic AI Pattern Catalogue and Orchestration Framework for Mission-Critical Hospital Information Management Systems
+- arXiv:2608.02699 -- Explainable AI for the EU Right to Explanation: A Systematic Review of the Law-XAI Translation Gap
+- arXiv:2607.13754 -- PriEval-Protect: A Unified Framework for Privacy Evaluation and Protection in Healthcare Systems [SPIKE]
+- arXiv:2608.14568 -- Position: AI Governance Needs ISO-like Interoperability Protocols, Not Just Laws
+- arXiv:2605.07328 -- Unconsented Sensing: A Sociotechnical Governance Framework for 6G ISAC
+- arXiv:2604.17788 -- SoK: Analysis of Privacy Risks and Mitigation in Online Propaganda Detection through the PROMPT Framework
+- arXiv:2602.16086 -- LGQ: Learnable Geometric Quantization for Image Tokenization
+- arXiv:2609.02971 -- Privacy Leakage in Federated Learning: Gradient-Based Client Identity Inference and Defenses for Inertial Sensing in Vehicular Edge Networks
+- arXiv:2609.01192 -- Verification of $K$- and Infinite-Step Strong/Weak Anonymity Using Concurrent Compositions
+- arXiv:2604.12431 -- VeriX-Anon: A Multi-Layered Framework for Mathematically Verifiable Outsourced Target-Driven Data Anonymization
+- arXiv:2608.10983 -- TimeRoute: Time-Aware Modality Routing and Diffusion for Multi-Modal Recommendation
+- arXiv:2608.22510 -- ClawProBench: Trace-Aware Evaluation of AI Agents with Runtime Coverage and Frozen Workplace-Style Holdouts
+- arXiv:2608.19545 -- Two-sided receptivity to conversational AI agents in online dating: Bilingual survey data from Fledge.Love
+- arXiv:2404.15616 -- A Bi-directional Multi-solution Scalable Grover Search Algorithm
+- arXiv:2507.23768 -- Formal Bayesian Transfer Learning via the Total Risk Prior
+- arXiv:2609.09089 -- Sieve Estimation of Optimal Transport Maps from Paired Data in Gaussian Spaces
+- arXiv:2605.19246 -- Example-Driven Intent Synthesis for Constrained Data Bundle Retrieval: Focused Text Snippet Extraction and Beyond
+- arXiv:2601.08589 -- Bridging Theory and Experiment in Virtually Imaged Phased Array (VIPA) Spectrometers
+- arXiv:2603.25579 -- The Rules-and-Facts Model for Simultaneous Generalization and Memorization in Neural Networks
+- arXiv:2505.02627 -- A Theoretical Analysis of Provable Compositional Generalization in Neural Networks: A Necessary and Sufficient Condition
+- arXiv:2402.18666 -- Linear quasi-shrinkage estimator for high-dimensional optimization with linear constraints
+- arXiv:2601.06612 -- Cross-Border Data Security and Privacy Risks in Large Language Models and IoT Systems
+- arXiv:2601.04298 -- Privacy at Scale in Networked Healthcare [SPIKE]
+- arXiv:https://doi.org/10.1038/s41586-025-08866-7 -- Towards conversational diagnostic artificial intelligence
+- arXiv:https://doi.org/10.1002/smll.202502315 -- Nanoparticle Therapeutics in Clinical Perspective: Classification, Marketed Products, and Regulatory Landscape
+- arXiv:https://doi.org/10.1080/08839514.2025.2463722 -- AI Ethics: Integrating Transparency, Fairness, and Privacy in AI Development
+- arXiv:https://doi.org/10.3389/fphar.2025.1516126 -- A comprehensive review of methodologies and application to use the real-world data and analytics platform TriNetX
+- arXiv:https://doi.org/10.1002/hsr2.70312 -- The Impact of Artificial Intelligence on Healthcare: A Comprehensive Review of Advancements in Diagnostics, Treatment, and Operational Efficiency
+
+### program_analysis (43 papers)
+
+- arXiv:2601.22383 -- Classical double copy of black strings in an Anti-de Sitter background
+- arXiv:2605.18085 -- PRiSE-EEG: A Prior-Guided Foundation Model with Depth-Stratified Experts for Cross-Paradigm EEG Representation Learning
+- arXiv:2609.08829 -- Low-Temperature Large Deviations for the Two-Dimensional Wick-Ordered Cubic Wave Equation
+- arXiv:2512.18088 -- A Large-Scale Dynamic Characterization of Flaky Tests in Quantum Software: The Qiskit Terra Case Study
+- arXiv:2609.08641 -- Black holes with torsion hair in cubic Holst-type Poincaré gauge gravity: from singular to regular geometries
+- arXiv:2609.04218 -- A Governance Methodology Layer for AI-Assisted Software Development: Defect Taxonomy, Controlled Ablation, and a Test of Process-Over-Capability
+- arXiv:2609.08623 -- Navigating the Latent Manifold: Proactive Concept Drift Adaptation for Resilient NIDS
+- arXiv:2609.08609 -- Dynamics of meaning: Towards the Evaluation of Diachronic Semantic Change in Sinhala
+- arXiv:2608.02575 -- Noise in Diffusion Models Is a Learnable Input
+- arXiv:2609.08426 -- Toward Fully Autonomous 6G Networks: AI-driven Operational Efficiency and Optimization
+- arXiv:2609.07943 -- Beliefs and Behavior in Language Models
+- arXiv:2609.07492 -- FPScan: An Automated Constraint-Based Analyzer for Floating-Point Anomaly Detection
+- arXiv:2608.26900 -- Measure-valued free-energy minimizers for trapped bosons with repulsive Coulomb interaction
+- arXiv:2609.05937 -- Beyond Classification: Structured Supervision Aligns Visual Evidence with Medical Semantics
+- arXiv:2609.05270 -- AI for Computational Design Science: A Responsible Human-AI Framework and Case Study on Short-Form Video Safety Surveillance
+- arXiv:2404.11716 -- A Survey on Semantic Modeling for Building Energy Management
+- arXiv:1706.04580 -- Context-Aware System Synthesis, Task Assignment, and Routing
+- arXiv:2512.03619 -- LAMP: Language-Assisted Motion Planning for Controllable Video Generation
+- arXiv:2609.07434 -- CIT-CAD: Constraint Intent Tree-based CAD Code Generation and Verification [SPIKE]
+- arXiv:2609.06894 -- Pulse-by-pulse programmable synthesis of ultrafast optical waveforms
+- arXiv:2609.06694 -- ForgeStencil: Automating Per-Case Stencil Specialization from Kernels to 100+ Real Applications
+- arXiv:2511.20443 -- Adaptive Meshing for CPA Lyapunov Function Synthesis
+- arXiv:2606.18320 -- TopVenues: A Reproducible Corpus and Tooling Substrate for Cybersecurity Literature Reviews
+- arXiv:2605.23358 -- A Compilation Framework for Quantum Simulation of Non-unitary Dynamics
+- arXiv:2609.09090 -- Measuring LLM Sycophancy under Sustained Multi-Turn Pressure
+- arXiv:2608.24492 -- When Do Supervised UQ Ensembles Improve LLM Hallucination Detection? A Robustness Study
+- arXiv:2609.09001 -- Deposon: An Auditable, Conservation-Guaranteed, Game-Theoretically Tested Scattering Layer over LLM Reasoning Paths
+- arXiv:2606.18425 -- Complexity and Scale in AI-Assisted Workflow Management: A Federated Learning Case Study
+- arXiv:2609.08810 -- Measuring the Security of the Evolving Software Supply Chain: a Research Agenda
+- arXiv:2507.21831 -- Introducing HALC: A general pipeline for the systematic and reliable construction of prompts for automated coding with LLMs in the computational social sciences
+- arXiv:2609.01775 -- Dictionary-Guided Mutation Operators for Automated HDL Repair
+- arXiv:2609.01769 -- From Silicon to Boot Code: Extending Automated Program Repair to Firmware-Layer Security Workarounds
+- arXiv:2606.11416 -- MPC-Patch-Bench: Security-Aware LLM Code Patch for Multi-Party Computation
+- arXiv:2605.12270 -- Characterizing the Failure Modes of LLMs in Resolving Real-World GitHub Issues
+- arXiv:2604.17097 -- From Natural Language to Silicon: The Representation Bottleneck in LLM Hardware Design
+- arXiv:2603.02504 -- NeuroProlog: Multi-Task Fine-Tuning for Neurosymbolic Mathematical Reasoning via the Cocktail Effect
+- arXiv:2602.18166 -- Grammar Repair with Examples and Tree Automata: Extended Version
+- arXiv:2602.16671 -- SPARC: Scenario Planning and Reasoning for Automated C Unit Test Generation
+- arXiv:2303.18223 -- A Survey of Large Language Models
+- arXiv:https://doi.org/10.11647/obp.0025 -- Oral Literature in Africa
+- arXiv:2501.12948 -- Can Open Large Language Models Catch Vulnerabilities?
+- arXiv:https://doi.org/10.1093/bioinformatics/btaf147 -- CoverM: read alignment statistics for metagenomics
+- arXiv:10.1093/nar/gkaf018 -- edgeR v4: powerful differential analysis of sequencing data with expanded functionality and improved support for small counts and larger datasets
+
+### quantum_systems (38 papers)
+
+- arXiv:2609.08957 -- First fault-tolerant quantum memory demonstration for a generalized superfast encoding
+- arXiv:2609.08908 -- A Platform-aware Compilation Framework for Fault-tolerant Quantum Computation
+- arXiv:2504.19651 -- Fooling the Decoder: An Adversarial Attack on Quantum Error Correction
+- arXiv:2601.17757 -- Simple, Efficient, and Generic Post-Selection Decoding for qLDPC Codes
+- arXiv:2607.02164 -- Phase-Space Representations of Quantum Error-Correcting Codes
+- arXiv:2609.08520 -- Quantum Matrix-Product Codes: CSS-T Characterization and Maximality
+- arXiv:2608.11848 -- A uniform elliptic reduction, an order-matching criterion, and precision benchmarks for the strong-coupling Birman-Schwinger analysis of the lattice three-boson trimer
+- arXiv:2411.10406 -- How to Build a Quantum Supercomputer: Scaling from Hundreds to Millions of Qubits
+- arXiv:2510.06764 -- Theoretical Guarantees of Variational Quantum Algorithm with Guiding States
+- arXiv:2609.07645 -- Geometric inflation of deviations challenges neural quantum states in dynamics of quantum Ising models
+- arXiv:2609.07537 -- Toward Fault-Tolerant Variational Optimization: QAOA under [[4,2,2]] Error Detection
+- arXiv:2605.23442 -- Ancilla-Efficient QSAMPLE Preparation for Reversible Markov Chains
+- arXiv:2609.05737 -- SAQC: A SAT-Aware Compilation Framework for QAOA-Based Quantum Optimization
+- arXiv:2609.04462 -- A Representation-Theoretic Framework for Characterizing Barren Plateaus
+- arXiv:2609.04387 -- Toward Resilient Many-Body Formulations under Incomplete Correlation Models: A Dual-Space Variational Formulation
+- arXiv:2608.25696 -- Physics-informed quantum algorithms for glueball-like excitations in a $\mathbb{Z}_2$ lattice gauge theory
+- arXiv:2608.29399 -- FIREQ: FPGA Instrumentation for Readout and Qubit control
+- arXiv:2608.25122 -- Static Detection of Post-Quantum Cryptographic Algorithms in Stripped Binaries for Digital Forensic Examination and Migration Assurance
+- arXiv:2608.12936 -- AutoQuREO: A Framework for Automated Quantum Resource Estimation and Optimization
+- arXiv:2507.11671 -- Decision Models for Selecting Architecture Patterns and Strategies in Quantum Software Systems
+- arXiv:2608.05831 -- On the Figures of Merit for Quantum Software Security: Toward a Benchmarking Rubric
+- arXiv:2609.08502 -- Computational analysis and performance optimization of SrScCu3Se4-based solar cells using COMSOL Multiphysics
+- arXiv:2609.08414 -- Efficient quantum state preparation on Quantinuum hardware
+- arXiv:2609.04524 -- DPRQ: A Dynamic Programming-based Qubit Routing Algorithm for Collective Communication in Distributed Quantum Computing
+- arXiv:2609.08075 -- Mapping Dynamic, Hierarchical Quantum Circuits
+- arXiv:2609.08073 -- Bottom-Up Design of Quantum Optical Experiments Using Discrete Generative Models
+- arXiv:2503.14660 -- Heuristic and Optimal Synthesis of CNOT and Clifford Circuits
+- arXiv:2608.02245 -- Quantum computer-based simulation of Stark many-body localization in a 1D Fermi-Hubbard model
+- arXiv:2602.14275 -- Reverse N-Wise Output-Oriented Testing for AI/ML and Quantum Computing Systems
+- arXiv:2607.07222 -- Quantum Computing : A New Frontier for Science and Society
+- arXiv:2603.10919 -- Hybridlane: A Software Development Kit for Hybrid Continuous-Discrete Variable Quantum Computing
+- arXiv:2603.04398 -- HyQBench: A Benchmark Suite for Hybrid CV-DV Quantum Computing
+- arXiv:2601.20247 -- Computer Science Challenges in Quantum Computing: Early Fault-Tolerance and Beyond
+- arXiv:2601.15521 -- NWQWorkflow: The Northwest Quantum Workflow
+- arXiv:https://doi.org/10.31234/osf.io/y8xp4_v1 -- WITHDRAWN
+- arXiv:https://doi.org/10.1007/s44379-025-00016-0 -- When physics meets machine learning: a survey of physics-informed machine learning
+- arXiv:https://doi.org/10.1038/s41586-025-08628-5 -- A generative model for inorganic materials design
+- arXiv:https://doi.org/10.1038/s41467-025-58527-6 -- Machine learning in point-of-care testing: innovations, challenges, and opportunities
+
+### secure_mpc (39 papers)
+
+- arXiv:2609.06796 -- Hardware Trojan Threats to Multi-Chiplet Photonic Neural Network Accelerators
+- arXiv:2609.03376 -- Spruce: Scalable Private Outsourced Retrieval Using Compact Embeddings
+- arXiv:2608.27766 -- Revisiting Continuous Noise Sampling for Multi-Party Differential Privacy [SPIKE]
+- arXiv:2608.20118 -- Privacy-Preserving Detection of Rare Disease-Associated Cell Subsets via Secure Multi-Party Computation [SPIKE]
+- arXiv:2608.20097 -- TrustRAG: Blockchain-Enhanced RAG via Committee-Based Credibility Scoring [SPIKE]
+- arXiv:2512.05473 -- Privacy-Preserving Fully Distributed Gaussian Process Regression
+- arXiv:2608.04889 -- Minimal Binary Linear Codes of Dimension n+4 from Partial Spreads and Their Dual Access Structures
+- arXiv:2605.16614 -- Magic Secret Sharing: Threshold Control of Quantum Computational Power via GHZ Entanglement
+- arXiv:2608.31167 -- SUN: Persistent Programs For Language-Grounded Control-to-Learning-to-Real Policies
+- arXiv:2608.27129 -- SLIDE: Shuffle Shamir Secret Shares Uniformly with Linear Online Communication and Guaranteed Output Delivery [SPIKE]
+- arXiv:2608.17442 -- FESC: Remodeling Long-Context Private Inference with Encrypted State-Space Models [SPIKE]
+- arXiv:2603.22109 -- TALUS: FIPS-204-Exact Threshold ML-DSA via Boundary Clearance
+- arXiv:2608.03722 -- When Outputs Disperse, Does Epistemic Revision Follow? A Black-Box Diagnostic for Machine Collectives
+- arXiv:2608.03051 -- CUDA MPC: A GPU-Native Solver for Model Predictive Control
+- arXiv:2609.04769 -- Memory-Efficient Designs for Word-Wise Universal Fully Homomorphic Encryption
+- arXiv:2409.20182 -- Quantum Blind Rotation for Fast Functional Bootstrapping
+- arXiv:2609.01945 -- Pushing Forward Multi-Secret-Key Homomorphic Encryption for Private Average Aggregation
+- arXiv:2609.01730 -- HEAT: Faster Fully Homomorphic Inference via Approximations-Weights Co-Adaptation
+- arXiv:2605.30123 -- Privacy-Enhanced Zero-Order Federated Learning via xMK-CKKS over Wireless Channels
+- arXiv:2508.14744 -- A Collusion-Resistance Privacy-Preserving Smart Metering Protocol for Operational Utility
+- arXiv:2608.27108 -- SecureDrive-FL: Joint Differential Privacy and Gradient-Aware Selective Homomorphic Encryption for Federated Driver Monitoring
+- arXiv:2605.12209 -- Secure (Multiple) Key-Cast over Networks: Multiple Eavesdropping Nodes
+- arXiv:2607.25838 -- Bipartite Bound Information Exists
+- arXiv:2609.08256 -- ACEA: An Adversarial Co-Evolution Arena for Head-to-Head Red-Team and Blue-Team LLM Testing
+- arXiv:2607.28191 -- Secure Aggregation for Privacy-Preserving Federated Learning on Clinical EEG Data
+- arXiv:2609.05901 -- From Review to Authorization: Key-Isolated Threshold Signing for LLM Agents
+- arXiv:2608.20553 -- Four-Entropic Matroids Are Quaternary
+- arXiv:2609.03551 -- Enhancing noise robustness in device-independent conference key agreement with asymmetric parity-CHSH inequalities
+- arXiv:2607.07371 -- zk-ScalHard: Scalable and Hardware-Rooted Privacy-Preserving Authentication for Secure OTA Updates in Zonal SDVs
+- arXiv:2606.19129 -- Giskard : Byzantine Robust and Confidential Aggregation for Large-Scale Decentralized Learning
+- arXiv:2606.04912 -- TeeDAO: A Decentralized Autonomous Organization for Heterogeneous TEEs [SPIKE]
+- arXiv:2604.04833 -- Cryptanalysis of the Legendre Pseudorandom Function over Extension Fields
+- arXiv:2601.00418 -- Secure, Verifiable, and Scalable Multi-Client Data Sharing via Consensus-Based Privacy-Preserving Data Distribution
+- arXiv:2602.01837 -- Co-designing for Compliance: Multi-party Computation Protocols for Post-Market Fairness Monitoring in Algorithmic Hiring [SPIKE]
+- arXiv:https://doi.org/10.1038/s41586-024-08406-9 -- Scaling and networking a modular photonic quantum computer
+- arXiv:https://doi.org/10.3390/fi17090404 -- The Rise of Agentic AI: A Review of Definitions, Frameworks, Architectures, Applications, Evaluation Metrics, and Challenges
+- arXiv:https://doi.org/10.3390/jcm14020550 -- Artificial Intelligence and Neuroscience: Transformative Synergies in Brain Research and Clinical Applications
+- arXiv:https://doi.org/10.1186/s42162-024-00461-w -- Transforming the electrical grid: the role of AI in advancing smart, sustainable, and secure energy systems
+- arXiv:10.15607/rss.2025.xxi.010 -- π₀: A Vision-Language-Action Flow Model for General Robot Control
+
+### software_architecture (38 papers)
+
+- arXiv:2602.12596 -- Arcalís: Accelerating Remote Procedure Calls Using a Líghtweight Near-Cache Solution
+- arXiv:2609.07927 -- MicroIntent: Intent-Based Placement Strategy for Microservice Application in the Compute Continuum Using LLMs [SPIKE]
+- arXiv:2607.24000 -- Industrial Practice of LLM-Based Test Case Carving and Assertion Generation (Experience Paper)
+- arXiv:2603.12031 -- Agentic-Kube: A Graph-Enhanced Multi-Agent Reinforcement Learning Framework for Multi-Objective Kubernetes Scheduling
+- arXiv:2608.28111 -- CC4M: Code Clone Analysis and Visualization for Microservices
+- arXiv:2608.27511 -- eBPF-Based Cybersecurity Mechanisms: A Systematic Literature Review
+- arXiv:2608.25403 -- Retry Amplification in Distributed Systems: A Systematic Analysis of Retry Policies and Their Role in Cascading Failures
+- arXiv:2406.05375 -- LEMMA-RCA: A Large Multi-modal Multi-domain Dataset for Root Cause Analysis
+- arXiv:2609.06543 -- A Unified Policy Architecture (UPA): The Governance Kernel for Enterprise AI Operating Systems [SPIKE]
+- arXiv:2609.01121 -- Sentinel-Based Failover for QKD-Augmented IPsec Tunnels
+- arXiv:2608.13574 -- Agentao: A Policy-Governed Runtime Harness for Embeddable Tool-Using LLM Agents
+- arXiv:2608.23953 -- The Empire, Long Divided, Must Unite: Architectural Convergence in Three LLM Agent Harnesses
+- arXiv:2608.17007 -- SkillEffect: Checked Lowering for Memory-Bounded Agent Tools
+- arXiv:2608.20571 -- AutoMOOSE: Use Case and Logical Views of Agentic Phase-Field Simulation Software
+- arXiv:2604.18962 -- AngstromPro: A software platform for STM data management, visualization and analysis
+- arXiv:2608.14827 -- Enabling Hybrid HPCQC Workflows with a Heterogeneous Software Stack
+- arXiv:2609.09137 -- A Data-Driven Framework for Identifying and Prioritizing RPA Opportunities in Healthcare Processes
+- arXiv:2609.08970 -- GraphFAS: A Distributed System for Automated Graph Feature Generation and Selection in Industrial Transaction Networks
+- arXiv:2609.08965 -- PlannerForge: LLM Agents for Scenario-Based Testing of Motion Planners in Autonomous Driving
+- arXiv:2609.08948 -- Disentangled Global-Local Feature Learning with E-Branchformer for Audio Deepfake Detection
+- arXiv:2609.08931 -- Edge-Dominated Twist Mechanics at van der Waals Interfaces
+- arXiv:2606.23639 -- Application of Machine Learning for the Identification of 2D Colloidal Assemblies: A Case Study on Particles of Distinct Shapes
+- arXiv:2607.01605 -- pykci: A Compact Urban Knowledge Graph for Semantic and Spatial Queries using LLMs
+- arXiv:2609.08666 -- Event-by-Event Space-Charge Gain Suppression in LGADs and Its Impact on Time Resolution
+- arXiv:2608.03493 -- Explicit Estimates for the Bergman Kernel Form
+- arXiv:2609.03935 -- On the interplay between waveform systematics and lensing signatures in gravitational-wave signals
+- arXiv:2609.07707 -- DeepTable: Structural Attention Biases and Tree Path Encoding for Hierarchical Table Understanding
+- arXiv:2609.07499 -- CrACK: Adversarial Attacks on Cross-Model Consistency in Collaborative Vision Foundation Models
+- arXiv:2608.12033 -- Automation and Modernisation of Legacy BiSON Solar Observatories with the BiSON:NG Platform
+- arXiv:2606.16725 -- Organizational Cohesion in Microservice Architectures: A Multi-Project Empirical Study [SPIKE]
+- arXiv:2606.05720 -- Microskill Architecture: A Modular Skill-Driven Framework for AI-Native Code Generation [SPIKE]
+- arXiv:2604.22454 -- Gamifying Architectural Governance to Reduce Organizational Coupling in Microservice Systems [SPIKE]
+- arXiv:2601.23141 -- From Monolith to Microservices: A Comparative Evaluation of Decomposition Frameworks [SPIKE]
+- arXiv:https://doi.org/10.1038/s41592-024-02580-4 -- Segment Anything for Microscopy
+- arXiv:2505.10468 -- AI Agents vs. Agentic AI: A Conceptual taxonomy, applications and challenges
+- arXiv:https://doi.org/10.1038/s41591-024-03445-1 -- Medical large language models are vulnerable to data-poisoning attacks
+- arXiv:https://doi.org/10.1093/polsoc/puaf001 -- Governance of Generative AI
+- arXiv:https://doi.org/10.1007/s10462-024-11044-2 -- A systematic review for transformer-based long-term series forecasting
+
+### software_testing (49 papers)
+
+- arXiv:2609.06855 -- A Queryable Graph-Based Security Analysis Framework for O-RAN
+- arXiv:2609.06229 -- SWE-Test: Benchmarking LLM Vulnerability Discovery via Input Prediction
+- arXiv:2609.05370 -- When LLM Decompilers Recompile More and Preserve Less
+- arXiv:2608.26222 -- NeuronFuzz: Safety Neuron Guided Fuzzing for LLM Safety Evaluation
+- arXiv:2608.25573 -- DBcover: A White-box SQL Test Generation Framework for Coverage Improvement
+- arXiv:2608.24498 -- SeriCrypt: An LLM-Driven Context-Aware Serialization Framework for Cryptographic Protocols
+- arXiv:2608.22202 -- Lessons from the Hardware Hacking Competitions: Verification Techniques, Findings, and Insights
+- arXiv:2608.06641 -- From Documentation to Zero-day Vulnerabilities: LLM-Driven Fuzzing of JavaScript Engines in PDF Readers
+- arXiv:2410.16004 -- Are Bayesian networks typically faithful?
+- arXiv:2511.12288 -- Reducing Hallucinations in LLM-Generated Code via Semantic Triangulation [SPIKE]
+- arXiv:2608.18124 -- TOBYQA: A Time-Augmented Model-Based Method for Derivative-Free Optimization under Noise and Temporal Drift
+- arXiv:2609.07300 -- PCFlow: Physics-Conditioned Flow Matching for GPR B-Scan Image Synthesis
+- arXiv:2609.00787 -- StudyBench: Can Self-Evolution Squeeze Textbooks for Olympiad Capability?
+- arXiv:2609.07183 -- CircuitLens: Reasoning Circuits as Data Selection Signals for Reinforcement Learning with Verifiable Rewards
+- arXiv:2512.24682 -- CellSecInspector: Safeguarding Cellular Networks via Automated Security Analysis on Specifications
+- arXiv:2609.06791 -- Efficient Hardware Information-Flow Tracking for Pre-Silicon Security Testing
+- arXiv:2609.08681 -- Beyond Fixed Fault Models: Comparing LLM-Based and Rule-Based Fault Injection in OpenStack [SPIKE]
+- arXiv:2609.07500 -- Human mutation field reveals an equilibrium-like structure with irreversible circulation
+- arXiv:2609.06412 -- FoldNTT: A Multiplier- and Twiddle-Lean NTT Core with Formally Verified Arithmetic for Proth Primes
+- arXiv:2609.04075 -- PatchBench: Evaluating AI Agents for Vulnerability Patching
+- arXiv:2606.14202 -- MeEvo: Metacognitive Evolution Combined with Natural Evolution for Automatic Heuristic Design
+- arXiv:2604.19086 -- MUCOCO: Automated Consistency Testing of Code LLMs
+- arXiv:2609.02983 -- Boundary-Mutation Testing for Pattern-Based Secret Detection: A Rule-Level Method and Cross-Scanner Evaluation
+- arXiv:2603.19828 -- FormalEvolve: Neuro-Symbolic Evolutionary Search for Diverse Autoformalization
+- arXiv:2609.09155 -- SyncWorld: Visual Calibration Enables World Models as Zero-Shot Simulators
+- arXiv:2609.09135 -- Entropy-Regularized Rank-Masked Policy Optimization for Test-Time Reinforcement Learning in Code Generation
+- arXiv:2609.09133 -- ExecCritic: Learn to Test, Test to Improve for Coding Agents [SPIKE]
+- arXiv:2609.09081 -- Everything in Moderation: Per-Domain Coverage Optima and Alignment-Resistant Domain Gaps in Multi-Domain Mid-Training
+- arXiv:2609.09063 -- The size and mass distribution of cold classical TNOs for $5<H<13$
+- arXiv:2609.09059 -- PlayTrain: An Efficient Reinforcement Learning Framework for LLM-Generated Adaptable JavaScript Games
+- arXiv:2609.09048 -- The Audit Decides the Verdict: Instrument Effects Rival Demographic Bias in LLM Decision Audits
+- arXiv:2609.09009 -- Let It Go or Learn to Self-Correct: Continuous Diffusion for Constrained Discrete Tasks
+- arXiv:2605.09504 -- AI Security Policy Should Assess Systems, Not Only Models
+- arXiv:2606.24692 -- PowerFuzz: Power-Based Black-Box Firmware Fuzzing
+- arXiv:2605.26017 -- Trustworthy Software Project Generation : a Case Study with an Interactive Theorem Prover
+- arXiv:2605.04000 -- Mitigating False Positives in Static Memory Safety Analysis of Rust Programs via Reinforcement Learning
+- arXiv:2604.25555 -- From CRUD to Autonomous Agents: Formal Validation and Zero-Trust Security for Semantic Gateways in AI-Native Enterprise Systems
+- arXiv:2604.19448 -- Crash-free Deductive Verifiers
+- arXiv:2508.20340 -- Once4All: Skeleton-Guided SMT Solver Fuzzing with LLM-Synthesized Generators
+- arXiv:2409.10562 -- Natural Adversaries: Fuzzing Autonomous Vehicles with Realistic Roadside Object Placements
+- arXiv:https://doi.org/10.1186/s42400-025-00361-w -- When LLMs meet cybersecurity: a systematic literature review
+- arXiv:https://doi.org/10.1109/jas.2024.124971 -- When Software Security Meets Large Language Models: A Survey
+- arXiv:https://doi.org/10.1007/s10462-025-11389-2 -- Safeguarding large language models: a survey
+- arXiv:https://doi.org/10.1145/3715754 -- Demystifying LLM-Based Software Engineering Agents
+- arXiv:https://doi.org/10.3390/computation13020030 -- From Vulnerability to Defense: The Role of Large Language Models in Enhancing Cybersecurity
+- arXiv:10.1145/3703155 -- A Survey on Hallucination in Large Language Models: Principles, Taxonomy, Challenges, and Open Questions
+- arXiv:10.1038/s41591-024-03423-7 -- Toward expert-level medical question answering with large language models
+- arXiv:10.1038/s41586-024-08328-6 -- Accurate predictions on small data with a tabular foundation model
+- arXiv:10.1126/science.ads0018 -- Simulating 500 million years of evolution with a language model
+
+### system_security (36 papers)
+
+- arXiv:2609.09150 -- Copying explains the collective behavior of AI agents in the wild
+- arXiv:2608.27296 -- LLMs Can Design Near-Optimal OR Algorithms
+- arXiv:2609.08371 -- Authority Is Not a String: A Capability-Scoped Harness for Prompt-Injection-Resistant Coding Agents [SPIKE]
+- arXiv:2609.08248 -- Agentic ML Exploration (A-MLE) for Ads Ranking
+- arXiv:2507.19364 -- From the Fluency Fallacy to the Micro-to-Macro Validity Gap: Opportunities and Pitfalls of LLMs in Social Simulation
+- arXiv:2608.30441 -- ECLIPSE: Self-Evolving Stealthy Prompt Injection Attack against Long-Horizon Agentic Systems [SPIKE]
+- arXiv:2609.06052 -- SkillSpec: Intent-Masked Specification Reasoning for Agent Skill Correctness
+- arXiv:2608.07925 -- ZhuLong: Execution-Grounded LLM Agent for EDA Scripting with Offline API Self-Exploration
+- arXiv:2605.31363 -- The Latin Substrate: How Language Models Represent and Mediate Script Choice
+- arXiv:2608.29134 -- Mechanizing Typed Regulatory Actions for Security Tokens: Semantics, Falsification, and Bounded EVM Evidence
+- arXiv:2609.06100 -- VERPO: Verified Evidence Regularized Policy Optimization
+- arXiv:2609.04706 -- FinalityBench: An Effect-Level Benchmark for Agent Decisions Under Delayed and Conflicting Financial Finality
+- arXiv:2609.04203 -- Temporal Self-Distillation: Learning Visual State Tracking in Videos Without Supervision
+- arXiv:2605.05274 -- Sealing the Audit-Runtime Gap for LLM Skills [SPIKE]
+- arXiv:2609.03241 -- FlowBalance: Verifier-Grounded Self-Improvement from On-Policy Reasoning Experience
+- arXiv:2606.06914 -- What You See Is Not What AI Gets: DPAgent-in-the-Middle Defense Against AI-Groomed Deceptive Patterns [SPIKE]
+- arXiv:2609.08040 -- VEX-Bench: Benchmarking LLM Agents for Assessing Exploitability of Software Supply Chain Vulnerabilities
+- arXiv:2605.29654 -- FIDEM: A Standard-Compliant Framework for Secure Binding of MUD Profiles to IoT Devices
+- arXiv:2609.07051 -- TrojanWorld: Backdooring World-Model Agents via Imagination Steering
+- arXiv:2609.05380 -- Propagation Model for SSC attacks: Why SBOM (tools) don't tell the whole truth
+- arXiv:2605.29354 -- Harmless Yet Harmful: Neutral Prompting Attacks for Stealthy Hallucination Steering in Agent Skills
+- arXiv:2609.08594 -- Multi-Level-Set-Based Physics-Driven Neural Network to Solve 3-D Inverse Scattering Problems
+- arXiv:2609.08331 -- Do Input-Level Defenses Transfer to Observation-Level Attacks on VideoLLMs?
+- arXiv:2609.08312 -- Non-Coherent Over-the-Air Federated Learning: Protocol, Convergence, and Device Scheduling
+- arXiv:2609.07922 -- Prevalence calibration as shortcut mitigation
+- arXiv:2609.07623 -- Privacy Leakage from a Thousand Words: Millipixel Location Recovery from Dot Maps
+- arXiv:2609.07208 -- Analysis of the Ill-Conditioning of the Discrete Inverse Laplace transform in Monte Carlo Simulations of Quantum Many-Body Systems
+- arXiv:2509.04865 -- Rotatable Antenna Aided Mixed Near-Field and Far-Field Communications in the Upper Mid-Band: Interference Analysis and Joint Optimization
+- arXiv:2609.06346 -- Robust Dynamic Expansion for Continual Learning under Backdoor Attacks via Purification and Selective Recovery
+- arXiv:2603.22928 -- SoK: The Attack Surface of Agentic AI - Tools and Autonomy [SPIKE]
+- arXiv:2603.21641 -- Auditing MCP Servers for Over-Privileged Tool Capabilities [SPIKE]
+- arXiv:https://doi.org/10.1039/d4ra08780a -- Interfacially engineered metal oxide nanocomposites for enhanced photocatalytic degradation of pollutants and energy applications
+- arXiv:https://doi.org/10.1007/s10462-024-11101-w -- A comprehensive and systematic literature review on intrusion detection systems in the internet of medical things: current status, challenges, and opportunities
+- arXiv:https://doi.org/10.1049/ise2/9275962 -- A Review on Integrating IoT, IIoT, and Industry 4.0: A Pathway to Smart Manufacturing and Digital Transformation
+- arXiv:https://doi.org/10.4324/9781003614722 -- The Formation of Modern Lebanon
+- arXiv:https://doi.org/10.6028/nist.sp.800-61r3 -- Incident response recommendations and considerations for cybersecurity risk management :
+
+### ui_design (34 papers)
+
+- arXiv:2510.13914 -- A11yn: Aligning LLMs for Web Accessibility-Aware UI Generation [SPIKE]
+- arXiv:2607.20690 -- Learning to Detect UI Principle Violations via Reinforcement Learning
+- arXiv:2608.00749 -- A Protocol for Evaluating the Accessibility of AI-Generated Educational Materials: Prompt Configuration, WCAG-Derived Criteria, and Content Overload [SPIKE]
+- arXiv:2608.24913 -- From Blind Edits to Verified Repair: Building Trustworthy User-Side LLM Agents for Web Accessibility [SPIKE]
+- arXiv:2607.03100 -- Flow-A11y: Flow-Aware Accessibility Testing [SPIKE]
+- arXiv:2608.28601 -- Leveraging Generative AI to Design Accessible Interactive Visualizations for Undergraduate Mathematics: A Six-Phase Workflow [SPIKE]
+- arXiv:2606.26573 -- Pingquanqi (Equalizer): A Cross-Domain Sociotechnical Framework for Human-Agent Interaction Governance
+- arXiv:2606.21926 -- A11YRepair: Bridging Web Accessibility Barriers via Knowledge-Enhanced Divide-and-Conquer Repair [SPIKE]
+- arXiv:2504.15928 -- Clinician-Friendly Foundation Models for Ophthalmic Image Diagnostics without Fine-Tuning or Technical Barriers
+- arXiv:2609.08695 -- A Content-Addressed Workflow for Reproducible DANTE Gravitational-Wave Anomaly Analysis
+- arXiv:2609.08080 -- Proactive Context-Forecasted Safety Constraints for Nonstationary Reinforcement Learning
+- arXiv:2609.07605 -- Search-to-World: Evaluation of 3D World Delivery from User Request through Web Search
+- arXiv:2605.28241 -- PointQ-Bench: Benchmarking Diagnostic and Interpretable Point Cloud Quality Assessment
+- arXiv:2609.04482 -- Safety for Whom? Boundary-Aware Self-Distillation for Controlled LLM Safety Refusal
+- arXiv:2509.01809 -- The Price of Sparsity: Sufficient Conditions for Sparse Recovery using Sparse and Sparsified Measurements
+- arXiv:2609.08881 -- The Double-Edged Sword of Short-Selling Bans
+- arXiv:2609.08812 -- What AI Benchmarks Actually Measure: Adapting Convergent and Discriminant Validity to Interrogate Fifty-Six AI Benchmarks
+- arXiv:2609.08103 -- AVP-Inspect: Coordinated Cyber-Physical Testing for Privacy Analysis of COTS Apple Vision Pro Applications
+- arXiv:2609.02532 -- SpiderSapien: Client-Centric Web Crawler and Security Scanner
+- arXiv:2609.01598 -- UI-VISA: U-Net Initialized Vascular Image Segmentation Architecture
+- arXiv:2609.00344 -- From Tool Use to Technological Agency: LoopCAT as a Local-First, Open-Source Tool for Translation Technology Education
+- arXiv:2603.29678 -- View-oriented Conversation Compiler for Agent Trace Analysis
+- arXiv:2609.00048 -- GUI-CC: Benchmarking Contextual Consistency of GUI World Models as Agent Environments
+- arXiv:2608.28944 -- Oculi: A Conversational Agentic Platform for Automated Credit Risk Analysis
+- arXiv:2602.03829 -- An Open Database of Lunar Regolith and Simulants Properties
+- arXiv:2607.27938 -- VizPilot: Automated Onboarding for SVG-based Composite Visualizations using Multimodal LLMs [SPIKE]
+- arXiv:2607.17233 -- A RFID Based Campus Wide Payment System
+- arXiv:2606.24412 -- BiJuTy: An Interactive HPC-Aware Big Data Cluster Lifecycle Manager and Performance Assessment Utility for JupyterHub [SPIKE]
+- arXiv:2606.15077 -- Risk-Aware LLM Agents for Geospatial Data Retrieval: Design and Preliminary Adversarial Evaluation
+- arXiv:2606.06235 -- Design a Reliable LLM-Integrated Interface for Mortality Forecasting
+- arXiv:2606.05094 -- RAMC: Remote Access Memory Channels over HPE Slingshot
+- arXiv:2605.07185 -- Metaphors as Scaffolds: Spatial, Embodied, Fantastical, and Relational Framings for Youth Usable Privacy Design
+- arXiv:https://doi.org/10.4230/lipics.ecoop.2025.6 -- Detecting Functionality-Specific Vulnerabilities via Retrieving Individual Functionality-Equivalent APIs in Open-Source Repositories
+- arXiv:https://doi.org/10.4230/lipics.giscience.2025.18 -- U-Prithvi: Integrating a Foundation Model and U-Net for Enhanced Flood Inundation Mapping
+
+### wireless_mobile (33 papers)
+
+- arXiv:2609.07698 -- Non-Uniform Antenna Array Design with Large Inter-Element Spacing for Massive MIMO
+- arXiv:2609.07386 -- Det-5G: Closing the Determinism Gap in 5G-Advanced for Industrial Closed-Loop Control
+- arXiv:2609.05861 -- SLA-Safe Energy Control for AI-Native NG-RAN Using Stability-Aware Constrained PPO
+- arXiv:2609.03262 -- Symbol-Domain Chase Combining on Fourier-Curve Constellations: Exact Penalties of Per-Round Bit Reduction
+- arXiv:2609.03488 -- Indirect Estimation of SINR via SSB and CSI-RS RSRP in 5G NR
+- arXiv:2512.14893 -- Compensating Coarse Quantization in Massive MIMO: Channel Estimation and BER under Imperfect CSI
+- arXiv:2506.22456 -- AI-Driven Radio Propagation Prediction in Automated Warehouses using Variational Autoencoders
+- arXiv:2609.02562 -- Combinatorial optimization of connected UAV communication bridges for emergency response
+- arXiv:2608.16088 -- Rainfall Sensing via Mobile Communication Signals
+- arXiv:2608.08439 -- FSTC-Encoder: Feature--Spatial--Temporal Correlation Learning for Generalizable RF Sensing
+- arXiv:2608.03151 -- AirKey: Multimodal Acoustic-Assisted WiFi Sensing for Zero-Training Robust PIN Inference
+- arXiv:2602.10025 -- RIS-Assisted Rank Enhancement With Commodity WiFi Transceivers: Real-World Experiments
+- arXiv:2210.05513 -- ViFiCon: Vision and Wireless Association Via Self-Supervised Contrastive Learning
+- arXiv:2602.22738 -- CSI-RFF: Leveraging Micro-Signals on CSI for RF Fingerprinting of Commodity WiFi
+- arXiv:2512.23901 -- Road Rules for Radio: Why Your Wi-Fi Got Better
+- arXiv:2511.06020 -- RF-Behavior: A Multimodal Radio-Frequency Dataset for Human Behavior and Emotion Analysis
+- arXiv:2609.08848 -- FIRE3D: Feed-forward Interactive 3D Scene Reconstruction Within A Minute
+- arXiv:2609.08470 -- Nonperturbative functional renormalization group for Higgs-singlet models with physics-informed neural networks
+- arXiv:2605.00404 -- Data Requirements for Electric Grid Topology and Admittance Estimation
+- arXiv:2605.30659 -- Neural-Network-based Viscosity Closure for Non-Newtonian Multiphase Flows
+- arXiv:2609.07861 -- Physics-informed neural networks for viscoelastic fluid flows around a cylinder in a two-dimensional channel
+- arXiv:2609.07577 -- GPU-Accelerated Hypergraph Partitioning and Placement to Map SNNs on Neuromorphic Hardware
+- arXiv:2505.05254 -- Partitioning Law of Polymer Chains into Flexible Polymer Networks
+- arXiv:2609.07437 -- A Systematic Analysis of Automatic Differentiation versus Discretization-based Constraints for Physics-Informed PDE Solvers
+- arXiv:2609.08090 -- RevalExo: A Functional Daily-Activity Benchmark for Inertial and Visual Locomotion Mode Recognition in Older Adults and Clinical Cohorts
+- arXiv:2609.02546 -- ZETA: A Controlled Study of Zero-Shot Cross-Embodiment VLA Transfer for Tabletop Manipulation
+- arXiv:2609.03817 -- Is Collision-Free Backoff Worth It in Wi-Fi?
+- arXiv:2609.03794 -- A comparative study on the accuracy & repeatability of mobile robotic platforms for the delivery of precision NDE measurement
+- arXiv:2609.04292 -- BER-PEF: Unified Human Mobility Predictability Evaluation via Bayes Error Rate Estimation
+- arXiv:2609.03559 -- A Semantic-Aware Multiple Access Scheme Leveraging Spatial Redundancy for Uplink-Dominant Network Services
+- arXiv:2609.02830 -- Toward Robust LiDAR Semantic Segmentation for Real-World Deployment: Evaluation under Coarse Labels, Adverse Conditions, and Domain Shifts
+- arXiv:2605.15731 -- Enabling Intelligent Bidirectional Charging: A Real-World Communication Interface Between Electric Vehicles, Charging Infrastructure, and a Control Optimizer
+- arXiv:2603.20926 -- Deep Adaptive Rate Allocation in Volatile Heterogeneous Wireless Networks
+
+## Manually Curated Findings (Chain-Verified, from hermes-cs-sweep-findings)
+
+| Category | arXiv ID | Title | Verdict |
+|----------|----------|-------|---------|
+| software_architecture | 2608.13574 | Agentao: Policy-Governed Runtime Harness | SYSTEMS-APPLICABLE |
+| software_architecture | 2608.17007 | SkillEffect: Checked Lowering for Memory-Bounded Agent Tools | SYSTEMS-APPLICABLE |
+| operating_systems | 2604.13536 | Don't Let AI Agents YOLO Your Files | SYSTEMS-APPLICABLE |
+| operating_systems | 2609.04198 | Clean Engineering, Unstable Measurement | SYSTEMS-APPLICABLE |
+| software_architecture | 2608.25403 | Retry Amplification in Distributed Systems | SPIKE |
+| cloud_serverless | 2609.00967 | CoBRA: Learning Tool-Use Boundaries via Counterfactual Margins | SPIKE |
+| devops_ci | 2608.23610 | From Traceability to Justifiability | SPIKE |
+| software_testing | 2607.24000 | NL2Test: LLM-Based Test Case Carving + Assertion Gen | SPIKE |
+| cryptography_eng | 2609.04566 | Credential Blast Radius via Trust Boundaries | SYSTEMS-APPLICABLE |
+| operating_systems | 2506.01283 | Demystifying Serverless Costs | SKIP |
+| operating_systems | 2209.01709 | SFS: Smart OS Scheduling for Serverless Functions | SKIP |
+| data_streaming | 2303.11088 | Benchmarking Stream Processing Frameworks as Microservices | SKIP |
+| distributed_systems | 2609.03978 | Barnacle: Adaptive Multi-Leader DAG Consensus | SPIKE |
