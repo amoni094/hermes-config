@@ -1,6 +1,6 @@
 # Scripts Inventory
 
-Last updated: 2026-08-30 (added research sweep, news watchdog, skill-wiki, browser-act-guard, working-memory, constraint-binding-lint, diff-impact, tool-auth-gate, critique-bank)
+Last updated: 2026-09-10 (added concept-lattice, state-wal-checkpoint, se-gos-graphiti-bridge, cs research pipeline, math pipeline, cobra plugins, l1-hypermem-promote, desktop-sync, firewall-port-audit, hindsight-watchdog, token-budget-controller, metacognitive-harness, memory-monad, and other new scripts)
 
 All scripts live under `~/.hermes/scripts/` on the local host. Scripts are NOT copied
 into this git repo. This doc exists so the purpose of each script is disclosed and
@@ -32,6 +32,18 @@ Agent-mode cron jobs without a dedicated script: `hermes-chat-sync-4h`, `l1-hind
 | `news_diff_watchdog.py` | news-diff-watchdog | every 90m | Diff-based news signal watcher (HF Papers, Papers With Code, AI blogs) |
 | `hermes-research-sweep.py` | hermes-research-weekly | 0 6 * * 2 | Sweep arXiv + multilingual sources across 7 AI agent research categories |
 | `skill-wiki.py` | skill-wiki-weekly | 0 6 * * 0 | Generate weekly skill wiki index |
+| `concept-lattice-index.py` | concept-lattice-nightly | 0 4 * * * | Build concept lattice index over skills/memory nightly |
+| `state-wal-checkpoint.py` | state-wal-checkpoint | 20 3 * * * | Nightly WAL checkpoint for state.db |
+| `hermes-math-sweep.py` | hermes-math-sweep | 0 1 * * 2 | Tuesday: sweep arXiv math categories |
+| `math-paper-interpreter.py` | hermes-math-interpret | 30 6 * * 2 | Tuesday: interpret math sweep output into skill findings |
+| `cs-research-sweep.py` | cs-research-weekly | 0 2 * * 4 | Thursday: sweep CS/systems research |
+| `cs-paper-interpreter.py` | cs-research-interpret | 30 6 * * 4 | Thursday: interpret CS sweep output |
+| `cs-primers-overnight.py` | cs-primers-quarterly | 0 3 1 */3 * | Quarterly: generate CS domain primers |
+| `l1-hypermem-promote.py` | hypermem-promote | every 220m | Hypermem tier promote (staggered with l1-promote) |
+| `desktop-sync.sh` | desktop-sync-nightly | 0 10 * * * | Daily desktop→ThinkPad sync to F:\Hermes |
+| `firewall-port-audit.sh` | firewall-port-audit | 10 4 * * 1 | Weekly Monday firewall/port audit |
+| `se-gos-graphiti-bridge.py` | se-gos-weekly | 0 5 * * 0 | Weekly: bridge SE-GoS findings into Graphiti |
+| `hermes-chat-sync-precheck.py` | hermes-chat-sync-4h | every 240m | Pre-check script for Obsidian vault sync |
 
 ## Utility scripts (run manually or by agent)
 
@@ -92,6 +104,29 @@ Agent-mode cron jobs without a dedicated script: `hermes-chat-sync-4h`, `l1-hind
 | `tool-auth-gate.py` | Gate tool invocations against auth/approval requirements |
 | `critique-bank.py` | Manage critique bank for adversarial review findings |
 | `skill-state.py` | Inspect/set skill state (enabled/disabled/quarantined) |
+| `appa-path-taint.py` | APPA path taint analysis for agent action provenance |
+| `benchmark-fingerprint-check.py` | Check for benchmark contamination / fingerprint leakage |
+| `cobra-outcome-logger.py` | Log COBRA plugin gate outcomes for audit trail |
+| `cobra-skip-guard.py` | Guard COBRA skip decisions (prevent unsafe bypasses) |
+| `continuity_token.py` | Continuity token management for multi-session task tracking |
+| `dcr-reconcile.py` | DCR (Declarative Constraint Runtime) reconcile pass |
+| `hindsight-watchdog.py` | Watch Hindsight API health at :9177; alert on failure |
+| `l1-gmemory-consolidation.restored.py` | Restored backup of l1-gmemory-consolidation.py |
+| `math-primers-overnight.py` | Generate math domain primers overnight |
+| `memory-monad.py` | Memory monad: compose memory read/write operations safely |
+| `metacognitive-harness.py` | Metacognition harness for self-monitoring agent loops |
+| `minority-sentinel.py` | Sentinel for minority/outlier signal detection in research output |
+| `profinite-thread-check.py` | Profinite structure thread validation for math research |
+| `racs-prefix-tracker.py` | RACS prefix tracker for agent recursive action chains |
+| `reasoning-complexity-classifier.py` | Classify reasoning complexity to route to correct model tier |
+| `reasoning-hooks.py` | Hook into reasoning steps for audit/tracing |
+| `recovery-classifier.py` | Classify recovery scenarios for stalled agent sessions |
+| `rr_compaction_spike.py` | RR compaction spike analysis (Phase-1 demotion scorer debug) |
+| `run-header.py` | Utility: print a run header for cron/script output readability |
+| `save-primer-batch.py` | Persist primer batch outputs to skill references |
+| `sysctl-verify.sh` | Verify sysctl hardening settings are applied at boot |
+| `token-budget-controller.py` | Token budget controller: enforce per-tool/per-session limits |
+| `tool-sandbox.sh` | Sandbox wrapper for untrusted tool invocations |
 
 ## Sudoers helpers (not executable scripts — sudoers drop-in files)
 

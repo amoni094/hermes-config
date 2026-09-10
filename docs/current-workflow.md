@@ -1,14 +1,14 @@
 # Current Hermes Workflow Snapshot
 
-Generated from local runtime state. Last refreshed: 2026-08-31 (upstream hash updated to 4f225435; skills count updated 148 local/27 builtin/169 enabled; fallback chain confirmed: xai/grok-4.6 → mistral/mistral-large → sambanova/gemma-4-31B-it; Cerebras removed from chain).
+Generated from local runtime state. Last refreshed: 2026-09-10 (Hermes v0.21.1 / upstream 990473a7; kernel 7.1.13; skills count updated 173 local/29 builtin/196 enabled; compression threshold 0.5; 11 new cron jobs added: concept-lattice-nightly, cs-primers-quarterly, cs-research-interpret, cs-research-weekly, desktop-sync-nightly, firewall-port-audit, hermes-math-interpret, hermes-math-sweep, hypermem-promote, se-gos-weekly, state-wal-checkpoint).
 
 ## Runtime
-- Hermes version: Hermes Agent v0.20.6 (2026.8.27) · upstream 4f225435
+- Hermes version: Hermes Agent v0.21.1 (2026.9.7) · upstream 990473a7
 - Config path: `/var/home/rainbow/.hermes/config.yaml`
 - Persona file: `/var/home/rainbow/.hermes/SOUL.md`
 - Task ledger: `/var/home/rainbow/.hermes/logs/hermes-task-ledger.jsonl`
 - Project AGENTS guide: `/var/home/rainbow/.hermes/hermes-agent/AGENTS.md`
-- Host: Fedora 44 Silverblue (immutable rpm-ostree), kernel 7.1.10-200.fc44.x86_64, home `/var/home/rainbow`
+- Host: Fedora 44 Silverblue (immutable rpm-ostree), kernel 7.1.13-200.fc44.x86_64, home `/var/home/rainbow`
 
 ## Core operating pattern
 - Main model/provider: `claude-sonnet-4-6` via `anthropic` (context_length 200000)
@@ -18,7 +18,7 @@ Generated from local runtime state. Last refreshed: 2026-08-31 (upstream hash up
 - Auxiliary title/triage/curator/web_extract: `mistral/mistral-small-latest`
 - Auxiliary vision: `anthropic/claude-haiku-4-5`
 - Terminal backend: `local`
-- Context compression: enabled at threshold `0.35` (120000 tokens); micro_compact every 4 turns; protect_last_n=32; idle_compact_after_seconds=1800; intent_conditioned_offload=true
+- Context compression: enabled at threshold `0.5` (120000 tokens); micro_compact every 4 turns; protect_last_n=32; idle_compact_after_seconds=1800; intent_conditioned_offload=true
 - `agent.tool_use_enforcement`: `strict`; `agent.verify_on_stop`: `auto`
 - `agent.max_turns`: 500; `agent.gateway_timeout`: 1800s; `agent.session_stall_timeout`: 1800s
 - Memory enabled via provider `hindsight`; char budgets MEMORY 2200 / USER 1600
@@ -43,7 +43,7 @@ See `docs/memory-topology.md` for full routing guide.
 ## Workflow conventions
 - Concise global persona focused on direct, resourceful, verifiable work.
 - Local-first terminal workflow; cloud-only inference (Ollama uninstalled 2026-07-12).
-- 148 local + 27 builtin = 169 enabled / 6 disabled skills; heavy skill-driven routing.
+- 173 local + 29 builtin = 196 enabled / 6 disabled skills; heavy skill-driven routing.
 - Pre-tool governance via veto rules under `~/.hermes/veto/rules/` (mirrored under `veto/` in this repo).
 - Background and delegation runs leave inspectable traces in the Hermes task ledger.
 - Improvement proposals staged to `~/.hermes/cache/pending-improvements/` (weekly review cron; not auto-applied).
@@ -57,10 +57,10 @@ This git repo is a sanitized snapshot. The following are intentionally excluded:
 - raw gateway/session/chat histories
 - Session DBs, raw logs, process state, unredacted chat IDs
 
-## Active scheduled automations (22 jobs, all deliver=local)
+## Active scheduled automations (32 jobs, all deliver=local)
 
 | Job | Schedule | Mode | Purpose |
-|-----|----------|------|---------|
+|-----|----------|------|---------| 
 | `hermes-chat-sync-4h` | every 240m | agent | Obsidian vault sync (hermes-obsidian-sync skill) |
 | `hermes-mutation-gate-watch` | every 1440m | script | Mutation gate state check |
 | `hermes-memory-drift-audit` | every 1440m | script | Durable memory drift audit |
@@ -83,3 +83,14 @@ This git repo is a sanitized snapshot. The following are intentionally excluded:
 | `news-diff-watchdog` | every 90m | script | Diff-based news signal watcher (HF Papers, PWC, AI blogs) |
 | `hermes-research-weekly` | 0 6 * * 2 | script | Tuesday 06:00 AEST: sweep arXiv + multilingual sources across 7 AI agent research categories |
 | `hermes-research-apply` | 0 7 * * 2 | agent | Tuesday 07:00 AEST: apply research sweep findings as skill patches |
+| `concept-lattice-nightly` | 0 4 * * * | script | Nightly concept lattice index over skills/memory |
+| `state-wal-checkpoint` | 20 3 * * * | script | Nightly WAL checkpoint for state.db |
+| `hermes-math-sweep` | 0 1 * * 2 | script | Tuesday: sweep arXiv math categories |
+| `hermes-math-interpret` | 30 6 * * 2 | script | Tuesday: interpret math sweep output into skill findings |
+| `cs-research-weekly` | 0 2 * * 4 | script | Thursday: sweep CS/systems research |
+| `cs-research-interpret` | 30 6 * * 4 | script | Thursday: interpret CS sweep output |
+| `cs-primers-quarterly` | 0 3 1 */3 * | script | Quarterly: generate CS domain primers |
+| `hypermem-promote` | every 220m | script | Hypermem tier promote (staggered with l1-promote) |
+| `desktop-sync-nightly` | 0 10 * * * | script | Daily desktop→ThinkPad backup sync to F:\Hermes |
+| `firewall-port-audit` | 10 4 * * 1 | script | Weekly Monday firewall/port audit |
+| `se-gos-weekly` | 0 5 * * 0 | script | Weekly: bridge SE-GoS findings into Graphiti |

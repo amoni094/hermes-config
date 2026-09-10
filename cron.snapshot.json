@@ -1,190 +1,295 @@
 {
-  "snapshot_date": "2026-08-30",
-  "total_jobs": 22,
+  "generated": "2026-09-10",
+  "total_jobs": 32,
   "jobs": [
     {
       "name": "hermes-chat-sync-4h",
       "schedule": "every 240m",
-      "mode": "agent",
-      "skills": ["hermes-obsidian-sync"],
+      "repeat": "\u221e",
       "deliver": "local",
-      "workdir": "/var/home/rainbow",
-      "status": "active"
+      "skills": "hermes-obsidian-sync",
+      "script": "hermes-chat-sync-precheck.py",
+      "last_run_status": "ok"
     },
     {
       "name": "hermes-mutation-gate-watch",
       "schedule": "every 1440m",
-      "mode": "no_agent",
-      "script": "hermes-mutation-gate-watch.sh",
+      "repeat": "\u221e",
       "deliver": "local",
-      "status": "active"
+      "script": "hermes-mutation-gate-watch.sh",
+      "mode": "no-agent (script stdout delivered directly)",
+      "last_run_status": "ok"
     },
     {
       "name": "hermes-memory-drift-audit",
       "schedule": "every 1440m",
-      "mode": "no_agent",
-      "script": "hermes-memory-drift-audit.py",
+      "repeat": "\u221e",
       "deliver": "local",
-      "status": "active"
+      "script": "hermes-memory-drift-audit.py",
+      "mode": "no-agent (script stdout delivered directly)",
+      "last_run_status": "ok"
     },
     {
       "name": "skillspector-guard",
       "schedule": "every 240m",
-      "mode": "no_agent",
-      "script": "skillspector_guard_enforce.sh",
+      "repeat": "\u221e",
       "deliver": "local",
-      "status": "active"
+      "script": "skillspector_guard_enforce.sh",
+      "mode": "no-agent (script stdout delivered directly)",
+      "last_run_status": "ok"
     },
     {
       "name": "firecrawl-watchdog",
       "schedule": "every 10m",
-      "mode": "no_agent",
-      "script": "firecrawl_watchdog.sh",
+      "repeat": "\u221e",
       "deliver": "local",
-      "status": "active"
+      "script": "firecrawl_watchdog.sh",
+      "mode": "no-agent (script stdout delivered directly)",
+      "last_run_status": "ok"
     },
     {
       "name": "hermes-platform-watchdog",
       "schedule": "every 720m",
-      "mode": "no_agent",
-      "script": "hermes-platform-watchdog.sh",
+      "repeat": "\u221e",
       "deliver": "local",
-      "status": "active"
+      "script": "hermes-platform-watchdog.sh",
+      "mode": "no-agent (script stdout delivered directly)",
+      "last_run_status": "ok"
     },
     {
       "name": "session-auto-prune",
       "schedule": "every 240m",
-      "mode": "no_agent",
-      "script": "session-prune.sh",
+      "repeat": "\u221e",
       "deliver": "local",
-      "status": "active"
+      "script": "session-prune.sh",
+      "mode": "no-agent (script stdout delivered directly)",
+      "last_run_status": "ok"
     },
     {
       "name": "obsidian-weekly-review",
       "schedule": "0 17 * * 5",
-      "mode": "agent+script",
-      "skills": ["hermes-obsidian-sync", "obsidian"],
-      "script": "obsidian_weekly_review.sh",
+      "repeat": "\u221e",
       "deliver": "local",
-      "status": "active"
+      "skills": "hermes-obsidian-sync, obsidian",
+      "script": "obsidian_weekly_review.sh",
+      "last_run_status": "ok"
     },
     {
       "name": "browser-orphan-watchdog",
       "schedule": "every 30m",
-      "mode": "no_agent",
-      "script": "browser_orphan_watchdog.sh",
+      "repeat": "\u221e",
       "deliver": "local",
-      "status": "active"
+      "script": "browser_orphan_watchdog.sh",
+      "mode": "no-agent (script stdout delivered directly)",
+      "last_run_status": "ok"
     },
     {
       "name": "l1-extract-periodic",
       "schedule": "every 180m",
-      "mode": "no_agent",
-      "script": "l1-extract.py",
+      "repeat": "\u221e",
       "deliver": "local",
-      "status": "active"
+      "script": "l1-extract.py",
+      "mode": "no-agent (script stdout delivered directly)",
+      "last_run_status": "error"
     },
     {
       "name": "l1-hindsight-promote",
       "schedule": "every 240m",
-      "mode": "agent",
-      "skills": ["hindsight-stack-operations"],
+      "repeat": "\u221e",
       "deliver": "local",
-      "status": "active"
-    },
-    {
-      "name": "l1-promote-periodic",
-      "schedule": "every 220m",
-      "mode": "no_agent",
-      "script": "l1-promote.py",
-      "deliver": "local",
-      "status": "active"
-    },
-    {
-      "name": "l1-graphiti-periodic",
-      "schedule": "every 240m",
-      "mode": "no_agent",
-      "script": "l1-graphiti-reconcile.py",
-      "deliver": "local",
-      "status": "active"
+      "skills": "hindsight-stack-operations",
+      "last_run_status": "ok"
     },
     {
       "name": "omni-skill-quality-scan",
       "schedule": "0 3 * * 0",
-      "mode": "no_agent",
-      "script": "omni_skill_scan.py",
+      "repeat": "\u221e",
       "deliver": "local",
-      "status": "active"
+      "script": "omni_skill_scan.py",
+      "mode": "no-agent (script stdout delivered directly)",
+      "last_run_status": "ok"
     },
     {
       "name": "skill-prune-audit",
       "schedule": "0 9 1 * *",
-      "mode": "no_agent",
-      "script": "skill_prune_audit.py",
+      "repeat": "\u221e",
       "deliver": "local",
-      "status": "active"
+      "script": "skill_prune_audit.py",
+      "mode": "no-agent (script stdout delivered directly)",
+      "last_run_status": "ok"
+    },
+    {
+      "name": "l1-promote-periodic",
+      "schedule": "every 220m",
+      "repeat": "\u221e",
+      "deliver": "local",
+      "script": "l1-promote.py",
+      "mode": "no-agent (script stdout delivered directly)",
+      "last_run_status": "error"
     },
     {
       "name": "g-memory-tier3-nightly",
       "schedule": "0 3 * * *",
-      "mode": "no_agent",
-      "script": "l1-gmemory-consolidation.py",
+      "repeat": "\u221e",
       "deliver": "local",
-      "status": "active"
+      "script": "l1-gmemory-consolidation.py",
+      "mode": "no-agent (script stdout delivered directly)",
+      "last_run_status": "ok"
+    },
+    {
+      "name": "l1-graphiti-periodic",
+      "schedule": "every 240m",
+      "repeat": "\u221e",
+      "deliver": "local",
+      "script": "l1-graphiti-reconcile.py",
+      "mode": "no-agent (script stdout delivered directly)",
+      "last_run_status": "ok"
     },
     {
       "name": "memory-ttl-purge",
-      "schedule": "0 3 * * *",
-      "mode": "no_agent",
-      "script": "memory-ttl-purge.py",
+      "schedule": "40 3 * * *",
+      "repeat": "\u221e",
       "deliver": "local",
-      "status": "active"
+      "script": "memory-ttl-purge.py",
+      "mode": "no-agent (script stdout delivered directly)",
+      "last_run_status": "ok"
     },
     {
       "name": "pending-improvements-review",
       "schedule": "0 10 * * 0",
-      "mode": "agent",
-      "context_from": ["001715fd293f"],
+      "repeat": "\u221e",
       "deliver": "local",
-      "status": "active",
-      "notes": "Sunday 10:00 AEST. Receives hermes-research-apply output as context."
+      "last_run_status": "ok"
     },
     {
       "name": "skill-wiki-weekly",
       "schedule": "0 6 * * 0",
-      "mode": "no_agent",
-      "script": "skill-wiki.py",
+      "repeat": "\u221e",
       "deliver": "local",
-      "status": "active",
-      "notes": "Sunday 06:00 AEST. Generates skill wiki index. Last run errored (lock contention with workdir job)."
+      "script": "skill-wiki.py",
+      "last_run_status": "ok"
     },
     {
       "name": "news-diff-watchdog",
       "schedule": "every 90m",
-      "mode": "no_agent",
-      "script": "news_diff_watchdog.py",
+      "repeat": "\u221e",
       "deliver": "local",
-      "status": "active",
-      "notes": "Diff-based news signal watcher: HF Papers, Papers With Code, AI blogs. arXiv intake is separate (hermes-research-sweep)."
+      "script": "news_diff_watchdog.py",
+      "mode": "no-agent (script stdout delivered directly)",
+      "last_run_status": "ok"
     },
     {
       "name": "hermes-research-weekly",
       "schedule": "0 6 * * 2",
-      "mode": "no_agent",
-      "script": "hermes-research-sweep.py",
+      "repeat": "\u221e",
       "deliver": "local",
-      "status": "active",
-      "notes": "Tuesday 06:00 AEST. Sweeps arXiv + multilingual sources across 7 AI agent research categories. Output: ~/.hermes/cache/research/hermes-research-latest.json"
+      "script": "hermes-research-sweep.py",
+      "mode": "no-agent (script stdout delivered directly)",
+      "last_run_status": "unknown"
     },
     {
       "name": "hermes-research-apply",
-      "job_id": "001715fd293f",
       "schedule": "0 7 * * 2",
-      "mode": "agent",
-      "skills": ["hermes-research", "trajectory-research-synthesis-to-skills", "arxiv-sweep-findings", "adversarial-review", "verification-before-completion"],
+      "repeat": "\u221e",
       "deliver": "local",
-      "status": "active",
-      "notes": "Tuesday 07:00 AEST (+1h stagger after sweep). Reads sweep JSON, applies findings as skill patches. Output consumed by pending-improvements-review via context_from."
+      "skills": "hermes-research, trajectory-research-synthesis-to-skills, arxiv-sweep-findings, adversarial-review, verification-before-completion, spike",
+      "last_run_status": "unknown"
+    },
+    {
+      "name": "desktop-sync-nightly",
+      "schedule": "0 10 * * *",
+      "repeat": "\u221e",
+      "deliver": "local",
+      "script": "desktop-sync.sh",
+      "mode": "no-agent (script stdout delivered directly)",
+      "last_run_status": "ok"
+    },
+    {
+      "name": "firewall-port-audit",
+      "schedule": "10 4 * * 1",
+      "repeat": "\u221e",
+      "deliver": "local",
+      "script": "firewall-port-audit.sh",
+      "mode": "no-agent (script stdout delivered directly)",
+      "last_run_status": "ok"
+    },
+    {
+      "name": "state-wal-checkpoint",
+      "schedule": "20 3 * * *",
+      "repeat": "\u221e",
+      "deliver": "local",
+      "script": "state-wal-checkpoint.py",
+      "mode": "no-agent (script stdout delivered directly)",
+      "last_run_status": "ok"
+    },
+    {
+      "name": "hypermem-promote",
+      "schedule": "every 220m",
+      "repeat": "\u221e",
+      "deliver": "local",
+      "script": "l1-hypermem-promote.py",
+      "mode": "no-agent (script stdout delivered directly)",
+      "last_run_status": "ok"
+    },
+    {
+      "name": "concept-lattice-nightly",
+      "schedule": "0 4 * * *",
+      "repeat": "\u221e",
+      "deliver": "local",
+      "script": "concept-lattice-index.py",
+      "mode": "no-agent (script stdout delivered directly)",
+      "last_run_status": "ok"
+    },
+    {
+      "name": "hermes-math-sweep",
+      "schedule": "0 1 * * 2",
+      "repeat": "\u221e",
+      "deliver": "local",
+      "script": "hermes-math-sweep.py",
+      "mode": "no-agent (script stdout delivered directly)"
+    },
+    {
+      "name": "hermes-math-interpret",
+      "schedule": "30 6 * * 2",
+      "repeat": "\u221e",
+      "deliver": "local",
+      "script": "math-paper-interpreter.py",
+      "mode": "no-agent (script stdout delivered directly)",
+      "last_run_status": "ok"
+    },
+    {
+      "name": "cs-research-weekly",
+      "schedule": "0 2 * * 4",
+      "repeat": "\u221e",
+      "deliver": "local",
+      "script": "cs-research-sweep.py",
+      "mode": "no-agent (script stdout delivered directly)",
+      "last_run_status": "ok"
+    },
+    {
+      "name": "cs-research-interpret",
+      "schedule": "30 6 * * 4",
+      "repeat": "\u221e",
+      "deliver": "local",
+      "script": "cs-paper-interpreter.py",
+      "mode": "no-agent (script stdout delivered directly)",
+      "last_run_status": "ok"
+    },
+    {
+      "name": "cs-primers-quarterly",
+      "schedule": "0 3 1 */3 *",
+      "repeat": "\u221e",
+      "deliver": "local",
+      "script": "cs-primers-overnight.py",
+      "mode": "no-agent (script stdout delivered directly)"
+    },
+    {
+      "name": "se-gos-weekly",
+      "schedule": "0 5 * * 0",
+      "repeat": "\u221e",
+      "deliver": "local",
+      "script": "se-gos-graphiti-bridge.py",
+      "mode": "no-agent (script stdout delivered directly)"
     }
   ]
 }
