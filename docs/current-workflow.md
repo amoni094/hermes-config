@@ -1,6 +1,6 @@
 # Current Hermes Workflow Snapshot
 
-Generated from local runtime state. Last refreshed: 2026-09-10 (Hermes v0.21.1 / upstream 990473a7; kernel 7.1.13; skills count updated 173 local/29 builtin/196 enabled; compression threshold 0.5; 11 new cron jobs added: concept-lattice-nightly, cs-primers-quarterly, cs-research-interpret, cs-research-weekly, desktop-sync-nightly, firewall-port-audit, hermes-math-interpret, hermes-math-sweep, hypermem-promote, se-gos-weekly, state-wal-checkpoint).
+Generated from local runtime state. Last refreshed: 2026-09-10 (Hermes v0.21.1 / upstream 990473a7; kernel 7.1.13; skills count updated 173 local/29 builtin/196 enabled; compression threshold 0.5; 11 new cron jobs added: concept-lattice-nightly, cs-primers-quarterly, cs-research-interpret, cs-research-weekly, desktop-sync-nightly, firewall-port-audit, hermes-math-interpret, hermes-math-sweep, hypermem-promote, se-gos-weekly, state-wal-checkpoint; total now 33).
 
 ## Runtime
 - Hermes version: Hermes Agent v0.21.1 (2026.9.7) · upstream 990473a7
@@ -57,7 +57,7 @@ This git repo is a sanitized snapshot. The following are intentionally excluded:
 - raw gateway/session/chat histories
 - Session DBs, raw logs, process state, unredacted chat IDs
 
-## Active scheduled automations (32 jobs, all deliver=local)
+## Active scheduled automations (33 jobs, all deliver=local)
 
 | Job | Schedule | Mode | Purpose |
 |-----|----------|------|---------| 
